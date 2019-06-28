@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import "./media.css"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
