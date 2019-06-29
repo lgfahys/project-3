@@ -6,22 +6,26 @@
   width: 90px;
   margin-left: 10%;
 }
-.firstNavItem{
+.topLoginBtn{
   margin-left: 70%;
   font-size: 50px;
+  color:cyan;
 }
-.secondNavItem{
+.topSignUpBtn{
   font-size: 50px;
+  color: cyan;
 }
 .mainH1{
   text-align: center;
     font-size: 150px;
     margin-top: 10%;
     font-family: 'Work Sans', sans-serif;
+    color: cyan;
 }
 .mainP{
   font-size: 40px;
     text-align: center;
+    color: cyan;
 }
 body {
   background-image: url("./assets/landingPageBackground.jpg");
@@ -44,7 +48,7 @@ body {
 .btn-v2.green {
   color: black;
   border: 3px solid #0c6158;
-  color: black;
+  color: cyan;
     border: 3px solid #0c6158;
     margin-left: 35%;
     width: 30%;
@@ -54,7 +58,7 @@ body {
 }
 
 .btn-v2.green::before {
-  background: #0c6158;;
+  background: cyan;
 }
 
 .btn-v2.green:hover {
