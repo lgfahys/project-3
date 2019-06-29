@@ -23,7 +23,17 @@
   font-size: 40px;
     text-align: center;
 }
+body {
+  background-image: url("./assets/landingPageBackground.jpg");
 
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 @media (min-width: 1400px){
 .container {
     max-width: 100%;
