@@ -15,10 +15,10 @@ function Landing() {
                 <Nav.Item>
                     <Image className="navImage" src="../../../assets/images/mail.png"/>
                 </Nav.Item>
-                <Nav.Item className="firstNavItem">
+                <Nav.Item className="topLoginBtn">
                     <Nav.Link eventKey="link-1">LOGIN</Nav.Link>
                 </Nav.Item>
-                <Nav.Item className="secondNavItem">
+                <Nav.Item className="topSignUpBtn">
                     <Nav.Link eventKey="link-2">SIGN UP</Nav.Link>
                 </Nav.Item>
             </Nav>
@@ -30,13 +30,13 @@ function Landing() {
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                         <p className="mainP">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+                         <p className="mainP">The app that helps you meet new people who are where you are. Anyone you see on Chatter is within 100 feet of you and you won't see them when you leave. So when you talk to someone, introduce yourself and try to meetup with them! Seize the day!</p>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
                          <div className="center">
-                            <a href="/" className="btn-v2 green">TESTE</a>
+                            <a href="/" className="btn-v2 green">Sign Up</a>
                         </div>
                     </Col>
                 </Row>
