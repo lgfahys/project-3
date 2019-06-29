@@ -1,14 +1,21 @@
-import React, { Component } from "react";
-import "./App.css";
-import Landing from "./components/pages/Landing"
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import './App.css';
+import './media.css';
+
+// Pages and Components
+import Landing from './components/pages/Landing';
+import SignUp from './components/signup';
 
 class App extends Component {
-
+  
   render() {
     return (
-      <div className="app">
-        <Landing />
-      </div>
+      <Router>
+        <Route exact path ="/" component = {Landing}/>
+        <Route exact path="/login" component ={SignUp} />
+      </Router>
     );
   }
 
