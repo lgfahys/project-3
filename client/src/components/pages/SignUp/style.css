@@ -1,0 +1,16 @@
+.card{
+    background: #ffffffa3;
+}
+.btn-primary{
+    background: #0000008c;
+    border: none;
+}
+.btn-primary:hover{
+    background-color: black;
+}
+.cardColmn{
+    margin-left: 30%;
+}
+.cardRow{
+    margin-top: 10%;
+}
