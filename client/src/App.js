@@ -5,6 +5,8 @@ import './App.css';
 // Pages and Components
 import Landing from './components/pages/Landing';
 import SignUp from './components/pages/SignUp';
+import Login from './components/pages/Login';
+
 
 class App extends Component {
   
@@ -12,7 +14,8 @@ class App extends Component {
     return (
       <Router>
         <Route exact path ="/" component = {Landing}/>
-        <Route exact path="/login" component ={SignUp} />
+        <Route exact path="/signup" component ={SignUp} />
+        <Route exact path="/login" component ={Login} />
       </Router>
     );
   }
