@@ -1,24 +1,15 @@
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 320px){
-    .firstNavItem{
-        font-size: 20px;
-        margin: 0px;
-        margin-left: 100px;
-    }
-    .secondNavItem{
-        font-size: 20px;
-    }
-}
+
 @media only screen and (max-width: 600px) {
     .navImage{
         width: 50px;
     }
-    .firstNavItem{
+    .topLoginBtn{
         font-size: 20px;
         margin: 0px;
         margin-left: 100px;
     }
-    .secondNavItem{
+    .topSignUpBtn{
         font-size: 20px;
     }
     .mainH1{
@@ -40,10 +31,10 @@
     .navImage{
 
     }
-    .firstNavItem{
+    .topLoginBtn{
 
     }
-    .secondNavItem{
+    .topSignUpBtn{
 
     }
     .mainH1{
@@ -55,14 +46,14 @@
 } 
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
     .navImage{
 
     }
-    .firstNavItem{
+    .topLoginBtn{
         margin-left: 30%;
     }
-    .secondNavItem{
+    .topSignUpBtn{
 
     }
     .mainH1{
@@ -74,14 +65,14 @@
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
+@media only screen and (min-width: 992px) {
     .navImage{
 
     }
-    .firstNavItem{
-
+    .topLoginBtn{
+        margin-left: 50%;
     }
-    .secondNavItem{
+    .topSignUpBtn{
 
     }
     .mainH1{
@@ -93,14 +84,14 @@
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1200px) {
     .navImage{
 
     }
-    .firstNavItem {
-        margin-left: 43%;
+    .topLoginBtn {
+        margin-left: 70%;
     }
-    .secondNavItem{
+    .topSignUpBtn{
 
     }
     .mainH1{

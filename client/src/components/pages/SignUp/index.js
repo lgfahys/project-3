@@ -10,9 +10,10 @@ import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
 const signUpPage = () => {
   return (
-    <Container>
-      <Row>
-        <Col xs={12} md={6} lg={6}>
+    <Container fluid>
+      <Row className="signUpRow"> 
+      <Col xs={12} md={2} lg={4}></Col>
+        <Col xs={12} md={8} lg={4}>
           <MDBCard>
             <MDBCardBody>
               <form>
@@ -80,6 +81,7 @@ const signUpPage = () => {
             </MDBCardBody>
           </MDBCard>
         </Col>
+        <Col xs={12} md={2} lg={4}></Col>
       </Row>
     </Container>
   );

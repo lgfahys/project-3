@@ -2,9 +2,18 @@
  
     height: 90px;
 }
+a{
+  background: none;
+}
+a:hover{
+  background: none;
+}
 .navImage{
   width: 90px;
   margin-left: 10%;
+  color: white;
+  margin-top: 10%;
+    margin-left: 30%;
 }
 .topLoginBtn{
   margin-left: 70%;
@@ -34,9 +43,10 @@ body {
   height: 100%; 
 
   /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 @media (min-width: 1400px){
 .container {
