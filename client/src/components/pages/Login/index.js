@@ -28,12 +28,12 @@ class Login extends Component {
             <Nav.Link eventKey="link-2">SIGN UP</Nav.Link>
           </Nav.Item>
         </Nav>
-        <Container>
+        <Container fluid>
 
-          <Row>
-          <Col sm= "1" md="3" lg="3">
+          <Row className="loginRow">
+          <Col sm= "1" md="4" lg="4">
               /</Col>
-            <Col sm="12" md="6" lg="6">
+            <Col sm="12" md="4" lg="4">
               <MDBCard>
                 <MDBCardBody className="mx-4">
                   <div className="text-center">
@@ -85,7 +85,7 @@ class Login extends Component {
                 </MDBModalFooter>
               </MDBCard>
             </Col>
-            <Col sm= "1" md="3" lg="3">
+            <Col sm= "1" md="4" lg="4">
               /</Col>
           </Row>
         </Container>

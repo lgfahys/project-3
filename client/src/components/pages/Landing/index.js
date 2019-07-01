@@ -13,7 +13,7 @@ function Landing() {
         <div className="App">
            <Nav variant="pills" defaultActiveKey="/home">
                 <Nav.Item>
-                    <Image className="navImage" src="../../../assets/images/mail.png"/>
+                    <Image className="navImage" src="../../../assets/images/rating.png"/>
                 </Nav.Item>
                 <Nav.Item className="topLoginBtn">
                     <Nav.Link eventKey="link-1">LOGIN</Nav.Link>
