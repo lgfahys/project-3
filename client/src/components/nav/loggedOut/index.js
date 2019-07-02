@@ -23,7 +23,7 @@ class NavLO extends React.Component {
           <header>
             <MDBNavbar expand="md" scrolling fixed="top">
               <MDBNavbarBrand style={blueText} href="/">
-                  <strong>Navbar</strong>
+                  <strong>Chatter</strong>
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={ this.onClick } />
               <MDBCollapse isOpen = { this.state.collapse } navbar>
