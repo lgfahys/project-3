@@ -1,11 +1,19 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-
+import "./style.css";
+import "./media2.css";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav'
+import Row from 'react-bootstrap/Row'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Image from 'react-bootstrap/Image'
+import Col from 'react-bootstrap/Col'
 const signUpPage = () => {
   return (
-    <MDBContainer>
-      <MDBRow>
-        <MDBCol md="6">
+    <Container fluid>
+      <Row className="signUpRow"> 
+      <Col xs={12} md={2} lg={4}></Col>
+        <Col xs={12} md={8} lg={4}>
           <MDBCard>
             <MDBCardBody>
               <form>
@@ -31,22 +39,22 @@ const signUpPage = () => {
                   />
                   <MDBInput
                     label="Phone"
-                    icon="telephone"
+                    icon="phone"
                     group
                     type="text"
                     validate
                     error="wrong"
                     success="right"
-                    />
+                  />
                   <MDBInput
                     label="Gender"
-                    icon=""
+                    icon="user"
                     group
                     type="text"
                     validate
                     error="wrong"
                     success="right"
-                    />
+                  />
                   <MDBInput
                     label="Your password"
                     icon="lock"
@@ -65,16 +73,17 @@ const signUpPage = () => {
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn color="cyan" type="submit">
+                  <MDBBtn  gradient="blue" type="submit">
                     Sign Up
                   </MDBBtn>
                 </div>
               </form>
             </MDBCardBody>
           </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+        </Col>
+        <Col xs={12} md={2} lg={4}></Col>
+      </Row>
+    </Container>
   );
 };
 
