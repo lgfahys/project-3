@@ -39,7 +39,7 @@ const signUpPage = () => {
                   />
                   <MDBInput
                     label="Phone"
-                    icon="telephone"
+                    icon="phone"
                     group
                     type="text"
                     validate
@@ -48,7 +48,7 @@ const signUpPage = () => {
                   />
                   <MDBInput
                     label="Gender"
-                    icon=""
+                    icon="user"
                     group
                     type="text"
                     validate
@@ -73,7 +73,7 @@ const signUpPage = () => {
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn color="cyan" type="submit">
+                  <MDBBtn  gradient="blue" type="submit">
                     Sign Up
                   </MDBBtn>
                 </div>
