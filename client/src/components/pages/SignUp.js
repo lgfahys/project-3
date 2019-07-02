@@ -1,15 +1,15 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import "./style.css";
-import "./media2.css";
+import "./assets/styleSignUp.css";
+import "./assets/media2SignUp.css";
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav'
-import Row from 'react-bootstrap/Row'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Image from 'react-bootstrap/Image'
-import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Navbar from '../Navbar/Navbar';
 const signUpPage = () => {
   return (
+    <div className="App">
+    <Navbar />
     <Container fluid>
       <Row className="signUpRow"> 
       <Col xs={12} md={2} lg={4}></Col>
@@ -84,6 +84,7 @@ const signUpPage = () => {
         <Col xs={12} md={2} lg={4}></Col>
       </Row>
     </Container>
+    </div>
   );
 };
 

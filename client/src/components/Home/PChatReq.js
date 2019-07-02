@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-
 import "./stylehome.css";
 //import "./media2.css"
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon, MDBModalFooter } from 'mdbreact';
-
 function PChatReq (){
     return(
         <Row className='userSecondRow'>
