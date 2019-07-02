@@ -37,7 +37,7 @@ a:hover{
     color: cyan;
 }
 body {
-  background-image: url("./landingPageBackground.jpg");
+  background-image: url("../assets/landingPageBackground.jpg");
 
   /* Full height */
   height: 100%; 
