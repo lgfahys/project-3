@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import "./assets/styleLogin.css";
-import "./assets/mediaLogin.css"
+import "./style.css";
+import "./media.css"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon, MDBModalFooter } from 'mdbreact';
-import Navbar from '../Navbar/Navbar'
+import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
+import Navbar from "../../Navbar/loggedOut";
 
 
 class Login extends Component {

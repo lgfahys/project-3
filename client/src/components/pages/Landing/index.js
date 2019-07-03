@@ -1,10 +1,10 @@
 import React from "react"
-import "./assets/styleLanding.css";
-import "./assets/mediaLanding.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Navbar from '../Navbar/Navbar'
+import "./style.css";
+import "./media.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col"
+import Navbar from "../../Navbar/loggedOut";
 
 function Landing() {
     return (

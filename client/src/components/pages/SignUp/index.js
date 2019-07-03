@@ -1,11 +1,12 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import "./assets/styleSignUp.css";
-import "./assets/media2SignUp.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Navbar from '../Navbar/Navbar';
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import "./style.css";
+import "./media.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Navbar from "../../Navbar/loggedOut";
+
 const signUpPage = () => {
   return (
     <div className="App">
