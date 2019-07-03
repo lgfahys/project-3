@@ -3,11 +3,9 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } 
 import "./style.css";
 import "./media2.css";
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
+
 const signUpPage = () => {
   return (
     <Container fluid>
@@ -82,7 +80,7 @@ const signUpPage = () => {
           </MDBCard>
         </Col>
         <Col xs={12} md={2} lg={4}></Col>
-      </Row>
+      </Row>y
     </Container>
   );
 };
