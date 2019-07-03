@@ -8,6 +8,7 @@ import PplNearYou from "./components/PplNearYou";
 import PChatReq from "./components/PChatReq";
 import NavLI from "../../Navbar/loggedIn";
 
+
 class Home extends Component {
     render() {
       return (
