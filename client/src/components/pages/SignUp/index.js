@@ -1,13 +1,23 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import "./style.css";
+<<<<<<< HEAD
 import "./media2.css";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+=======
+import "./media.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Navbar from "../../Navbar/loggedOut";
+>>>>>>> master
 
 const signUpPage = () => {
   return (
+    <div className="App">
+    <Navbar />
     <Container fluid>
       <Row className="signUpRow"> 
       <Col xs={12} md={2} lg={4}></Col>
@@ -15,7 +25,11 @@ const signUpPage = () => {
           <MDBCard>
             <MDBCardBody>
               <form>
-                <p className="h4 text-center py-4">Sign up</p>
+                <div className="text-center">
+                      <h3 className="dark-grey-text mb-5">
+                        <strong>Sign up</strong>
+                      </h3>
+                    </div>
                 <div className="grey-text">
                   <MDBInput
                     label="First Name"
@@ -71,7 +85,7 @@ const signUpPage = () => {
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn  gradient="blue" type="submit">
+                  <MDBBtn type="submit">
                     Sign Up
                   </MDBBtn>
                 </div>
@@ -82,6 +96,7 @@ const signUpPage = () => {
         <Col xs={12} md={2} lg={4}></Col>
       </Row>y
     </Container>
+    </div>
   );
 };
 
