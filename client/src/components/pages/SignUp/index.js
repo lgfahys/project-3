@@ -1,18 +1,11 @@
 import React from "react";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import "./style.css";
-<<<<<<< HEAD
-import "./media2.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-=======
 import "./media.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../../Navbar/loggedOut";
->>>>>>> master
 
 const signUpPage = () => {
   return (
