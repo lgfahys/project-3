@@ -1,33 +1,18 @@
-
 import React, { Component } from "react";
-
 import "./style.css";
-import "./media2.css"
+import "./media.css"
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Image from 'react-bootstrap/Image'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon, MDBModalFooter } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
+import Navbar from "../../Navbar/loggedOut";
 
 
 class Login extends Component {
   render() {
     return (
       <div className="App">
-        <Nav variant="pills" defaultActiveKey="/home">
-          <Nav.Item>
-            <Image className="navImage" src="../../../assets/images/mail.png" />
-          </Nav.Item>
-          <Nav.Item className="topLoginBtn">
-            <Nav.Link eventKey="link-1">LOGIN</Nav.Link>
-          </Nav.Item>
-          <Nav.Item className="topSignUpBtn">
-            <Nav.Link eventKey="link-2">SIGN UP</Nav.Link>
-          </Nav.Item>
-        </Nav>
+        <Navbar />
         <Container fluid>
 
           <Row className="loginRow">

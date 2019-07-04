@@ -1,13 +1,17 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import "./style.css";
 import "./media2.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import "./media.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Navbar from "../../Navbar/loggedOut";
 
 const signUpPage = () => {
   return (
+    <div className="App">
+    <Navbar />
     <Container fluid>
       <Row className="signUpRow"> 
       <Col xs={12} md={2} lg={4}></Col>
@@ -82,6 +86,7 @@ const signUpPage = () => {
         <Col xs={12} md={2} lg={4}></Col>
       </Row>y
     </Container>
+    </div>
   );
 };
 

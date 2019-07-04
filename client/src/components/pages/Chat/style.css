@@ -1,3 +1,43 @@
+.userRow{
+    background-color: gray;
+    color: white;
+    height: 120px;
+}
+.form-group{
+    margin-top: 6px;
+}
+.user{
+    width: 90px;
+}
+.btn-danger{
+    margin-top: 15%;
+    width: 200px;
+}
+.arrowImg{
+    width: 90px;
+    width: 90px;
+    margin-top: 5%;
+}
+.arrowImg:hover{
+cursor: pointer;
+}
+.justbtn{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.inputRow{
+    background-color: lightgray;
+    height: 100px;
+}
+.chatBodyRow{
+    background-color: lightgray;
+    height: 600px;
+
+}
+.chatContainer{
+    margin-top: 5%;
+}
 .nav{
  
     height: 90px;
