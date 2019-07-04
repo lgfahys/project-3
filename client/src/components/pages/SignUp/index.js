@@ -18,7 +18,11 @@ const signUpPage = () => {
           <MDBCard>
             <MDBCardBody>
               <form>
-                <p className="h4 text-center py-4">Sign up</p>
+                <div className="text-center">
+                      <h3 className="dark-grey-text mb-5">
+                        <strong>Sign up</strong>
+                      </h3>
+                    </div>
                 <div className="grey-text">
                   <MDBInput
                     label="First Name"
@@ -74,7 +78,7 @@ const signUpPage = () => {
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn  gradient="blue" type="submit">
+                  <MDBBtn type="submit">
                     Sign Up
                   </MDBBtn>
                 </div>
