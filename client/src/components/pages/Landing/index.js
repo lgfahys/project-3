@@ -1,6 +1,6 @@
 import React from "react"
 import "./style.css";
-import "./media.css";
+// import "./media.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
@@ -23,8 +23,10 @@ function Landing() {
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                         <div className="center">
-                            <a href="/" className="btn-v2 green">Sign Up</a>
+                         <div>
+                             <center>
+                                <a href="/signup" className="signup-btn">Sign Up</a>
+                             </center>
                         </div>
                     </Col>
                 </Row>
