@@ -5,12 +5,35 @@ const db = require("../models");
 module.exports = {
     findAll: function(req, res) {
         db.Users
-        .find(req.query)
-        .sort({ name: 1 })
+            .find(req.query)
+            .sort({ name: 1 })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    findById: function(req, res) {
+        db.Users
+            .findById(req.params.id)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    findByName: function(req, res) {
+        db.Users
+            .findOne({ name: { $regex: new RegExp(req.params.name, "ig") }})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    findTest: function(req, res) {
+        console.log(req.body);
+        console.log(req.query);
+        console.log(req.params.id);
+        db.Users
+        .findOne({ name: req.params.id })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-
     // findById: function(req, res) {
     //     db.Book
     //     .findById(req.params.id)

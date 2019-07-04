@@ -376,7 +376,17 @@ const runSeed = async () => {
     await addMessage2();
     await addMessage3();
     await addMessage4();
-    await searchMessage();
+    // await searchMessage();
+    
+    console.log("Custom Queries");
+    let query = await db.Users
+    // .findOne({name: "Elvin"})
+    // .findOne({ _id: "5d1cbf421a804a0b4eb1f382" })
+    .findById("5d1cbf421a804a0b4eb1f382")
+    .then( res => console.log(res))
+    .catch( err => console.log(err));
+
+    // console.log(query);
     process.exit(0);
 }
 

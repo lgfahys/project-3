@@ -21,3 +21,8 @@
     background-color: #0074d9;
     border-radius: 3px;
 }
+
+.api-body input {
+    width: 50%;
+    margin: 3px 7px;
+}
