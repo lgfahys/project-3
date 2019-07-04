@@ -14,13 +14,19 @@ function ChatUser (){
     return(
         <Row className="userRow">
         <Col sm="3" md="3" lg="3">
-        <button class=" btn-floating btn-primary btn-lg"><i class="fas fas fa-arrow-left"></i></button>    
+        <img className="arrowImg" src="../../../assets/images/left-arrow.png" />
         </Col>
-        <Col sm="6" md="6" lg="6">
+        <Col sm="2" md="2" lg="2">
+
+        </Col>
+        <Col sm="2" md="2" lg="2">
     <img className="user" alt="user-icon" src="../../../assets/images/user.png " />
                     <h4>Name</h4>
     
         </Col>
+        <Col sm="2" md="2" lg="2">
+            
+            </Col>
         <Col sm="3" md="3" lg="3">
         <button class="btn btn-danger">Primary<i class="fas  pl-1"></i></button>
         </Col>
