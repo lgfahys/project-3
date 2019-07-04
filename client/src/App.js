@@ -6,6 +6,7 @@ import './App.css';
 import Landing from './components/pages/Landing';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
+import API from './components/pages/API';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <Route exact path ="/" component = {Landing}/>
         <Route exact path="/signup" component ={SignUp} />
         <Route exact path="/login" component ={Login} />
+        <Route exact path="/api" component={API} />
       </Router>
     );
   }

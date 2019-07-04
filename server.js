@@ -18,11 +18,11 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI
-  ||
-  "mongodb://localhost/chatterdb"
-);
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
 
 // Start the API server
 app.listen(PORT, () => {
