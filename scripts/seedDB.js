@@ -15,7 +15,7 @@ const state = {
     userdb_log: true,
     userdb_exit: false,
 
-    roomdb: false,
+    roomdb: true,
     roomdb_log: true,
     roomdb_exit: true,
 
@@ -201,8 +201,8 @@ const createRoom = async () => {
         query1 = await db.Users.findOne({name: "Elvin"});
         query3 = await db.Users.findOne({name: "Lindsey"});
         query2 = await db.Rooms.create({
-            name: "room 1",
-            users: [ query1._id, query3._id ]
+            name: "room 100",
+            users: [ mongoose.Types.ObjectId(query1._id), mongoose.Types.ObjectId(query3._id) ]
         });
     }
     
@@ -243,10 +243,14 @@ const addMessage1 = async () => {
     //     ]   
     // });
 
-    let query2 = await db.Rooms.find({
+    let query2 = await db.Rooms.findOne({
             users: {$elemMatch: {$in: query1._id, $in: query3._id } }   
     })
     
+    console.log("query2");
+    console.log(query2);
+    console.log(query2._id);
+
     let query4 = await db.Messages.create({
         message: "Hello 5",
         user: query1._id,
@@ -264,7 +268,7 @@ const addMessage2 = async () => {
     let query1 = await db.Users.findOne({name: "Lindsey"});
     let query2 = await db.Users.findOne({name: "Elvin"});
 
-    let query3 = await db.Rooms.find({
+    let query3 = await db.Rooms.findOne({
         users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
     });
 
@@ -284,7 +288,7 @@ const addMessage3 = async () => {
     let query1 = await db.Users.findOne({name: "Lindsey"});
     let query2 = await db.Users.findOne({name: "Elvin"});
 
-    let query3 = await db.Rooms.find({
+    let query3 = await db.Rooms.findOne({
         users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
     });
 
@@ -304,7 +308,7 @@ const addMessage4 = async () => {
     let query1 = await db.Users.findOne({name: "Elvin"});
     let query2 = await db.Users.findOne({name: "Lindsey"});
 
-    let query3 = await db.Rooms.find({
+    let query3 = await db.Rooms.findOne({
         users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
     });
 
@@ -343,39 +347,37 @@ const searchMessage = async () => {
     let query1 = await db.Users.findOne({name: "Elvin"});
     let query2 = await db.Users.findOne({name: "Lindsey"});
 
-    let query3 = await db.Rooms.find({
+    let query3 = await db.Rooms.findOne({
         users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
     });
 
     // 1 is descending, -1 is ascending
     let query4 = await db.Messages.find({
-        $query: {
-            room: query3._id
-        }, 
-        $orderby: {
-            created : 1
-        }
-    });
+        // user:  { $in: [query1._id, query2._id ]} 
+        room: query3._id
+    })
+    .sort({created: 1});
 
     // console.log(query4);
+    console.log(query3);
+    // console.log(query4);
 
+    // for (let i=0; i < query4.length; i++) {
+    //     // console.log(query4[i]._id);
 
-    for (let i=0; i < query4.length; i++) {
-        // console.log(query4[i]._id);
-
-        let user = await db.Users.findOne({ _id: query4[i].user});
-        // console.log(user);
-        console.log (user.name + ": " + query4[i].message);
-    }
+    //     let user = await db.Users.findOne({ _id: query4[i].user});
+    //     // console.log(user);
+    //     console.log (user.name + ": " + query4[i].message);
+    // }
 }
 
 const runSeed = async () => {
     await populateUsers();
     await createRoom();
-    await addMessage1();
-    await addMessage2();
-    await addMessage3();
-    await addMessage4();
+    // await addMessage1();
+    // await addMessage2();
+    // await addMessage3();
+    // await addMessage4();
     // await searchMessage();
     
     console.log("Custom Queries");
@@ -388,6 +390,12 @@ const runSeed = async () => {
 
     // console.log(query);
     process.exit(0);
+    
+    // Room : 5d1ce4fbc04dbb0e40c9a26a
+    // User1: 5d1cbf421a804a0b4eb1f382
+    // User2: 5d1cbf421a804a0b4eb1f384
 }
 
 runSeed();
+
+// console.log( mongoose.Types.ObjectId('578df3efb618f5141202a196') );
