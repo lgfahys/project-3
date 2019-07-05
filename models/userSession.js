@@ -10,7 +10,7 @@ const userSessionSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    isSignedOn: {
+    isDeleted: {
         type: Boolean,
         default: false
     }

@@ -88,7 +88,6 @@ const UserSession = require("../../models/userSession");
      });
   });
 
-
 // sign in
   app.post("/accounts/signin", (req, res, next) => {
     const { body } = req;
@@ -169,7 +168,7 @@ const UserSession = require("../../models/userSession");
     // verify the token is unique and its not deleted
     UserSession.find({
       _id: token,
-      isSignedOn: false
+      isDeleted: false
     }, (err, sessions) => {
       if (err) {
         return res.send({
@@ -191,6 +190,36 @@ const UserSession = require("../../models/userSession");
       }
     });
 
+  });
+
+// logout and remove user session
+  app.get('/accounts/logout', (req, res, next) => {
+  // Get the token
+  const { query } = req;
+  const { token } = query;
+  // ?token=test
+
+// Verify the token is one of a kind and it's not deleted.
+    UserSession.findOneAndUpdate({
+      _id: token,
+      isDeleted: false
+    }, {
+      $set: {
+        isDeleted:true
+      }
+    }, null, (err, sessions) => {
+      if (err) {
+        console.log(err);
+        return res.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      return res.send({
+        success: true,
+        message: 'Logged out'
+      });
+    });
   });
 
 module.exports = app;  
