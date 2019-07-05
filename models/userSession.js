@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const userSessionSchema = new Schema({
     userId: {
-        type: Number,
-        default: -1
+        type: String,
+        default: ""
     },
     timestamp: {
         type: Date,
@@ -16,4 +16,6 @@ const userSessionSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('userSession', userSessionSchema)
+const UserSession = mongoose.model("User Session", userSessionSchema);
+
+module.exports = UserSession;

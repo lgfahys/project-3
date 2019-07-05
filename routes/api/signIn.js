@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const Users = require("../../models/users");
+const UserSession = require("../../models/userSession");
 
+// sign up
   app.post("/accounts/signup", (req, res, next) => {
     const { body } = req;
     const {
@@ -84,6 +86,79 @@ const Users = require("../../models/users");
           });
         });
      });
+  });
+
+
+// sign in
+  app.post("/accounts/signin", (req, res, next) => {
+    const { body } = req;
+    const {
+      password
+    } = body;
+    let {
+      email
+    } = body;
+
+    if (!email) {
+      return res.send({
+        success: false,
+        message: "Error: Please enter a valid email address"
+      });
+    };
+    if (!password) {
+      return res.send({
+        success: false,
+        message: "Error: Please enter your password"
+      });
+    };
+
+    email = email.toLowerCase();
+    
+    Users.find({
+      email: email
+    }, (err, users) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: server error"
+        });
+      }
+      if (users.length != 1) {
+        return res.send({
+          success: false,
+          message: "Error: Invalid"
+        });
+      }
+
+      const user = users[0];
+      if (!user.validPassword(password)) {
+        return res.send({
+          success: false,
+          message: "Error: Invalid"
+        });
+      }
+
+      const userSession = new UserSession();
+      userSession.userId = user._id;
+      userSession.save((err, doc) => {
+        if (err) {
+          console.log(err);
+          return res.send({
+            success: false,
+            message: "Error: server error"
+          });
+        }
+
+        return res.send({
+          success: true,
+          message: "Valid sign in",
+          token: doc._id
+        });
+
+      });
+
+    });
+
   });
 
 module.exports = app;
