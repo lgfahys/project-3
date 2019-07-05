@@ -161,5 +161,36 @@ const UserSession = require("../../models/userSession");
 
   });
 
-module.exports = app;
-  
+// verify
+  app.get("/accounts/verify", (req, res, next) => {
+    // get the token
+    const { query } = req;
+    const { token } = query;
+    // verify the token is unique and its not deleted
+    UserSession.find({
+      _id: token,
+      isSignedOn: false
+    }, (err, sessions) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: "Error: server error"
+        });
+      }
+      
+      if (sessions.length != 1) {
+        return res.send({
+          success: false,
+          message: "Error: Invalid"
+        });
+      } else {
+        return res.send({
+          success: true,
+          message: "Good"
+        });
+      }
+    });
+
+  });
+
+module.exports = app;  
