@@ -177,7 +177,7 @@ const UserSession = require("../../models/userSession");
         });
       }
       
-      if (sessions.length != 1) {
+      if (!sessions.length) {
         return res.send({
           success: false,
           message: "Error: Invalid"
@@ -185,7 +185,7 @@ const UserSession = require("../../models/userSession");
       } else {
         return res.send({
           success: true,
-          message: "Good"
+          message: "User is signed in"
         });
       }
     });

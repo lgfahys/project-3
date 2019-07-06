@@ -9,16 +9,72 @@ import Login from "./components/pages/Login/index.js";
 import Home from "./components/pages/Home/index.js";
 //import Chat from "./components/pages/Chat/index.js"
 import ChatPage from './components/pages/Chat/index';
+import {
+  getFromStorage,
+  setInStorage
+} from "./utils/storage";
+
 
 class App extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      token: '',
+      signUpError: '',
+      signInError: '',
+      signInEmail: '',
+      signInPassword: '',
+      signUpEmail: '',
+      signUpPassword: '',
+    };
+  };
+
+  componentDidMount() {
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj;
+      // Verify token
+      fetch('/api/accounts/verify?token=' + token)
+        .then(res => res.json())
+        .then(json => {
+          if (json.success) {
+            this.setState({
+              token,
+              isLoading: false
+            });
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+          }
+        });
+    } else {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  };
+
+  // checking if we have received a token and returning the appropriate screen
+  checkToken = () => {
+    if (!this.state.token) {
+      console.log("No token...")
+      return (<Landing />);
+    } else if (this.state.token) {
+      console.log("Received the token!!!")
+      return (<Home />)
+    }
+  }
+
   render() {
+
     return (
       <Router>
-        <Route exact path ="/" component = {Landing}/>
+        <Route exact path ="/" render={this.checkToken}/>
         <Route exact path="/signup" component ={SignUp} />
         <Route exact path="/login" component ={Login} />
-        <Route exact path ="/home" component ={Home} />
+        <Route exact path ="/home" render={this.checkToken} />
         <Route exact path ="/chat" component ={ChatPage}/>
       </Router>
     );
