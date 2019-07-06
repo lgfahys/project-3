@@ -7,12 +7,19 @@ import Col from "react-bootstrap/Col";
 // import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
 //import Navbar from "../../Navbar/loggedOut";
 
-function ChatBody (){
+function ChatBody (props){
 return(
     <Row className="chatBodyRow">
         <Col sm="12" md="12" lg="12">
-             <h4>Chat Body</h4>
-
+            {/* <h4>Chat Body</h4> */}
+            <div className="messages" style={{backgroundColor: "white"}}>
+                {props.messages.map(message => {
+                    return (
+                        <div>{message.author}: {message.message}<hr/></div>
+                        
+                    )
+                })}
+            </div>
         </Col>
     </Row>
 )
