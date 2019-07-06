@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-// import "./assets/styleLanding.css";
+import "./media.css";
+import "./style.css";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,6 +9,7 @@ import User from "./components/User";
 import PplNearYou from "./components/PplNearYou";
 import PChatReq from "./components/PChatReq";
 import NavLI from "../../Navbar/loggedIn";
+import BottomRow from './components/row'
 
 
 class Home extends Component {
@@ -14,15 +17,15 @@ class Home extends Component {
       return (
         <div className="App">
            <NavLI />
-                <Container>
+                <Container className="homeContainer">
                     <Row className='firstRow'>
-                        <Col sm="12" md="12" lg="12">
+                        <Col sm="10" md="12" lg="12">
                             <h2>Chats</h2>
                         </Col>
                             <User />
                             <User />
                             <User />
-                        <Col sm="12" md="12" lg="12">
+                        <Col sm="10" md="12" lg="12">
                             <h4>People near you</h4>
                         </Col>
                     </Row>
@@ -30,13 +33,14 @@ class Home extends Component {
                             <PplNearYou />
                             <PplNearYou />    
                     <Row className='secondRow'>
-                        <Col sm="12" md="12" lg="12">
+                        <Col sm="10" md="12" lg="12">
                             <h4>Pending Chat Requests</h4>
                         </Col>
                     </Row>
                             <PChatReq />
                             <PChatReq />
                             <PChatReq />
+                            <BottomRow />
                 </Container>
         </div>
 
