@@ -2,6 +2,7 @@ import React from "react";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import "./style.css";
 import "./media.css";
+import "./media.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -87,7 +88,7 @@ const signUpPage = () => {
           </MDBCard>
         </Col>
         <Col xs={12} md={2} lg={4}></Col>
-      </Row>
+      </Row>y
     </Container>
     </div>
   );
