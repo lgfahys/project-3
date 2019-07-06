@@ -8,7 +8,8 @@ class API extends Component {
     
     state = {
         data: null,
-        field1: ""
+        field1: "",
+        field2: ""
     };
 
     renderData = () => {
@@ -84,6 +85,76 @@ class API extends Component {
         .catch(err => console.log(err));
     };
 
+    getRoomById = (id) => {
+        api
+            .getRoomById(id)
+            .then(res => {
+                console.log("Got to [TEST] res", res);
+                this.setState({ data: res.data});
+            })
+            .catch(err => console.log(err));
+    };
+
+    getRoomByName = (name) => {
+        api
+            .getRoomByName(name)
+            .then(res => {
+                console.log("Got to [TEST] res", res);
+                this.setState({ data: res.data});
+            })
+            .catch(err => console.log(err));
+    };
+
+    getRoomByUser = (id) => {
+        api
+        .getRoomByUser(id)
+        .then(res => {
+            console.log("Got to [TEST] res", res);
+            this.setState({ data: res.data});
+        })
+        .catch(err => console.log(err));
+    };
+
+    getRoomByUsers = (id1, id2) => {
+        api
+        .getRoomByUsers(id1, id2)
+        .then(res => {
+            console.log("Got to [TEST] res", res);
+            this.setState({ data: res.data});
+        })
+        .catch(err => console.log(err));
+    };
+
+    getAllMessages = () => {
+        api.getAllMessages()
+        .then(res => {
+            console.log("Got to Res", res);
+            this.setState({ data: res.data});
+
+        })
+        .catch(err => console.log(err));
+    };
+
+    getMessagesByUserId = (id) => {
+        api.getMessagesByUserId(id)
+        .then(res => {
+            console.log("Got to Res", res);
+            this.setState({ data: res.data});
+
+        })
+        .catch(err => console.log(err));
+    };
+
+    getMessagesByRoomId = (id) => {
+        api.getMessagesByRoomId(id)
+        .then(res => {
+            console.log("Got to Res", res);
+            this.setState({ data: res.data});
+
+        })
+        .catch(err => console.log(err));
+    };
+
     render() {
         return(
             <div className="api-body">
@@ -125,16 +196,64 @@ class API extends Component {
                 getAllRooms()
                 </button> 
 
-                {/* <div className="form-group"> */}
-                    <input 
-                    className="form-control" 
-                    value={this.state.field1}
-                    onChange={this.handleInputChange}
-                    name="field1"
-                    placeholder="id"
-                    />
-                    
-                {/* </div> */}
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getRoomById(this.state.field1)}
+                >
+                getRoomById()
+                </button> 
+                
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getRoomByName(this.state.field1)}
+                >
+                getRoomByName()
+                </button> 
+
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getRoomByUser(this.state.field1)}
+                >
+                getRoomByUser()
+                </button>
+
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getRoomByUsers(this.state.field1, this.state.field2)}
+                >
+                getRoomByUsers()
+                </button>
+
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getAllMessages()}
+                >
+                getAllMessages()
+                </button>
+
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getMessagesByUserId(this.state.field1)}
+                >
+                getMessagesByUserId()
+                </button> 
+                
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.getMessagesByRoomId(this.state.field1)}
+                >
+                getMessagesByRoomId()
+                </button> 
+                
+                <input 
+                className="form-control" 
+                value={this.state.field1}
+                onChange={this.handleInputChange}
+                name="field1"
+                placeholder="id"
+                />
+
+                <input 
+                className="form-control" 
+                value={this.state.field2}
+                onChange={this.handleInputChange}
+                name="field2"
+                placeholder="id"
+                />
+                
                 
 
                 <pre>

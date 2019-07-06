@@ -2,14 +2,7 @@ import axios from "axios";
 
 export default {
 
-    testapi: (data) => {
-        console.log("In API.js > testing api call");
-        console.log(data);
-        return axios.get("/api/test/" + data);
-    },
-
-    getUsers: function() {
-        console.log("in api.js");
+    getUsers: () => {
         return axios.get("/api/user/all");
     },
 
@@ -21,10 +14,37 @@ export default {
         return axios.get("/api/user/name/" + name);
     },
 
-    getRooms: function() {
+    getRooms: () => {
         return axios.get("/api/room/all");
-    }
+    },
 
+    getRoomById: (id) => {
+        return axios.get("/api/room/id/" + id);
+    },
+
+    getRoomByName: (name) => {
+        return axios.get("/api/room/name/" + name);
+    },
+
+    getRoomByUser: (id) => {
+        return axios.get("/api/room/user/" + id);
+    },
+
+    getRoomByUsers: (id1, id2) => {
+        return axios.get("/api/room/users?id1=" + id1 + "&id2=" + id2);
+    },
+
+    getAllMessages: () => {
+        return axios.get("/api/message/all");
+    },
+
+    getMessagesByUserId: (id) => {
+        return axios.get("/api/message/uid/" + id);
+    },
+
+    getMessagesByRoomId: (id) => {
+        return axios.get("/api/message/rid/" + id);
+    },
 
     // getBook: function(id) {
     //     return axios.get("/api/books/" + id);

@@ -12,22 +12,39 @@ module.exports = {
     },
 
     findById: function(req, res) {
-        db.Users
+        db.Rooms
             .findById(req.params.id)
+            .populate("users")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
 
     findByName: function(req, res) {
-        db.Users
+        db.Rooms
             .findOne({ name: { $regex: new RegExp(req.params.name, "ig") }})
+            .populate("users")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    create: function(req, res) {
-        db.Messages
-        .create(req.body)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).jso(err));
-    }
+
+    findByUser: function(req, res) {
+        db.Rooms
+            .find({users: {$elemMatch: {$in: req.params.id} } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    findByUsers: function(req, res) {
+        db.Rooms
+            .find({users: {$elemMatch: {$in: req.query.id1, $in: req.query.id2} } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    // create: function(req, res) {
+    //     db.Messages
+    //     .create(req.body)
+    //     .then(dbModel => res.json(dbModel))
+    //     .catch(err => res.status(422).jso(err));
+    // }
 };

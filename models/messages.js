@@ -15,7 +15,7 @@ const messageSchema = new Schema({
 
     room: {
         type: Schema.Types.ObjectId,
-        required: false,
+        required: true,
         ref: "Rooms"
     },
 

@@ -3,9 +3,9 @@ const usersController = require("../../controllers/userController");
 const roomsController = require("../../controllers/roomController");
 const messagesController = require("../../controllers/messageController");
 
-router
-    .route("/user/test/:id")
-    .get(usersController.findTest);
+// router
+//     .route("/user/test/:id")
+//     .get(usersController.findTest);
 
 // Matches with "/api/user/all"
 router
@@ -27,6 +27,35 @@ router
 router
     .route("/room/all")
     .get(roomsController.findAll);
+
+router
+    .route("/room/id/:id")
+    .get(roomsController.findById);
+
+router
+    .route("/room/name/:name")
+    .get(roomsController.findByName);
+
+router
+    .route("/room/user/:id")
+    .get(roomsController.findByUser);
+
+router 
+    .route("/room/users")
+    .get(roomsController.findByUsers);
+
+router
+    .route("/message/all")
+    .get(messagesController.findAll);
+
+router
+    .route("/message/uid/:id")
+    .get(messagesController.findByUserId);
+
+router
+    .route("/message/rid/:id")
+    .get(messagesController.findByRoomId);
+
 
 // // Matches with "/api/books/:id"
 // router
