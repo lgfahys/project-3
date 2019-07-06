@@ -14,7 +14,7 @@ function ChatUser (){
     return(
         <Row className="userRow">
         <Col sm="3" md="3" lg="3">
-        <img className="arrowImg" src="../../../assets/images/left-arrow.png" />
+        {/* <img className="arrowImg" src="../../../assets/images/left-arrow.png" /> */}
         </Col>
         <Col sm="2" md="2" lg="2">
 
@@ -28,7 +28,7 @@ function ChatUser (){
             
             </Col>
         <Col sm="3" md="3" lg="3">
-        <button class="btn btn-danger">Primary<i class="fas  pl-1"></i></button>
+        <button class="btn btn-danger">End Chat<i class="fas  pl-1"></i></button>
         </Col>
         </Row>
         
