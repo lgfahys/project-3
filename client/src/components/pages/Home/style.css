@@ -1,3 +1,10 @@
+.bottomRow{
+    background-color: gray;
+    height: 50px;
+}
+.homeContainer{
+    box-shadow: 6px 7px 14px 0px #000000;
+}
 
 .container{
     margin-top: 7%;

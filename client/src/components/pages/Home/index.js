@@ -9,6 +9,7 @@ import User from "./components/User";
 import PplNearYou from "./components/PplNearYou";
 import PChatReq from "./components/PChatReq";
 import NavLI from "../../Navbar/loggedIn";
+import BottomRow from './components/row'
 
 
 class Home extends Component {
@@ -16,7 +17,7 @@ class Home extends Component {
       return (
         <div className="App">
            <NavLI />
-                <Container>
+                <Container className="homeContainer">
                     <Row className='firstRow'>
                         <Col sm="10" md="12" lg="12">
                             <h2>Chats</h2>
@@ -39,6 +40,7 @@ class Home extends Component {
                             <PChatReq />
                             <PChatReq />
                             <PChatReq />
+                            <BottomRow />
                 </Container>
         </div>
 

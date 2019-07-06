@@ -3,6 +3,12 @@
     .userImgHome{
         width: 40px;
     }
+    .pplNearYouUser{
+        width: 40px;
+    }
+    .pChatReqUser{
+        width: 40px;
+    }
 } 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -23,6 +29,12 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .userImgHome{
+        width: 90px;
+    }
+    .pplNearYouUser{
+        width: 90px;
+    }
+    .pChatReqUser{
         width: 90px;
     }
 }
