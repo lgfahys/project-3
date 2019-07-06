@@ -1,0 +1,11 @@
+@media only screen and (max-width: 530px) {
+    .signUpRow{
+        margin-top: 18%;
+      }
+} 
+
+@media only screen and (max-width: 720px) {
+    .signUpRow{
+        margin-top: 16%;
+      }
+} 
