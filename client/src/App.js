@@ -4,12 +4,14 @@ import "./App.css";
 
 // Pages and Components
 
-import Landing from './components/pages/Landing';
-import SignUp from './components/pages/SignUp';
-import Login from './components/pages/Login';
-import Home from './components/pages/Home';
+import Profile from './components/pages/Profile';
+import Landing from "./components/pages/Landing/index.js";
+import SignUp from "./components/pages/SignUp/index.js";
+import Login from "./components/pages/Login/index.js";
+import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
-// import Chat from './components/pages/Chat';
+//import Chat from "./components/pages/Chat/index.js"
+
 import ChatPage from './components/pages/Chat/index';
 
 // import io from 'socket.io-client';
@@ -24,6 +26,7 @@ class App extends Component {
         <Route exact path="/signup" component ={SignUp} />
         <Route exact path="/login" component ={Login} />
         <Route exact path="/api" component={API} />
+        <Route exact path="/profile" component ={Profile} />
         <Route exact path ="/home" component ={Home} />
         <Route exact path ="/chat" component ={ChatPage}/>
       </Router>
