@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactCardFlip from 'react-card-flip';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import {MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+// import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
 import "./style.css";
 import "./media2.css";
 import Container from 'react-bootstrap/Container';
