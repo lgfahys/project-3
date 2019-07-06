@@ -1,5 +1,6 @@
-.user{
-    width: 50px;
+
+.container{
+    margin-top: 7%;
 }
 .userImgCol{
     display: inline-flex;
