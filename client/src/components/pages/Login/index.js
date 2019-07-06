@@ -23,7 +23,7 @@ class Login extends Component {
                 <MDBCardBody className="mx-4">
                   <div className="text-center">
                     <h3 className="dark-grey-text mb-5">
-                      <strong>Sign in</strong>
+                      <strong>Log in</strong>
                     </h3>
                   </div>
                   <MDBInput
@@ -51,7 +51,6 @@ class Login extends Component {
                   <div className="text-center mb-3">
                     <MDBBtn
                       type="button"
-                      gradient="blue"
                       rounded
                       className="btn-block z-depth-1a"
                     >
@@ -62,8 +61,7 @@ class Login extends Component {
                 <MDBModalFooter className="mx-5 pt-3 mb-1">
                   <p className="font-small grey-text d-flex justify-content-end">
                     Not a member?
-                <a href="#!" className="blue-text ml-1">
-
+                <a href="/signup" className="blue-text ml-1">
                       Sign Up
                 </a>
                   </p>

@@ -22,8 +22,8 @@ class NavLI extends React.Component {
     return(
       <div>
           <header>
-            <MDBNavbar expand="md" scrolling fixed="top">
-              <MDBNavbarBrand style={blueText} href="/mainIn">
+            <MDBNavbar className="navbar" expand="md" scrolling fixed="top">
+              <MDBNavbarBrand style={blueText} href="/home">
                   <strong>Chatter</strong>
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={ this.onClick } />
