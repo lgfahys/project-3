@@ -31,6 +31,7 @@ class NavLI extends React.Component {
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBNavLink style={blueText} to="/editProfile">Edit Profile</MDBNavLink>
+                    <MDBNavLink style={blueText} to="/Landing">Log Out</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>

@@ -7,11 +7,10 @@ import Landing from "./components/pages/Landing/index.js";
 import SignUp from "./components/pages/SignUp/index.js";
 import Login from "./components/pages/Login/index.js";
 import Home from "./components/pages/Home/index.js";
-//import Chat from "./components/pages/Chat/index.js"
+// import Chat from "./components/pages/Chat/index.js"
 import ChatPage from './components/pages/Chat/index';
 import {
-  getFromStorage,
-  setInStorage
+  getFromStorage
 } from "./utils/storage";
 
 
@@ -20,13 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      token: '',
-      signUpError: '',
-      signInError: '',
-      signInEmail: '',
-      signInPassword: '',
-      signUpEmail: '',
-      signUpPassword: '',
+      token: ''
     };
   };
 
@@ -57,7 +50,7 @@ class App extends Component {
   };
 
   // checking if we have received a token and returning the appropriate screen
-  checkToken = () => {
+  checkTokenHome = () => {
     if (!this.state.token) {
       console.log("No token...")
       return (<Landing />);
@@ -67,15 +60,25 @@ class App extends Component {
     }
   }
 
+  checkTokenChat = () => {
+    if (!this.state.token) {
+      console.log("No token...")
+      return (<Landing />);
+    } else if (this.state.token) {
+      console.log("Received the token!!!")
+      return (<ChatPage />)
+    }
+  }
+
   render() {
 
     return (
       <Router>
-        <Route exact path ="/" render={this.checkToken}/>
+        <Route exact path ="/" render={this.checkTokenHome}/>
         <Route exact path="/signup" component ={SignUp} />
         <Route exact path="/login" component ={Login} />
-        <Route exact path ="/home" render={this.checkToken} />
-        <Route exact path ="/chat" component ={ChatPage}/>
+        <Route exact path ="/home" render={this.checkTokenHome} />
+        <Route exact path ="/chat" render={this.checkTokenChat}/>
       </Router>
     );
   }

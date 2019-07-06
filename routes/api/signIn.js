@@ -9,7 +9,7 @@ const UserSession = require("../../models/userSession");
     const {
       name,
       phone,
-      birthdate,
+      // birthdate,
       gender,
       password
     } = body;
@@ -20,37 +20,37 @@ const UserSession = require("../../models/userSession");
     if (!name) {
       return res.send({
         success: false,
-        message: "Error: First name cannot be blank"
+        message: "First name cannot be blank"
       });
     };
     if (!phone) {
       return res.send({
         success: false,
-        message: "Error: Please enter your phone number"
+        message: "Please enter your phone number"
       });
     };
-    if (!birthdate) {
-      return res.send({
-        success: false,
-        message: "Error: Please enter your birthdate"
-      });
-    };
+    // if (!birthdate) {
+    //   return res.send({
+    //     success: false,
+    //     message: "Error: Please enter your birthdate"
+    //   });
+    // };
     if (!gender) {
       return res.send({
         success: false,
-        message: "Error: Please enter your gender"
+        message: "Please enter your gender"
       });
     };
     if (!password) {
       return res.send({
         success: false,
-        message: "Error: Please enter your password"
+        message: "Please enter your password"
       });
     };
     if (!email) {
       return res.send({
         success: false,
-        message: "Error: Please enter a valid email address"
+        message: "Please enter a valid email address"
       });
     };
 
@@ -71,7 +71,7 @@ const UserSession = require("../../models/userSession");
         newUser.name = name;
         newUser.phone = phone;
         newUser.gender = gender;
-        newUser.birthdate = birthdate;
+        // newUser.birthdate = birthdate;
         newUser.password = newUser.generateHash(password);
         newUser.save((err, user) => {
           if (err) {
@@ -125,7 +125,7 @@ const UserSession = require("../../models/userSession");
       if (users.length != 1) {
         return res.send({
           success: false,
-          message: "Error: Invalid"
+          message: "Invalid Login"
         });
       }
 
@@ -133,7 +133,7 @@ const UserSession = require("../../models/userSession");
       if (!user.validPassword(password)) {
         return res.send({
           success: false,
-          message: "Error: Invalid"
+          message: "Invalid Password"
         });
       }
 
@@ -150,7 +150,7 @@ const UserSession = require("../../models/userSession");
 
         return res.send({
           success: true,
-          message: "Valid sign in",
+          message: "Signed in!",
           token: doc._id
         });
 
