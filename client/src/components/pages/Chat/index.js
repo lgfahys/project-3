@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
 
 import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBBadge, MDBIcon, MDBBtn, MDBScrollbar } from "mdbreact";
-=======
-// import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBBadge, MDBIcon, MDBBtn, MDBScrollbar } from "mdbreact";
->>>>>>> master
 //import "./ChatPage.css";
 
 import ChatUser from "./components/ChatUser"
