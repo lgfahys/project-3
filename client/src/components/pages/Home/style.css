@@ -47,11 +47,12 @@
 }
 
 .chat-page .userChatWrapper:hover {
-    
+    cursor: pointer;
     text-shadow: 0 0 15px;
 }
 
 .chat-page .userChatWrapper:hover > img {
+    cursor: pointer;
     box-shadow: 0px 0px 10px 2px #555;
 }
 

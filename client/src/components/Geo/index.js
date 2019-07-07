@@ -80,7 +80,7 @@ class Geolocation extends Component {
 
     updateUserLocation = () => {
         console.log(`Current Position: { Latitude: ${this.state.latitude} | Longitude: ${this.state.longitude} }`);
-
+        this.props.getLocation({latitude: this.state.latitude, longitude: this.state.longitude});
         //setInterval(function () {
         //   locationSet();
         // }, 120 * 1000);
@@ -122,14 +122,18 @@ class Geolocation extends Component {
                 {this.state.error ? <p>Error: {this.state.error}</p> : null}
             </div>
         );
-    } 
+    }
+    
+    renderComponent = () =>{
+        this.updateUserLocation();
+    }
 
     render() {
         console.log(`Current Position: { Latitude: ${this.state.latitude} | Longitude: ${this.state.longitude} }`);
 
         return (
-            //null
-            <span>{this.renderOutput()}</span>
+            // null
+            <span>{this.renderComponent()}</span>
             );
         }
 }

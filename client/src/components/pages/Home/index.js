@@ -6,6 +6,7 @@ import NavLI from "../../Navbar/loggedIn";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Geo from "../../Geo";
 
 // import User from "./components/User";
 // import PplNearYou from "./components/PplNearYou";
@@ -21,6 +22,10 @@ let mongodb = users;
 // acceptedChats : [],
 
 // People Near You
+
+// console.log(activeusers);
+
+
 // get active users
 // get distance of users
 
@@ -39,6 +44,11 @@ class Home extends Component {
                 location: ""
             },
         };
+
+        this.location = {
+            latitude: null,
+            longitude: null
+        };
         
     }
     
@@ -49,10 +59,27 @@ class Home extends Component {
     }
 
     renderActiveChats = () => {
-        let someArray = mongodb;
+        let currentUser = mongodb[0];
+
+        let activeUsers = mongodb
+            .filter((user) => {
+                if (user.isActive) {
+                    return user;
+                };
+            });
+
+        let activeChats = activeUsers
+            .filter((user) => {
+                if (currentUser.acceptedChats.indexOf(user._id) !== -1) {
+                    console.log(`Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
+                    return user;
+                } else {
+                    console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
+                }
+            });
 
         return (
-            someArray.map((element) => {
+            activeChats.map((element) => {
                 return ( // User component, need to replace
                     <Col className="userChatWrapper" sm="1" md="2" lg="2">
                             <img className="userImgHome" alt="user-icon" src="../../assets/images/user.png " />
@@ -92,10 +119,27 @@ class Home extends Component {
     }
 
     renderPendingChats = () => {
-        let someArray = mongodb;
+        let currentUser = mongodb[0];
+        
+        let activeUsers = mongodb
+            .filter((user) => {
+                if (user.isActive) {    
+                    return user;
+                };
+            });
+        
+        let pendingChats = activeUsers
+        .filter((user) => {
+            if (currentUser.pendingChats.indexOf(user._id) !== -1) {
+                console.log(`Pending: ${user.name} = ${currentUser.pendingChats.indexOf(user._id)}`);
+                return user;
+            } else {
+                
+            }
+        });
 
         return (
-            someArray.map((element) => {
+            pendingChats.map((element) => {
                 return (
                     <Row className="userPendingWrapper">
                         <Col sm="1" md="1" lg="1">
@@ -123,10 +167,17 @@ class Home extends Component {
         );
     }
 
+    getCurrentLocation = ({latitude, longitude}) => {
+        this.location.latitude = latitude;
+        this.location.longitude = longitude;
+        console.log("Home Page: ", latitude, longitude);
+    }
+
     render() {
         // {this.console(mongodb);}
         return (
         <div className="chat-page">
+            <Geo getLocation={this.getCurrentLocation}/>
             <NavLI />
                 <Container className="homeContainer">
 
