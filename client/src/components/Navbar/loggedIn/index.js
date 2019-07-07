@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink } from 'mdbreact';
 import "../style.css";
+import { Redirect } from 'react-router-dom';
 import {
   getFromStorage
 } from "../../../utils/storage";
@@ -10,6 +11,7 @@ class NavLI extends React.Component {
       super(props);
       this.state = {
           collapse: false,
+          redirect: false
       };
       this.onClick = this.onClick.bind(this);
   }
@@ -18,6 +20,12 @@ class NavLI extends React.Component {
     this.setState({
         collapse: !this.state.collapse,
       });
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
   }
 
   logout() {
@@ -35,7 +43,8 @@ class NavLI extends React.Component {
           if (json.success) {
             this.setState({
               token: '',
-              isLoading: false
+              isLoading: false,
+              redirect: true
             });
           } else {
             this.setState({
@@ -67,7 +76,8 @@ class NavLI extends React.Component {
                     <MDBNavLink style={blueText} to="/editProfile">Edit Profile</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink style={blueText} onClick={this.logout} to="/Landing">Log Out</MDBNavLink>
+                  {this.renderRedirect()}
+                    <MDBNavLink style={blueText} onClick={this.logout} to="/">Log Out</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>

@@ -3,6 +3,7 @@ import { MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import "./style.css";
 import "./media.css";
 import "./media.css";
+import { Redirect } from 'react-router-dom';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -20,9 +21,16 @@ class signUpPage extends Component {
       signUpGender: '',
       // signUpBirthDate: '',
       signUpPhone: '',
-      signUpName: ''
+      signUpName: '',
+      redirect: false
     };
   };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  }
 
   onTextboxChangeSignUpEmail(event) {
     this.setState({
@@ -103,7 +111,8 @@ class signUpPage extends Component {
             signUpGender: '',
             // signUpBirthDate: '',
             signUpPhone: '',
-            signUpName: ''
+            signUpName: '',
+            redirect: true
           });
         } else {
           this.setState({
@@ -195,7 +204,8 @@ class signUpPage extends Component {
                     />
                   </div>
                   <div className="text-center py-4 mt-3">
-                    <MDBBtn onClick={this.onSignUp}>
+                  {this.renderRedirect()}
+                    <MDBBtn onClick={this.onSignUp} href="/">
                       Sign Up
                     </MDBBtn>
                   </div>
