@@ -1,6 +1,9 @@
 import React from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink } from 'mdbreact';
 import "../style.css";
+import {
+  getFromStorage
+} from "../../../utils/storage";
 
 class NavLI extends React.Component {
   constructor(props) {
@@ -17,6 +20,37 @@ class NavLI extends React.Component {
       });
   }
 
+  logout() {
+    this.setState({
+      isLoading: true,
+    });
+    console.log("Token removed...")
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj;
+      // Verify token
+      fetch('/api/accounts/logout?token=' + token)
+        .then(res => res.json())
+        .then(json => {
+          if (json.success) {
+            this.setState({
+              token: '',
+              isLoading: false
+            });
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+          }
+        });
+    } else {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  }
+
+  logout = this.logout.bind(this);
   render() {
     const blueText = {color: '#66FCF1'}
     return(
@@ -31,7 +65,9 @@ class NavLI extends React.Component {
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBNavLink style={blueText} to="/editProfile">Edit Profile</MDBNavLink>
-                    <MDBNavLink style={blueText} to="/Landing">Log Out</MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem>
+                    <MDBNavLink style={blueText} onClick={this.logout} to="/Landing">Log Out</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
