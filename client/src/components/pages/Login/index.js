@@ -6,9 +6,77 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
 import Navbar from "../../Navbar/loggedOut";
-
+import {
+  setInStorage
+} from "../../../utils/storage"
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      token: '',
+      signInError: '',
+      signInEmail: '',
+      signInPassword: '',
+    };
+  };
+
+  onTextboxChangeSignInEmail(event) {
+    this.setState({
+      signInEmail: event.target.value
+    });
+    // console.log(this.state.signInEmail);
+  };
+
+  onTextboxChangeSignInPassword(event) {
+    this.setState({
+      signInPassword: event.target.value
+    });
+    // console.log(this.state.signInPassword);
+  };
+
+  onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
+  onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
+
+  onSignIn() {
+    // Grab state
+    this.setState({
+      isLoading: true,
+    });
+    // Post request to backend
+    fetch('/api/accounts/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword,
+      }),
+    }).then(res => res.json())
+      .then(json => {
+        console.log('json', json);
+        if (json.success) {
+          setInStorage('the_main_app', { token: json.token });
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+            signInPassword: '',
+            signInEmail: '',
+            token: json.token,
+          });
+        } else {
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+          });
+        }
+      });
+  }
+
+  onSignIn = this.onSignIn.bind(this);
+
   render() {
     return (
       <div className="App">
@@ -26,6 +94,13 @@ class Login extends Component {
                       <strong>Log in</strong>
                     </h3>
                   </div>
+                  <div className="alert-text">
+                        {
+                          (this.state.signInError) ? (
+                            <p>{this.state.signInError}</p>
+                          ) : (null)
+                        } 
+                      </div>
                   <MDBInput
                     label="Your email"
                     group
@@ -33,6 +108,8 @@ class Login extends Component {
                     validate
                     error="wrong"
                     success="right"
+                    value={this.signInEmail}
+                    onChange={this.onTextboxChangeSignInEmail}
                   />
                   <MDBInput
                     label="Your password"
@@ -40,6 +117,8 @@ class Login extends Component {
                     type="password"
                     validate
                     containerClass="mb-0"
+                    value={this.signInPassword}
+                    onChange={this.onTextboxChangeSignInPassword}
                   />
                   <p className="font-small blue-text d-flex justify-content-end pb-3">
                     Forgot
@@ -53,6 +132,7 @@ class Login extends Component {
                       type="button"
                       rounded
                       className="btn-block z-depth-1a"
+                      onClick={this.onSignIn}
                     >
                       Sign in
                 </MDBBtn>
