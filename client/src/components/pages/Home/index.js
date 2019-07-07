@@ -7,10 +7,10 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import User from "./components/User";
-import PplNearYou from "./components/PplNearYou";
-import PChatReq from "./components/PChatReq";
-import BottomRow from './components/row'
+// import User from "./components/User";
+// import PplNearYou from "./components/PplNearYou";
+// import PChatReq from "./components/PChatReq";
+// import BottomRow from './components/row'
 
 import users from "./testusers";
 
@@ -124,7 +124,7 @@ class Home extends Component {
     }
 
     render() {
-        {this.console(mongodb);}
+        // {this.console(mongodb);}
         return (
         <div className="chat-page">
             <NavLI />

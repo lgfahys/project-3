@@ -10,7 +10,7 @@ import SignUp from "./components/pages/SignUp/index.js";
 import Login from "./components/pages/Login/index.js";
 import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
-import GeoPage from './components/pages/Geo';
+import GeoPage from './components/Geo';
 //import Chat from "./components/pages/Chat/index.js"
 
 import ChatPage from './components/pages/Chat/index';
