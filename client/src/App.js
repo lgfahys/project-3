@@ -10,6 +10,7 @@ import SignUp from "./components/pages/SignUp/index.js";
 import Login from "./components/pages/Login/index.js";
 import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
+import GeoPage from './components/pages/Geo';
 //import Chat from "./components/pages/Chat/index.js"
 
 import ChatPage from './components/pages/Chat/index';
@@ -29,6 +30,7 @@ class App extends Component {
         <Route exact path="/profile" component ={Profile} />
         <Route exact path ="/home" component ={Home} />
         <Route exact path ="/chat" component ={ChatPage}/>
+        <Route exact path ="/geo" component ={GeoPage}/>
       </Router>
     );
   }

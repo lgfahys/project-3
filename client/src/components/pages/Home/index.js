@@ -12,16 +12,21 @@ import PplNearYou from "./components/PplNearYou";
 import PChatReq from "./components/PChatReq";
 import BottomRow from './components/row'
 
-const mongodb = [
-    {
-        user: "Elvin",
-    },
-    {
-        user: "Lindsey"
-    }
-];
+import users from "./testusers";
+
+let mongodb = users;
 
 
+// Chats
+// acceptedChats : [],
+
+// People Near You
+// get active users
+// get distance of users
+
+
+// pending Chats
+// pendingChats : []
 
 class Home extends Component {
 
@@ -34,6 +39,7 @@ class Home extends Component {
                 location: ""
             },
         };
+        
     }
     
     console = (something) => {
@@ -50,7 +56,7 @@ class Home extends Component {
                 return ( // User component, need to replace
                     <Col className="userChatWrapper" sm="1" md="2" lg="2">
                             <img className="userImgHome" alt="user-icon" src="../../assets/images/user.png " />
-                            <h4>{element.user}</h4>
+                            <h4>{element.name}</h4>
                     </Col>
                 ); 
             })        
@@ -69,7 +75,7 @@ class Home extends Component {
                         </Col>
                         
                         <Col className="name-style" sm="2" md="2" lg="2">
-                            <h4>{element.user}</h4>
+                            <h4>{element.name}</h4>
                         </Col>
                         
                         <Col className="btn-style" sm="3" md="3" lg="3">
@@ -97,7 +103,7 @@ class Home extends Component {
                         </Col>
 
                         <Col className="name-style" sm="2" md="2" lg="2">
-                            <h4>{element.user}</h4>
+                            <h4>{element.name}</h4>
                         </Col>
 
                         <Col className="btn-style" sm="3" md="3" lg="2">
@@ -118,6 +124,7 @@ class Home extends Component {
     }
 
     render() {
+        {this.console(mongodb);}
         return (
         <div className="chat-page">
             <NavLI />
