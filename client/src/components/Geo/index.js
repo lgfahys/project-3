@@ -140,3 +140,22 @@ class Geolocation extends Component {
 
 export default Geolocation;
 
+
+const getDistance = (user1, user2) => {
+    return getPreciseDistance(
+        { latitude: user1.latitude, longitude: user1.longitude },
+        { latitude: user2.latitude, longitude: user2.longitude }
+    );
+}
+
+const inRadius = (user1, user2, radius=805) => {
+    let inRange = isPointWithinRadius(
+        { latitude: user1.latitude, longitude: user1.longitude },
+        { latitude: user2.latitude, longitude: user2.longitude },
+        radius
+    );
+    console.log(`Distance radius (${getDistance(user1, user2)} < ${radius})? ${inRange}`, user1, user2);
+    return inRange;
+}
+
+export { inRadius };

@@ -6,7 +6,7 @@ import NavLI from "../../Navbar/loggedIn";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Geo from "../../Geo";
+import Geo, { inRadius } from "../../Geo";
 
 // import User from "./components/User";
 // import PplNearYou from "./components/PplNearYou";
@@ -91,10 +91,27 @@ class Home extends Component {
     }
 
     renderNearChats = () => {
-        let someArray = mongodb;
+        let currentUser = mongodb[0];
+
+        let activeUsers = mongodb
+            .filter((user) => {
+                if (user.isActive && currentUser.acceptedChats.indexOf(user._id) === -1 && currentUser.pendingChats.indexOf(user._id) === -1) {
+                    return user;
+                };
+            });
+        
+        let nearChats = activeUsers
+            .filter((user) => {
+                if (inRadius(currentUser.recentLocation, user.recentLocation)) {
+                    console.log(`In range: ${user.name}`);
+                    return user;
+                } else {
+                    console.log(`Out of range: ${user.name}`);
+                }
+            });
 
         return (
-            someArray.map((element) => {
+            nearChats.map((element) => {
                 return (
                     <Row className="userNearWrapper">
                         <Col sm="1" md="1" lg="1">
@@ -171,6 +188,10 @@ class Home extends Component {
         this.location.latitude = latitude;
         this.location.longitude = longitude;
         console.log("Home Page: ", latitude, longitude);
+    }
+
+    getRadius = ({latitude, longitude}) => {
+
     }
 
     render() {

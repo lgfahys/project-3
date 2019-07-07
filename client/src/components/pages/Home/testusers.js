@@ -6,6 +6,7 @@ const mongodb = [
         "pendingChats" : ["5d1cbf421a804a0b4eb1f384", "5d1cbf421a804a0b4eb1f387"],
         "email" : "elvin@mail.com",
         "name" : "Elvin",
+        "recentLocation" : { latitude: 35.8069093, longitude: -78.818777 },
         "phone" : "1231231421",
         "gender" : "male",
         "isActive" : true,
@@ -22,7 +23,7 @@ const mongodb = [
         "isActive" : true,
         "image" : "me.png",
         "bio" : "Will be filled out later",
-        "recentLocation" : null,
+        "recentLocation" : { latitude: 35.807, longitude: -78.819 },
         "ignoredChats" : [],
         "acceptedChats" : [],
         "pendingChats" : []
@@ -38,7 +39,7 @@ const mongodb = [
         "isActive" : true,
         "image" : "me.png",
         "bio" : "Will be filled out later",
-        "recentLocation" : null,
+        "recentLocation" : { latitude: 35.8069093, longitude: -78.818777 },
         "ignoredChats" : [],
         "acceptedChats" : [],
         "pendingChats" : []
@@ -54,7 +55,7 @@ const mongodb = [
         "isActive" : false,
         "image" : "me.png",
         "bio" : "Will be filled out later",
-        "recentLocation" : null,
+        "recentLocation" : { latitude: 35.810, longitude: -78.820 },
         "ignoredChats" : [],
         "acceptedChats" : [],
         "pendingChats" : []
@@ -86,7 +87,7 @@ const mongodb = [
         "isActive" : true,
         "image" : "me.png",
         "bio" : "Will be filled out later",
-        "recentLocation" : null,
+        "recentLocation" : { latitude: 34.8069093, longitude: -78.818777 },
         "ignoredChats" : [],
         "acceptedChats" : [],
         "pendingChats" : []
