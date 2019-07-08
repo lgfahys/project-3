@@ -20,8 +20,8 @@ function ChatUser (){
 
         </Col>
         <Col sm="2" md="2" lg="2">
-    <img className="user" alt="user-icon" src="../../../assets/images/user.png " />
-                    <h4>Name</h4>
+            <img className="user" alt="user-icon" src="../../../assets/images/user.png " />
+            <h4>Name</h4>
     
         </Col>
         <Col sm="2" md="2" lg="2">
