@@ -44,7 +44,7 @@ const userSchema = new Schema({
     },
 
     recentLocation: {
-        type: String
+        type: Object
     },
 
     isActive: {
@@ -67,6 +67,11 @@ const userSchema = new Schema({
     }],
 
     pendingChats: [{
+        type: Schema.Types.ObjectId,
+        ref: "Users"
+    }],
+
+    requestedChats: [{
         type: Schema.Types.ObjectId,
         ref: "Users"
     }]

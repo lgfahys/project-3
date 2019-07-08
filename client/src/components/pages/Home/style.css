@@ -1,39 +1,117 @@
-.bottomRow{
-    background-color: gray;
-    height: 50px;
-}
-.homeContainer{
-    box-shadow: 6px 7px 14px 0px #000000;
+.chat-page {
+    color: white;
+    margin: 0;
+    padding: 0;
+    
 }
 
-.container{
+.chat-page button:hover {
+    /* filter: invert(100%); */
+    box-shadow: 0px 0px 10px 0px #777;
+    text-shadow: 0 0 15px;
+}
+
+.chat-page .container {
     margin-top: 7%;
 }
-.userImgCol{
-    display: inline-flex;
-    display: table-column-group;
+
+.chat-page .homeContainer {
+    /* rgb(31, 40, 51) */
+    /* rgb(128, 128, 128) */
+    background-color: rgba(31,40,51, 0.99);
+    box-shadow: 6px 7px 14px 0px #111;
+    border-radius: 10px;
+    padding: 20px 30px 50px 30px;
 }
-h4{
-    color: white;
+
+.chat-page .userActiveChats h2 {
+    margin-bottom: 20px;
 }
-.col{
-    color: white;
+
+.chat-page .userActiveChats h4 {
+    padding-top: 5px;
+    font-size: 1.2em;
 }
-h2{
-    color: white;
-    background: grey;
+
+.chat-page .userChatWrapper {
+    width:100px;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    text-align: center;
 }
-.firstRow{
-    background: grey;
+
+.chat-page .userChatWrapper > img {
+    max-width: 90px;
+    max-height: 90px;
+    border-radius: 50%;
 }
-.userRow{
-    background: lightgrey;
+
+.chat-page .userChatWrapper:hover {
+    cursor: pointer;
+    text-shadow: 0 0 15px;
+}
+
+.chat-page .userChatWrapper:hover > img {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px #555;
+}
+
+.chat-page .userNearChats h2,
+.chat-page .userPendingChats h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.7em;
+}
+
+.chat-page .userNearChats h4,
+.chat-page .userPendingChats h4 {
+    padding-top: 5px;
+    padding-left: 10px;
+    font-size: 1.2em;
+}
+
+/* .chat-page .userChatWrapper,  */
+.chat-page .userNearWrapper,
+.chat-page .pendingContainer .userPendingWrapper {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    margin-left: 0px;
     border-bottom: 1px black solid;
+    background-color: rgba(50,50,50, 0.25);
+    border-radius: 3x;
+    box-shadow: 0px 0px 5px 1px #273039;
+    /* filter: blur(5px); */
 }
-.secondRow{
-    background: gray;
+
+/* not working */
+.chat-page .userNearChats:nth-last-child,
+.chat-page .userPendingChats:nth-last-child {
+    border-bottom: none;
+    background-color: red;
 }
-.userSecondRow{
-    background: lightgrey;
-    border-bottom: 1px black solid;
+
+.chat-page .userNearWrapper .name-style,
+.chat-page .userPendingWrapper .name-style {
+    margin-top: auto;
+    margin-bottom: auto;
 }
+
+.chat-page .userNearWrapper .btn-style,
+.chat-page .userPendingWrapper .btn-style {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.chat-page .userNearWrapper .btn-outline-default {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.chat-page .pendingContainer {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    margin-left: 0px;
+}
+

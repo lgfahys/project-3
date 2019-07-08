@@ -57,6 +57,21 @@ router
     .get(messagesController.findByRoomId);
 
 
+router
+    .route("/request/users")
+    .put(usersController.requestUser);
+
+router
+    .route("/location/user")
+    .put(usersController.updateLocationUser);
+
+router
+    .route("/cancel/users")
+    .put(usersController.cancelUser);
+
+router
+    .route("/active/users")
+    .put(usersController.activeUser);
 // // Matches with "/api/books/:id"
 // router
 //     .route("/:id")

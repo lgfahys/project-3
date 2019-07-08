@@ -10,12 +10,8 @@ import SignUp from "./components/pages/SignUp/index.js";
 import Login from "./components/pages/Login/index.js";
 import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
-//import Chat from "./components/pages/Chat/index.js"
-
 import ChatPage from './components/pages/Chat/index';
-import {
-  getFromStorage
-} from "./utils/storage";
+import { getFromStorage } from "./utils/storage";
 
 
 // import io from 'socket.io-client';
@@ -86,13 +82,14 @@ class App extends Component {
         <Route exact path="/login" component ={Login} />
         <Route exact path="/api" component={API} />
         <Route exact path="/profile" component ={Profile} />
+        
         <Route exact path ="/home" render={this.checkTokenHome} />
         <Route exact path ="/chat" render={this.checkTokenChat}/>
+        
       </Router>
     );
   }
 
 }
-
 
 export default App;
