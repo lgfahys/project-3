@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import profile from '../assets/marie.jpeg';
 
-class Profile extends React.Component {
+class Profile extends Component {
   constructor() {
     super();
     this.state = {

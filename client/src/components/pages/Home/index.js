@@ -10,12 +10,6 @@ import Col from "react-bootstrap/Col";
 import Geo, { inRadius } from "../../Geo";
 import API from "../../../utils/API";
 
-// import User from "./components/User";
-// import PplNearYou from "./components/PplNearYou";
-// import PChatReq from "./components/PChatReq";
-// import BottomRow from './components/row'
-// import users from "./testusers";
-
 class Home extends Component {
 
     constructor(props){
@@ -65,6 +59,7 @@ class Home extends Component {
                 if (user.isActive) {
                     return user;
                 };
+                return [];
             });
 
         let activeChats = activeUsers
@@ -75,6 +70,7 @@ class Home extends Component {
                 } else {
                     // console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
                 }
+                return [];
             });
         
         if (activeChats.length === 0) {
@@ -121,6 +117,7 @@ class Home extends Component {
                     ) {
                     return user;
                 };
+                return [];
             });
         
         let locatedUsers = activeUsers
@@ -128,6 +125,7 @@ class Home extends Component {
                 if (user.recentLocation) {
                     return user;
                 }
+                return [];
             });
 
         let nearChats = locatedUsers
@@ -137,7 +135,8 @@ class Home extends Component {
                     return user;
                 } else {
                     console.log(`Out of range: ${user.name}`);
-                }
+                };
+                return [];
             });
         
         if (nearChats.length === 0) {
@@ -193,6 +192,7 @@ class Home extends Component {
                 if (user.isActive) {    
                     return user;
                 };
+                return [];
             });
         
         let pendingChats = activeUsers
@@ -202,7 +202,8 @@ class Home extends Component {
                     return user;
                 } else {
                     
-                }
+                };
+                return [];
             });
 
         let requestedChats = activeUsers
@@ -212,7 +213,8 @@ class Home extends Component {
                     return user;
                 } else {
                     
-                }
+                };
+                return [];
             });
 
         if (pendingChats.length === 0 && requestedChats.length === 0) {
