@@ -313,6 +313,16 @@ class Home extends Component {
         this.location.latitude = latitude;
         this.location.longitude = longitude;
         console.log("Home Page: ", latitude, longitude);
+
+        if (this.state.users) {  
+            let currentUser = this.state.users[0];
+            console.log("making request to set location");
+            API.updateLocationUser(currentUser._id, latitude, longitude)
+            .then(res => {
+            console.log("Got to Res", res);
+            })
+            .catch(err => console.log(err));;
+        }
     }
 
     handleActiveChat = (id) => {
@@ -379,11 +389,9 @@ class Home extends Component {
     }
 
     render() {
-        // {this.console(mongodb);}
         return (
         <div className="chat-page">
             {this.renderRedirect()}
-            <Geo getLocation={this.getCurrentLocation}/>
             <NavLI />
                 <Container className="homeContainer">
 
@@ -412,6 +420,7 @@ class Home extends Component {
                     </Row>
 
                 </Container>
+            <Geo getLocation={this.getCurrentLocation}/>
         </div>
 
         )
