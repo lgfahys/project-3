@@ -58,8 +58,20 @@ export default {
     //     return axios.post("/api/books", bookData);
     // }
 
+    updateLocationUser: (id, lat, lon) => {
+        return axios.put("/api/location/user?id=" + id + "&lat=" + lat + "&lon=" + lon);
+    },
+
     updateRequestUser: (id1, id2) => {
         return axios.put("/api/request/users?id1=" + id1 + "&id2=" + id2);
     },
+
+    updateCancelUser: (id1, id2) => {
+        return axios.put("/api/cancel/users?id1=" + id1 + "&id2=" + id2);
+    },
+
+    updateActiveUser: (id1, id2) => {
+        return axios.put("/api/active/users?id1=" + id1 + "&id2=" + id2);
+    }
 
 };

@@ -70,10 +70,10 @@ class Home extends Component {
         let activeChats = activeUsers
             .filter((user) => {
                 if (currentUser.acceptedChats.indexOf(user._id) !== -1) {
-                    console.log(`Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
+                    // console.log(`Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
                     return user;
                 } else {
-                    console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
+                    // console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
                 }
             });
         
@@ -198,7 +198,7 @@ class Home extends Component {
         let pendingChats = activeUsers
             .filter((user) => {
                 if (currentUser.pendingChats.indexOf(user._id) !== -1) {
-                    console.log(`Pending: ${user.name} = ${currentUser.pendingChats.indexOf(user._id)}`);
+                    // console.log(`Pending: ${user.name} = ${currentUser.pendingChats.indexOf(user._id)}`);
                     return user;
                 } else {
                     
@@ -208,7 +208,7 @@ class Home extends Component {
         let requestedChats = activeUsers
             .filter((user) => {
                 if (currentUser.requestedChats.indexOf(user._id) !== -1) {
-                    console.log(`Requested: ${user.name} = ${currentUser.requestedChats.indexOf(user._id)}`);
+                    // console.log(`Requested: ${user.name} = ${currentUser.requestedChats.indexOf(user._id)}`);
                     return user;
                 } else {
                     
@@ -237,11 +237,21 @@ class Home extends Component {
                         </Col>
 
                         <Col className="btn-style" sm="3" md="3" lg="2">
-                            <button className="btn btn-outline-default">Accept<i className="fas far fa-plus-square pl-1"></i></button>
+                            <button 
+                                onClick={() => this.handleApprove(element._id)}
+                                className="btn btn-outline-default"
+                            >
+                                Accept<i className="fas far fa-plus-square pl-1"></i>
+                            </button>
                         </Col>
 
                         <Col className="btn-style" sm="1" md="2" lg="2">
-                            <button className="btn btn-danger">Decline<i className="fas far fa-thumbs-down pl-1"></i></button>
+                            <button 
+                                onClick={() => this.handleCancel(element._id)}
+                                className="btn btn-danger"
+                            >
+                                Decline<i className="fas far fa-thumbs-down pl-1"></i>
+                            </button>
                         </Col>
 
                         <Col className="btn-style" sm="1" md="2" lg="2">
@@ -273,7 +283,12 @@ class Home extends Component {
                         </Col>
 
                         <Col className="btn-style" sm="1" md="2" lg="2">
-                            <button className="btn btn-danger">Cancel<i className="fas far fa-thumbs-down pl-1"></i></button>
+                            <button
+                                onClick={() => this.handleCancel(element._id)}
+                                className="btn btn-danger"
+                            >
+                                Cancel<i className="fas far fa-thumbs-down pl-1"></i>
+                            </button>
                         </Col>
 
                         <Col className="btn-style" sm="1" md="2" lg="2">
@@ -327,6 +342,32 @@ class Home extends Component {
         });
 
         this.renderRedirect();
+    }
+
+    handleCancel = (id) => {
+        let currentUser = this.state.users[0];
+        
+        API.updateCancelUser(currentUser._id, id)
+            .then(res => {
+                console.log("Got to Res", res);
+                this.getUsers();
+            })
+            .catch(err => console.log(err));
+
+        console.log("handling cancel chat: ", id);
+    }
+
+    handleApprove = (id) => {
+        let currentUser = this.state.users[0];
+
+        API.updateActiveUser(currentUser._id, id)
+            .then(res => {
+                console.log("Got to Res", res);
+                this.getUsers();
+            })
+            .catch(err => console.log(err));
+
+        console.log("handling approve chat: ", currentUser._id, id);
     }
 
     renderRedirect = () => {

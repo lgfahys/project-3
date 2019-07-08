@@ -32,10 +32,52 @@ module.exports = {
                 db.Users
                 .findOneAndUpdate({ _id: req.query.id2 }, {$push: { pendingChats: req.query.id1 }})
                 .then(dbModel => { res.json(dbModel) })
+                .catch(err => res.status(422).json(err));
             })
             .catch(err => res.status(422).json(err));
     },
 
+    cancelUser: function(req, res) {
+        db.Users
+            .update({ _id: req.query.id1 }, {$pull: { requestedChats: {$in: [req.query.id2] }}})
+            .then(dbModel => {
+                db.Users
+                .update({ _id: req.query.id2 }, {$pull: { pendingChats: {$in: [req.query.id1] }}})
+                .then(dbModel => { res.json(dbModel) })
+                .catch(err => res.status(422).json(err));
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
+    activeUser: function(req, res) {
+        console.log(req.query);
+        db.Users
+            .findOneAndUpdate(
+                { _id: req.query.id1 },
+                {$push: { acceptedChats: req.query.id2 }, $pull: { pendingChats: req.query.id2 }})
+                //db.getCollection('users').findOneAndUpdate(
+                // {_id: ObjectId("5d1cbf421a804a0b4eb1f387")},
+                // { $push: { pendingChats: "5d1cbf421a804a0b4eb1f385" }})
+                
+            .then(dbModel => {
+                console.log(dbModel); 
+                db.Users
+                .findOneAndUpdate(
+                    { _id: req.query.id2 },
+                    {$push: { acceptedChats: req.query.id1 },
+                    $pull: { requestedChats: req.query.id1 }})
+                .then(dbModel => { res.json(dbModel) })
+                .catch(err => res.status(422).json(err));
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
+    updateLocationUser: function(req, res) {
+        db.Users
+            .findOneAndUpdate({ _id: req.query.id }, { recentLocation: { latitude: req.query.lat, longitude: req.query.lon }})
+            .then(dbModel => { res.json(dbModel) })
+            .catch(err => res.status(422).json(err));
+    }
 
     // create: function(req, res) {
     //     db.Users
