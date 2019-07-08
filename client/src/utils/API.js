@@ -58,4 +58,8 @@ export default {
     //     return axios.post("/api/books", bookData);
     // }
 
+    updateRequestUser: (id1, id2) => {
+        return axios.put("/api/request/users?id1=" + id1 + "&id2=" + id2);
+    },
+
 };

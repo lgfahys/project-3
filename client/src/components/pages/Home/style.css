@@ -72,7 +72,7 @@
 
 /* .chat-page .userChatWrapper,  */
 .chat-page .userNearWrapper,
-.chat-page .userPendingWrapper {
+.chat-page .pendingContainer .userPendingWrapper {
     width: 100%;
     padding-top: 10px;
     padding-bottom: 15px;
@@ -106,5 +106,12 @@
 .chat-page .userNearWrapper .btn-outline-default {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.chat-page .pendingContainer {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    margin-left: 0px;
 }
 

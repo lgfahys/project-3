@@ -57,6 +57,9 @@ router
     .get(messagesController.findByRoomId);
 
 
+router
+    .route("/request/users")
+    .put(usersController.requestUser);
 // // Matches with "/api/books/:id"
 // router
 //     .route("/:id")

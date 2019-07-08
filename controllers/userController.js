@@ -25,6 +25,17 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    requestUser: function(req, res) {
+        db.Users
+            .findOneAndUpdate({ _id: req.query.id1 }, {$push: { requestedChats: req.query.id2 }})
+            .then(dbModel => {
+                db.Users
+                .findOneAndUpdate({ _id: req.query.id2 }, {$push: { pendingChats: req.query.id1 }})
+                .then(dbModel => { res.json(dbModel) })
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
 
     // create: function(req, res) {
     //     db.Users

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import api from "../../../util/API";
+import api from "../../../utils/API";
 
 import "./styles.css";
 
