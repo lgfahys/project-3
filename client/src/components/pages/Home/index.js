@@ -59,7 +59,6 @@ class Home extends Component {
                 if (user.isActive) {
                     return user;
                 };
-                return [];
             });
 
         let activeChats = activeUsers
@@ -70,7 +69,6 @@ class Home extends Component {
                 } else {
                     // console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
                 }
-                return [];
             });
         
         if (activeChats.length === 0) {
@@ -117,7 +115,6 @@ class Home extends Component {
                     ) {
                     return user;
                 };
-                return [];
             });
         
         let locatedUsers = activeUsers
@@ -125,7 +122,6 @@ class Home extends Component {
                 if (user.recentLocation) {
                     return user;
                 }
-                return [];
             });
 
         let nearChats = locatedUsers
@@ -136,7 +132,6 @@ class Home extends Component {
                 } else {
                     console.log(`Out of range: ${user.name}`);
                 };
-                return [];
             });
         
         if (nearChats.length === 0) {
@@ -192,7 +187,6 @@ class Home extends Component {
                 if (user.isActive) {    
                     return user;
                 };
-                return [];
             });
         
         let pendingChats = activeUsers
@@ -203,7 +197,6 @@ class Home extends Component {
                 } else {
                     
                 };
-                return [];
             });
 
         let requestedChats = activeUsers
@@ -214,7 +207,6 @@ class Home extends Component {
                 } else {
                     
                 };
-                return [];
             });
 
         if (pendingChats.length === 0 && requestedChats.length === 0) {
