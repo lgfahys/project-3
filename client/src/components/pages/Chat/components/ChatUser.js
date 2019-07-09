@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import "../style.css";
-import Container from "react-bootstrap/Container";
+// import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 
-import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBAvatar, MDBBadge, MDBIcon, MDBBtn, MDBScrollbar } from "mdbreact";
+// import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBAvatar, MDBBadge, MDBIcon, MDBBtn, MDBScrollbar } from "mdbreact";
 
 
 
@@ -14,21 +14,21 @@ function ChatUser (){
     return(
         <Row className="userRow">
         <Col sm="3" md="3" lg="3">
-        <img className="arrowImg" src="../../../assets/images/left-arrow.png" />
+        {/* <img className="arrowImg" src="../../../assets/images/left-arrow.png" /> */}
         </Col>
         <Col sm="2" md="2" lg="2">
 
         </Col>
         <Col sm="2" md="2" lg="2">
-    <img className="user" alt="user-icon" src="../../../assets/images/user.png " />
-                    <h4>Name</h4>
+            <img className="user" alt="user-icon" src="../../../assets/images/user.png " />
+            <h4>Name</h4>
     
         </Col>
         <Col sm="2" md="2" lg="2">
             
             </Col>
         <Col sm="3" md="3" lg="3">
-        <button class="btn btn-danger">Primary<i class="fas  pl-1"></i></button>
+        <button class="btn btn-danger">End Chat<i class="fas  pl-1"></i></button>
         </Col>
         </Row>
         

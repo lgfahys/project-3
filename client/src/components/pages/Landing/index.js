@@ -6,10 +6,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
 import Navbar from "../../Navbar/loggedOut";
 
+
 function Landing() {
+
     return (
+
         <div className="App">
-           <Navbar />
+
+            <Navbar />
             <Container>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
@@ -18,21 +22,21 @@ function Landing() {
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                         <p className="mainP">The app that helps you meet new people who are where you are. Anyone you see on Chatter is within 100 feet of you and you won't see them when you leave. So when you talk to someone, introduce yourself and try to meetup with them! Seize the day!</p>
+                        <p className="mainP">The app that helps you meet new people who are where you are. Anyone you see on Chatter is within 100 feet of you and you won't see them when you leave. So when you talk to someone, introduce yourself and try to meetup with them! Seize the day!</p>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                         <div>
-                             <center>
+                        <div>
+                            <center>
                                 <a href="/signup" className="signup-btn">Sign Up</a>
-                             </center>
+                            </center>
                         </div>
                     </Col>
                 </Row>
             </Container>
         </div>
-      );
+    );
 }
 
 export default Landing;
