@@ -69,7 +69,7 @@ class Profile extends Component {
                       <p className="h1 text-center py-4">Marie Johnson</p>
                       </div>
                       <hr size="10"></hr>
-                      <div className="grey-text">
+                      <div className= "font-weight-bold blue-text">
                       <p className="h4 text-center py-4">Web Developer</p>
                       </div>
                       <hr size="10"></hr>
@@ -102,9 +102,9 @@ class Profile extends Component {
                       <p className="h4 text-center py-4">About Me</p>
                       <div className="grey-text">
                       <p>
-                      Hi my name is Marie! I am new to the area but love meeting new
-                      people. My favorite place to meet new people is in the downtown area. I can't wait to meet new
-                      friends in the city to start chatting with!
+                      Hi my name is Marie! I am new to the area but love to meet new
+                      people. My favorite place to socialize is in the downtown area. I can't wait to meet new
+                      friends in the city to start "chatting" with!
                        
                 </p>
                       </div>
