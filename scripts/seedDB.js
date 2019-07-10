@@ -1,401 +1,76 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 
-// This file empties all collections and inserts the data below
+const seedUsers = require("./usersArray");
 
-// Connect to the Mongo DB
+// Connect to the MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
 });
 
-const state = {
-    userdb: false,
-    userdb_log: true,
-    userdb_exit: false,
 
-    roomdb: true,
-    roomdb_log: true,
-    roomdb_exit: true,
+// db.Users
+//   .remove({})
+//   .then(() => db.Applicant.collection.insertMany(seedUsers))
+//   .then(data => {
+//     console.log(data.result.n + " records inserted!");
+//     process.exit(0);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
-    messagedb: false,
-    messagedb_log: true,
-    messagedb_exit: true
-}
+db.Users
+    .deleteMany({})
+    .then((data) => {
+        console.log(`\nClearing database: ${data.n} records removed...\n`);
+    })
+    .catch((err) => {
+        console.error(err);
+        process.exit(1);
+    });
 
-const color = {
-    yellow: "\x1b[33m",
-    reset: "\x1b[0m"
-}
+let userCount = 0;
 
-// date: new Date(Date.now())
-const userSeed = [
-    {
-        name: "Elvin",
-        email: "elvin@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "male",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
+seedUsers.map((user) => {
+    let newUser = new db.Users();
 
-    {
-        name: "Chase",
-        email: "chase@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "male",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
+    // general data
+    newUser.name = user.name;
+    newUser.email = user.email;
+    newUser.password = newUser.generateHash(user.password);
 
-    {
-        name: "Lindsey",
-        email: "lindsey@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "female",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
+    // profile data
+    newUser.phone = user.phone;
+    newUser.gender = user.gender;
+    newUser.birthdate = user.birthdate;
+    newUser.bio = user.bio;
+    newUser.image = user.image;
 
-    {
-        name: "Jenna",
-        email: "jenna@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "female",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
+    // chat data
+    newUser.isActive = user.isActive;
+    newUser.recentLocation = user.recentLocation;
+    newUser.acceptedChats = user.acceptedChats;
+    newUser.ignoredChats = user.ignoredChats;
+    newUser.pendingChats = user.pendingChats;
+    newUser.requestedChats = user.requestedChats;
 
-    {
-        name: "Emery",
-        email: "emery@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "female",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
-
-    {
-        name: "Alyssa",
-        email: "alyssa@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "female",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
-
-    {
-        name: "Andre",
-        email: "andrea@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "male",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
-
-    {
-        name: "Melissa",
-        email: "melissa@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "female",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
-
-    {
-        name: "Kevin",
-        email: "kevin@gmail.com",
-        birthdate: new Date("<2000-01-15>"),
-        password: "password",
-        phone: "123-456-7890",
-        gender: "male",
-        isActive: false,
-        image: "me.png",
-        bio: "Will be filled out later",
-        recentLocation: null,
-        ignoredChats: [],
-        acceptedChats: [],
-        pendingChats: []
-    },
-];
-
-const populateUsers = async () => {
-    if (!state.userdb) return;
-    
-    let query1 = await db.Users.deleteMany({});
-    let query2 = await db.Users.collection.insertMany(userSeed);
-
-    if (state.userdb_log) {
-        console.log(color.yellow);
-        console.log("Users collection reset, " + query1.n + " records deleted");
-        console.log(query2.result.n + " records inserted");
-        console.log(color.reset);
-    }
-
-    state.userdb_exit ? process.exit(0) : null;
-};
-
-
-const createRoom = async () => {
-    if (!state.roomdb) return null;
-    let query1, query2; 
-
-    try {
-        query1 = await db.Users.findOne({name: "Elvin"});
-        query3 = await db.Users.findOne({name: "Lindsey"});
-        query2 = await db.Rooms.create({
-            name: "room 100",
-            users: [ mongoose.Types.ObjectId(query1._id), mongoose.Types.ObjectId(query3._id) ]
-        });
-    }
-    
-    catch(err) {
-        console.log(err.errmsg);
-    }
-    
-    finally {
+    // create user
+    newUser.save((err, user) => {
+        if (err) return console.error(err);
         
-        if (state.roomdb_log) {
-            console.log(color.yellow);
-            console.log("Found user: " + query1.name + " ( " + query1.id + " )");
-            
-            if (query2 === undefined)
-                console.log(0 + " records inserted" );
-            else {
-                console.log(query2);
-                console.log("Room: " + query2.name + "\n >  with: ", query2.users);
-                console.log(color.reset);
-            }
-            
+        userCount += 1;
+        
+        console.log(`[${user._id}] #${userCount} - ${user.name} saved to user collection.`);
+        
+        if (userCount === seedUsers.length) {
+            console.log(`\nAll users inserted into database...\n`);
+            process.exit(0);
         }
-    }
 
-    state.roomdb_exit ? process.exit(0) : null;
-};
-
-const addMessage1 = async () => {
-    if (!state.messagedb) return null;
-
-    let query1 = await db.Users.findOne({name: "Elvin"});
-    let query3 = await db.Users.findOne({name: "Lindsey"});
-
-    // let query2 = await db.Rooms.find({
-    //     $and: [
-    //         { users: {$elemMatch: {$in: query1._id }} },
-    //         { users: {$elemMatch: {$in: query3._id }} }
-    //     ]   
-    // });
-
-    let query2 = await db.Rooms.findOne({
-            users: {$elemMatch: {$in: query1._id, $in: query3._id } }   
-    })
-    
-    console.log("query2");
-    console.log(query2);
-    console.log(query2._id);
-
-    let query4 = await db.Messages.create({
-        message: "Hello 5",
-        user: query1._id,
-        room: query2._id,
     });
-
-    console.log(query4);
-    // process.exit(0);
-
-};
-
-const addMessage2 = async () => {
-    if (!state.messagedb) return null;
-
-    let query1 = await db.Users.findOne({name: "Lindsey"});
-    let query2 = await db.Users.findOne({name: "Elvin"});
-
-    let query3 = await db.Rooms.findOne({
-        users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
-    });
-
-    let query4 = await db.Messages.create({
-        message: "Hello 6",
-        user: query1._id,
-        room: query3._id
-    });
-
-    console.log(query4);
-    // process.exit(0);
-};
-
-const addMessage3 = async () => {
-    if (!state.messagedb) return null;
-
-    let query1 = await db.Users.findOne({name: "Lindsey"});
-    let query2 = await db.Users.findOne({name: "Elvin"});
-
-    let query3 = await db.Rooms.findOne({
-        users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
-    });
-
-    let query4 = await db.Messages.create({
-        message: "Hello 7",
-        user: query1._id,
-        room: query3._id
-    });
-
-    console.log(query4);
-    // process.exit(0);
-};
-
-const addMessage4 = async () => {
-    if (!state.messagedb) return null;
-
-    let query1 = await db.Users.findOne({name: "Elvin"});
-    let query2 = await db.Users.findOne({name: "Lindsey"});
-
-    let query3 = await db.Rooms.findOne({
-        users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
-    });
-
-    let query4 = await db.Messages.create({
-        message: "Hello 8",
-        user: query1._id,
-        room: query3._id
-    });
-
-    console.log(query4);
-    // process.exit(0);
-};
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-const searchMessage = async () => {
-    
-    let query1 = await db.Users.findOne({name: "Elvin"});
-    let query2 = await db.Users.findOne({name: "Lindsey"});
-
-    let query3 = await db.Rooms.findOne({
-        users: {$elemMatch: {$in: query1._id, $in: query2._id } }   
-    });
-
-    // 1 is descending, -1 is ascending
-    let query4 = await db.Messages.find({
-        // user:  { $in: [query1._id, query2._id ]} 
-        room: query3._id
-    })
-    .sort({created: 1});
-
-    // console.log(query4);
-    console.log(query3);
-    // console.log(query4);
-
-    // for (let i=0; i < query4.length; i++) {
-    //     // console.log(query4[i]._id);
-
-    //     let user = await db.Users.findOne({ _id: query4[i].user});
-    //     // console.log(user);
-    //     console.log (user.name + ": " + query4[i].message);
-    // }
-}
-
-const runSeed = async () => {
-    await populateUsers();
-    await createRoom();
-    // await addMessage1();
-    // await addMessage2();
-    // await addMessage3();
-    // await addMessage4();
-    // await searchMessage();
-    
-    console.log("Custom Queries");
-    let query = await db.Users
-    // .findOne({name: "Elvin"})
-    // .findOne({ _id: "5d1cbf421a804a0b4eb1f382" })
-    .findById("5d1cbf421a804a0b4eb1f382")
-    .then( res => console.log(res))
-    .catch( err => console.log(err));
-
-    // console.log(query);
-    process.exit(0);
-    
-    // Room : 5d1ce4fbc04dbb0e40c9a26a
-    // User1: 5d1cbf421a804a0b4eb1f382
-    // User2: 5d1cbf421a804a0b4eb1f384
-}
-
-runSeed();
-
-// console.log( mongoose.Types.ObjectId('578df3efb618f5141202a196') );
+});
