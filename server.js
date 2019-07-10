@@ -2,6 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const routes = require("./routes");
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const fileType = require('file-type');
+const bluebird = require('bluebird');
+const multiparty = require('multiparty');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -24,6 +29,7 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
+
 
 // Start the API server
 const expressServer = app.listen(PORT, () => {

@@ -12,7 +12,8 @@ import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
-
+import EditProfile from './components/pages/EditProfile/index'
+import FileUpload from "./components/pages/EditProfile/FileUpload"
 
 // import io from 'socket.io-client';
 // const socket = io("http://localhost:3001");
@@ -84,7 +85,11 @@ class App extends Component {
         <Route exact path="/profile" component ={Profile} />
         
         <Route exact path ="/home" render={this.checkTokenHome} />
+        <Route exact path="/upload" component={FileUpload}/>
+
         <Route exact path ="/chat" render={this.checkTokenChat}/>
+        <Route exact path ="/edit" component={EditProfile}/>
+
         
       </Router>
     );
