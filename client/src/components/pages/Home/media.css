@@ -35,6 +35,9 @@
     .pChatReqUser{
         width: 40px;
     }
+    .homeContainer{
+        margin-top: 10%;
+    }
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
