@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Navbar from "../../Navbar/loggedOut";
 
 class signUpPage extends Component {
   constructor(props) {
@@ -21,15 +20,15 @@ class signUpPage extends Component {
       // signUpBirthDate: '',
       signUpPhone: '',
       signUpName: '',
-      redirect: false
+      // redirect: false
     };
   };
 
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/' />
-    }
-  }
+  // renderRedirect = () => {
+  //   if (this.state.redirect) {
+  //     return <Redirect to='/' />
+  //   }
+  // }
 
   onTextboxChangeSignUpEmail(event) {
     this.setState({
@@ -111,7 +110,7 @@ class signUpPage extends Component {
             // signUpBirthDate: '',
             signUpPhone: '',
             signUpName: '',
-            redirect: true
+            // redirect: true
           });
         } else {
           this.setState({
@@ -127,7 +126,6 @@ class signUpPage extends Component {
   render() {
     return (
       <div className="App">
-      <Navbar />
       <Container fluid>
         <Row className="signUpRow"> 
         <Col xs={12} md={2} lg={4}></Col>
@@ -203,8 +201,11 @@ class signUpPage extends Component {
                     />
                   </div>
                   <div className="text-center py-4 mt-3">
-                  {this.renderRedirect()}
-                    <MDBBtn onClick={this.onSignUp} href="/">
+                  {/* {this.renderRedirect()} */}
+                    <MDBBtn 
+                    onClick={this.onSignUp} 
+                    // href="/"
+                    >
                       Sign Up
                     </MDBBtn>
                   </div>
