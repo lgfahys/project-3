@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
-import Navbar from "../../Navbar/loggedOut";
 import { Redirect } from 'react-router-dom';
 import {
   setInStorage
@@ -20,15 +19,15 @@ class Login extends Component {
       signInError: '',
       signInEmail: '',
       signInPassword: '',
-      redirect: false
+      // redirect: false
     };
   };
 
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/home' />
-    }
-  }
+  // renderRedirect = () => {
+  //   if (this.state.redirect) {
+  //     return <Redirect to='/home' />
+  //   }
+  // }
 
   onTextboxChangeSignInEmail(event) {
     this.setState({
@@ -73,7 +72,7 @@ class Login extends Component {
             signInPassword: '',
             signInEmail: '',
             token: json.token,
-            redirect: true
+            // redirect: true
           });
         } else {
           this.setState({
@@ -89,7 +88,6 @@ class Login extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
         <Container fluid>
 
           <Row className="loginRow">
@@ -137,12 +135,12 @@ class Login extends Component {
                 </a>
                   </p>
                   <div className="text-center mb-3">
-                  {this.renderRedirect()}
+                  {/* {this.renderRedirect()} */}
                     <MDBBtn
                       type="button"
                       rounded
                       className="btn-block z-depth-1a"
-                      href="/home"
+                      // href="/home"
                       onClick={this.onSignIn}
                     >
                       Sign in

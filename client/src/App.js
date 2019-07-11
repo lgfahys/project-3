@@ -12,6 +12,7 @@ import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
+import Navbar from "./components/Navbar";
 
 
 // import io from 'socket.io-client';
@@ -77,15 +78,16 @@ class App extends Component {
 
     return (
       <Router>
-        <Route exact path ="/" render={this.checkTokenHome}/>
-        <Route exact path="/signup" component ={SignUp} />
-        <Route exact path="/login" component ={Login} />
-        <Route exact path="/api" component={API} />
-        <Route exact path="/profile" component ={Profile} />
-        
-        <Route exact path ="/home" render={this.checkTokenHome} />
-        <Route exact path ="/chat" render={this.checkTokenChat}/>
-        
+        <div>
+          <Navbar token={this.state.token} />
+            <Route exact path ="/" render={this.checkTokenHome}/>
+            <Route exact path="/signup" component ={SignUp} />
+            <Route exact path="/login" component ={Login} />
+            <Route exact path="/api" component={API} />
+            <Route exact path="/profile" component ={Profile} />  
+            <Route exact path ="/home" render={this.checkTokenHome} />
+            <Route exact path ="/chat" render={this.checkTokenChat}/>
+          </div>
       </Router>
     );
   }

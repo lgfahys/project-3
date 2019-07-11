@@ -4,7 +4,6 @@ import "./style.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
-import Navbar from "../../Navbar/loggedOut";
 
 
 function Landing() {
@@ -12,8 +11,6 @@ function Landing() {
     return (
 
         <div className="App">
-
-            <Navbar />
             <Container>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
