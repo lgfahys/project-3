@@ -39,6 +39,7 @@ class Home extends Component {
     }
 
     componentDidMount = () => {
+        console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Home", "\n", this.props, "\n", this.state);
         this.getUsers();
     }
 

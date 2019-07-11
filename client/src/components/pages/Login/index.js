@@ -24,6 +24,9 @@ class Login extends Component {
     };
   };
 
+  componentDidMount = () => {
+    console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Login", "\n", this.props);
+  }
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/home' />
@@ -137,12 +140,12 @@ class Login extends Component {
                 </a>
                   </p>
                   <div className="text-center mb-3">
-                  {this.renderRedirect()}
+                  {/* {this.renderRedirect()} */}
                     <MDBBtn
                       type="button"
                       rounded
                       className="btn-block z-depth-1a"
-                      href="/home"
+                      // href="/home"
                       onClick={this.onSignIn}
                     >
                       Sign in

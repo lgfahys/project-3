@@ -24,17 +24,39 @@ mongoose.connect(MONGODB_URI, {
 //     process.exit(1);
 //   });
 
-db.Users
-    .deleteMany({})
-    .then((data) => {
-        console.log(`\nClearing database: ${data.n} records removed...\n`);
-    })
-    .catch((err) => {
-        console.error(err);
-        process.exit(1);
-    });
-
 let userCount = 0;
+let sessionCount = null;
+
+
+const clearUsers = async () => {
+    await db.Users
+        .deleteMany({}).exec()
+        .then((data) => {
+            console.log(`\nClearing database: ${data.n} records removed...\n`);
+        })
+        .catch((err) => {
+            console.error(err);
+            process.exit(1);
+        });
+}
+
+const clearSessions = async () => {
+    await db.UserSession
+        .deleteMany({})
+        .then((data) => {
+            console.log(`\nClearing sessions: ${data.n} sessions removed...\n`);
+            sessionCount = data.n || 1;
+        })
+        .catch((err) => {
+            console.error(err);
+            process.exit(1);
+        });
+}
+
+
+clearUsers(); 
+clearSessions();
+
 
 seedUsers.map((user) => {
     let newUser = new db.Users();
@@ -66,11 +88,14 @@ seedUsers.map((user) => {
         userCount += 1;
         
         console.log(`[${user._id}] #${userCount} - ${user.name} saved to user collection.`);
-        
-        if (userCount === seedUsers.length) {
-            console.log(`\nAll users inserted into database...\n`);
-            process.exit(0);
-        }
 
     });
 });
+
+setTimeout(() => {
+    if (userCount === seedUsers.length && sessionCount !== null) {
+        console.log(`\nAll users inserted into database...\n`);
+        process.exit(0);
+    }
+}, 1000);
+
