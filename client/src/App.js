@@ -13,7 +13,8 @@ import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
 import Navbar from "./components/Navbar";
-
+import EditProfile from './components/pages/EditProfile/index'
+import FileUpload from "./components/pages/EditProfile/FileUpload"
 
 // import io from 'socket.io-client';
 // const socket = io("http://localhost:3001");

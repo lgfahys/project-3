@@ -1,0 +1,3 @@
+export S3_BUCKET="chatterbootcamp"
+export AWS_ACCESS_KEY_ID="AKIAI3NHCXEUHOPVHCZA"
+export AWS_SECRET_ACCESS_KEY="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"
