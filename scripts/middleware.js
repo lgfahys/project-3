@@ -5,7 +5,7 @@ module.exports = {
         const c = {
             blue_bg: "\x1b[44m",
             yellow_fg: "\x1b[33m",
-            cyan_fg: "\x1b[36m",        
+            cyan_fg: "\x1b[36m",
             bright: "\x1b[1m",
             default: "\x1b[0m"
         };
