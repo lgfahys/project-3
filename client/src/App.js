@@ -12,9 +12,9 @@ import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
-import EditProfile from './components/pages/EditProfile/index';
-import FileUpload from "./components/pages/EditProfile/FileUpload";
-
+import Navbar from "./components/Navbar";
+import EditProfile from './components/pages/EditProfile/index'
+import FileUpload from "./components/pages/EditProfile/FileUpload"
 import Test from "./Test";
 
 // import io from 'socket.io-client';
@@ -83,19 +83,17 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Test token={this.state.token}></Test>
-        <Route exact path ="/" render={this.checkTokenHome}/>
-        <Route exact path="/signup" component ={SignUp} />
-        <Route exact path="/login" component ={Login} />
-        <Route exact path="/api" component={API} />
-        <Route exact path="/profile" token={this.state.token} component={Profile} />
-        
-        <Route exact path ="/home" render={this.checkTokenHome} />
-        <Route exact path="/upload" component={FileUpload}/>
-
-        <Route exact path ="/chat" render={this.checkTokenChat}/>
-        <Route exact path ="/edit" component={EditProfile}/>
-        
+          {/* <Test token={this.state.token}></Test> */}
+          <Navbar token={this.state.token} />
+            <Route exact path ="/" render={this.checkTokenHome}/>
+            <Route exact path="/signup" component ={SignUp} />
+            <Route exact path="/login" component ={Login} />
+            <Route exact path="/api" component={API} />
+            <Route exact path="/profile" component ={Profile} />  
+            <Route exact path ="/home" render={this.checkTokenHome} />
+            <Route exact path="/upload" component={FileUpload}/>
+            <Route exact path ="/chat" render={this.checkTokenChat}/>
+            <Route exact path ="/edit" component={EditProfile}/>
         </div>
       </Router>
     );

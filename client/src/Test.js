@@ -16,6 +16,7 @@ class Test extends Component {
 
     getUserById = (id) => {
         if (id === null || id === "") { return; }
+        
         api
             .getUserBySession(id)
             .then(res => {

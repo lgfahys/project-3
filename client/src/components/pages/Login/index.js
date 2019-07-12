@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
-import Navbar from "../../Navbar/loggedOut";
 import { Redirect } from 'react-router-dom';
 import {
   setInStorage
@@ -20,18 +19,19 @@ class Login extends Component {
       signInError: '',
       signInEmail: '',
       signInPassword: '',
-      redirect: false
+      // redirect: false
     };
   };
 
   componentDidMount = () => {
     console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Login", "\n", this.props);
   }
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/home' />
-    }
-  }
+
+  // renderRedirect = () => {
+  //   if (this.state.redirect) {
+  //     return <Redirect to='/home' />
+  //   }
+  // }
 
   onTextboxChangeSignInEmail(event) {
     this.setState({
@@ -76,7 +76,7 @@ class Login extends Component {
             signInPassword: '',
             signInEmail: '',
             token: json.token,
-            redirect: true
+            // redirect: true
           });
         } else {
           this.setState({
@@ -92,7 +92,6 @@ class Login extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
         <Container fluid>
 
           <Row className="loginRow">
