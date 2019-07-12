@@ -8,8 +8,8 @@ import "./media.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Navbar from "../../Navbar/loggedOut";
-import NavLI from "../../Navbar/loggedIn";
+import Navbar from "../../Navbar/index";
+
 import S3FileUpload from 'react-s3';
 
 //Optional Import

@@ -13,7 +13,7 @@ import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
 import Navbar from "./components/Navbar";
-import EditProfile from './components/pages/EditProfile/index'
+
 import FileUpload from "./components/pages/EditProfile/FileUpload"
 
 // import io from 'socket.io-client';
@@ -86,6 +86,7 @@ class App extends Component {
             <Route exact path="/login" component ={Login} />
             <Route exact path="/api" component={API} />
             <Route exact path="/profile" component ={Profile} />  
+            <Route exact path='/editprofile' component={FileUpload}/>
             <Route exact path ="/home" render={this.checkTokenHome} />
             <Route exact path ="/chat" render={this.checkTokenChat}/>
           </div>

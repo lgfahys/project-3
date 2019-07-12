@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import "./media.css";
 import "./style.css";
 
-import NavLI from "../../Navbar/loggedIn";
+//import NavLI from "../../Navbar/loggedIn";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
