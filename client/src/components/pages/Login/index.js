@@ -23,6 +23,10 @@ class Login extends Component {
     };
   };
 
+  componentDidMount = () => {
+    console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Login", "\n", this.props);
+  }
+
   // renderRedirect = () => {
   //   if (this.state.redirect) {
   //     return <Redirect to='/home' />

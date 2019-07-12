@@ -10,6 +10,10 @@ export default {
         return axios.get("/api/user/id/" + id);
     },
 
+    getUserBySession: (id) => {
+        return axios.get("/api/user?session=" + id);
+    },
+
     getUserByName: (name) => {
         return axios.get("/api/user/name/" + name);
     },

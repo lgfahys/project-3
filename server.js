@@ -2,9 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const routes = require("./routes");
+
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
+// This needs to go into the scripts folder as a requred input
 module.exports = () => {
   // call dotenv and it will return an Object with a parsed key 
   const env = dotenv.config().parsed;
@@ -48,13 +50,14 @@ console.log(dotenv);
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useCreateIndex: true
 });
 
 
 // Start the API server
 const expressServer = app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+  console.log(`\n🌎 ==> API server now on port ${PORT}!`);
 });
 
 // Connect Socket

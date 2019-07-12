@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const userSessionSchema = new Schema({
     userId: {
-        type: String,
-        default: ""
+        type: Schema.Types.ObjectId,
+        default: null,
+        ref: "Users"
     },
     timestamp: {
         type: Date,

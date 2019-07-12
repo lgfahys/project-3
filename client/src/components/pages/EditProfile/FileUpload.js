@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+
 import "./media.css";
 import "./style.css";
-import { MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBIcon } from 'mdbreact';
-import "./style.css";
-import "./media.css";
+import { MDBInput, MDBBtn, MDBCard, MDBCardBody /*, MDBIcon */ } from 'mdbreact';
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Navbar from "../../Navbar/loggedOut";
-import NavLI from "../../Navbar/loggedIn";
+import Navbar from "../../Navbar";
+// import Navbar from "../../Navbar/loggedOut";
+// import NavLI from "../../Navbar/loggedIn";
 import S3FileUpload from 'react-s3';
 
 //Optional Import
-import { uploadFile } from 'react-s3';
+// import { uploadFile } from 'react-s3';
 //import { Component } from 'react';
 // require('dotenv').config()
-import DatePicker from "react-datepicker";
- 
+// import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 //PASS Keys here, but DONT PUSH TO GITHUB IF NOT SECURED
@@ -28,7 +28,6 @@ const config = {
     accessKeyId: 'removed',
     secretAccessKey: 'removed',
 }
-
 
 
 class FileUpload extends Component {
@@ -82,9 +81,9 @@ getPickerValue = (value) => {
 }
 
 renderRedirect = () => {
-if (this.state.redirect) {
-  return <Redirect to='/' />
-}
+// if (this.state.redirect) {
+//   return <Redirect to='/' />
+// }
 }
 
 onTextboxChangeSignUpEmail(event) {
@@ -300,7 +299,6 @@ render(){
                       onChange={this.onTextboxChangeSignUpPassword}
                     />
 
-                 
                   <div className="text-center py-4 mt-3">
                   {this.renderRedirect()}
                     <MDBBtn onClick={this.onSignUp} href="/">
