@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+
 import "./media.css";
 import "./style.css";
 
-import NavLI from "../../Navbar/loggedIn";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Geo, { inRadius } from "../../Geo";
-import API from "../../../utils/API";
-import ReactS3 from 'react-s3';
+// import NavLI from "../../Navbar/loggedIn";
+// import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+// import ReactS3 from 'react-s3';
 import S3FileUpload from 'react-s3';
- 
+
 //Optional Import
-import { uploadFile } from 'react-s3';
-//import { Component } from 'react';
- 
+// import { uploadFile } from 'react-s3';
+
 const config = {
     bucketName: 'chatterbucket',
     dirName: 'photos', /* optional */
@@ -27,9 +24,9 @@ const config = {
 
 
 class FileUpload extends Component {
-constructor(){
-  super();
-}
+// constructor(){
+//   super();
+// }
 upload(e){
   console.log(e.target.files[0]);
   S3FileUpload.uploadFile(e.target.files[0], config)

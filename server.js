@@ -2,11 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const routes = require("./routes");
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const fileType = require('file-type');
-const bluebird = require('bluebird');
-const multiparty = require('multiparty');
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -27,13 +23,14 @@ app.use(routes);
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useCreateIndex: true
 });
 
 
 // Start the API server
 const expressServer = app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+  console.log(`\n🌎 ==> API server now on port ${PORT}!`);
 });
 
 // Connect Socket

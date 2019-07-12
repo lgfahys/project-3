@@ -83,12 +83,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-      <Test></Test>
+        <Test token={this.state.token}></Test>
         <Route exact path ="/" render={this.checkTokenHome}/>
         <Route exact path="/signup" component ={SignUp} />
         <Route exact path="/login" component ={Login} />
         <Route exact path="/api" component={API} />
-        <Route exact path="/profile" token={this.state.token} component ={Profile} />
+        <Route exact path="/profile" token={this.state.token} component={Profile} />
         
         <Route exact path ="/home" render={this.checkTokenHome} />
         <Route exact path="/upload" component={FileUpload}/>
