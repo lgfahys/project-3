@@ -107,11 +107,11 @@ io.on("connection", (socket) => {
         io.emit('RECEIVE_MESSAGE', data);
     });
 
-    socket.on("setLocation", (data) => {
+    socket.on("sendUpdate", (data) => {
 
-        console.log("socket -- set location --> ");
+        console.log("socket -- sending update request --> ");
         let testdata = "NEW USER DATA";
-        io.emit("announceLocation", testdata);
+        io.emit("announceUpdate", testdata);
     });
 
 });
