@@ -31,11 +31,15 @@ class Home extends Component {
         
         this.getCurrentUser();
         this.getUsers();
+        // if (this.state.currentUser !== null)
         this.getCurrentLocation();
     }
 
     componentDidUpdate = (prevProps, prevState) => {
         console.log("Component Updated");
+        if (this.state.currentUser.recentLocation === null) {
+            this.getCurrentLocation();
+        }
     }
 
     getCurrentUser = () => {
@@ -61,11 +65,13 @@ class Home extends Component {
     }
 
     getCurrentLocation = () => {
+        console.log("This is currentUser: ", this.state.currentUser);
+        // console.log("location: ", location);
         getLocation()
             .then(location => {
-                // console.log(location);
+                console.log("This is location: ", location);
                 let updatedUser = this.state.currentUser;
-                console.log(updatedUser);
+                console.log("This is updatedUser: ", updatedUser);
                 updatedUser.recentLocation = location;
 
                 this.setState({currentUser: updatedUser});
@@ -83,7 +89,7 @@ class Home extends Component {
     }
 
     renderActiveChats = () => {
-        if (this.state.users === undefined || this.state.users === null) return;
+        if (this.state.users === undefined || this.state.users === null || this.state.currentUser === null) return;
 
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
@@ -120,7 +126,8 @@ class Home extends Component {
 
     renderNearChats = () => {
         console.log("%cRendering Near Chats", "color: hotpink; font-weight: bold");
-        if (this.state.users === undefined || this.state.users === null) return;
+        console.log("Near - CurrentUser: ", this.state.currentUser);
+        if (this.state.users === undefined || this.state.users === null  || this.state.currentUser === null) return;
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive 
@@ -133,8 +140,12 @@ class Home extends Component {
 
         console.groupCollapsed("%cUser Distances", "color: purple; font-weight: bold");
 
+
         let nearChats = locatedUsers
-            .filter((user) => inRadius(this.state.currentUser.recentLocation, user.recentLocation));
+            .filter((user) => {
+                if (this.state.currentUser.recentLocation)
+                    return inRadius(this.state.currentUser.recentLocation, user.recentLocation)          
+            });
 
         console.groupEnd();
         
@@ -182,7 +193,7 @@ class Home extends Component {
     }
 
     renderPendingChats = () => {
-        if (this.state.users === undefined || this.state.users === null) return;
+        if (this.state.users === undefined || this.state.users === null  || this.state.currentUser === null) return;
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
