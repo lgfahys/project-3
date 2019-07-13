@@ -12,7 +12,6 @@ class signUpPage extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      token: '',
       signUpError: '',
       signUpEmail: '',
       signUpPassword: '',
@@ -20,15 +19,19 @@ class signUpPage extends Component {
       // signUpBirthDate: '',
       signUpPhone: '',
       signUpName: '',
-      // redirect: false
+      recentLocation: {
+        latitude : null,
+        longitude : null
+      },
+      redirect: false
     };
   };
 
-  // renderRedirect = () => {
-  //   if (this.state.redirect) {
-  //     return <Redirect to='/' />
-  //   }
-  // }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/login' />
+    }
+  }
 
   onTextboxChangeSignUpEmail(event) {
     this.setState({
@@ -110,7 +113,7 @@ class signUpPage extends Component {
             // signUpBirthDate: '',
             signUpPhone: '',
             signUpName: '',
-            // redirect: true
+            redirect: true
           });
         } else {
           this.setState({
@@ -126,6 +129,7 @@ class signUpPage extends Component {
   render() {
     return (
       <div className="App">
+      {this.renderRedirect()}
       <Container fluid>
         <Row className="signUpRow"> 
         <Col xs={12} md={2} lg={4}></Col>
@@ -201,10 +205,9 @@ class signUpPage extends Component {
                     />
                   </div>
                   <div className="text-center py-4 mt-3">
-                  {/* {this.renderRedirect()} */}
                     <MDBBtn 
                     onClick={this.onSignUp} 
-                    // href="/"
+                    to="/"
                     >
                       Sign Up
                     </MDBBtn>

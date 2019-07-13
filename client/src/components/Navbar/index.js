@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink } from "mdbreact";
-import { getFromStorage } from "../../utils/storage";
+import { getFromStorage, setInStorage } from "../../utils/storage";
 import socketIOClient from "socket.io-client";
 import "./style.css";
 
@@ -50,6 +50,7 @@ class Navbar extends Component {
                     isLoading: false,
                     redirect: true
                 });
+                setInStorage('the_main_app', '');
             }
             else {
                 this.setState({ isLoading: false });
@@ -66,6 +67,7 @@ class Navbar extends Component {
         const blueText = {color: '#66FCF1'}
         return (
         <div>
+            {this.renderRedirect()}
             <header>
                 <MDBNavbar className="navbar" expand="md" scrolling fixed="top">
                     <MDBNavbarBrand style={blueText} href="/home">
@@ -78,7 +80,6 @@ class Navbar extends Component {
                                 <MDBNavLink style={blueText} to="/editProfile">Edit Profile</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                                {this.renderRedirect()}
                                 <MDBNavLink style={blueText} onClick={ this.logout } to="/">Log Out</MDBNavLink>
                             </MDBNavItem>
                         </MDBNavbarNav>
