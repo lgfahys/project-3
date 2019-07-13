@@ -12,7 +12,7 @@ import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
-import Navbar from "./components/Navbar";
+import { Navbar } from "./components/Navbar";
 import EditProfile from './components/pages/EditProfile/index'
 import FileUpload from "./components/pages/EditProfile/FileUpload"
 import Test from "./Test";

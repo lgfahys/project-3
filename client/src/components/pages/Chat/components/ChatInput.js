@@ -21,8 +21,8 @@ return(
             {/* <div > */}
               {/* <input type="text" id="example1" className="form-control form-control-lg" /> */}
               {/* <div className="card-input"> */}
-                <input type="text" placeholder="Message" className="form-control" value={props.message} onChange={(ev) => props.changeMessage(ev)}/>
-                <MDBBtn {...props} onClick={props.sendMessage}  type="submit"> Send</MDBBtn>
+                <input type="text" placeholder="Message" className="form-control" value={props.message} onChange={(ev) => props.changemessage(ev)}/>
+                <MDBBtn {...props} onClick={props.sendmessage}  type="submit"> Send</MDBBtn>
                 {/* <hr/> */}
               {/* </div> */}
             {/* </div> */}

@@ -5,7 +5,16 @@ const db = require("../models");
 module.exports = {
     findAll: function(req, res) {
         db.Users
-            .find(req.query)
+            .find(req.query, {
+                // excluded fields
+                "bio": 0 ,
+                "birthdate": 0,
+                "email": 0,
+                "gender": 0,
+                "image": 0,
+                "password": 0,
+                "phone": 0
+            })
             .sort({ name: 1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
