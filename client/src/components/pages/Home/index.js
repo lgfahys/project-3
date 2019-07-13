@@ -41,9 +41,9 @@ class Home extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         console.log("Component Updated");
-        if (this.state.currentUser.recentLocation === null) {
-            this.getCurrentLocation();
-        }
+//         if (this.state.currentUser.recentLocation === null) {
+//             this.getCurrentLocation();
+//         }
     }
 
     getCurrentUser = () => {
