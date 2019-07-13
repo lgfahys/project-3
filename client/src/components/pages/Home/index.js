@@ -5,7 +5,7 @@ import "./style.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Geo, { inRadius } from "../../Geo";
+import { getLocation, inRadius } from "../../Geo";
 import API from "../../../utils/API";
 
 class Home extends Component {
@@ -16,12 +16,8 @@ class Home extends Component {
         this.state = {
             users: null,
             redirect: false,
-            path: null
-        };
-
-        this.location = {
-            latitude: null,
-            longitude: null
+            path: null,
+            currentLocation: null
         };
         
     }
@@ -35,10 +31,38 @@ class Home extends Component {
         })
         .catch(err => console.log(err));
     }
-
+    
     componentDidMount = () => {
         console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Home", "\n", this.props, "\n", this.state);
+        
         this.getUsers();
+        
+        // let location = 
+        
+        getLocation()
+            .then(location => {
+                console.log(location);
+                this.setState({currentLocation: location});
+                this.setCurrentLocation(location);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        // console.log("Location: ", location().then((data) => console.log(data)));
+
+        // this.setState({currentLocation: "hello"});
+
+        // if (location) {
+        //     console.log("Got Location: ");
+        //     
+        // }
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        console.log("Component Updated");
+        // console.log("--> " + location);
+        // console.log("--> " + this.state.currentLocation);
     }
 
     setRedirect = () => {
@@ -313,17 +337,14 @@ class Home extends Component {
     }
 
     // May not be needed
-    getCurrentLocation = ({latitude, longitude}) => {
-        this.location.latitude = latitude;
-        this.location.longitude = longitude;
-        console.log("Home Page: ", latitude, longitude);
-
+    setCurrentLocation = ({latitude, longitude}) => {
+        // console.log("Home Page: ", latitude, longitude);
         if (this.state.users) {  
             let currentUser = this.state.users[0];
-            console.log("making request to set location");
+            console.log("Making request to set location...");
             API.updateLocationUser(currentUser._id, latitude, longitude)
             .then(res => {
-            console.log("Got to Res", res);
+            console.log("Got response for setting location: ", res);
             })
             .catch(err => console.log(err));;
         }
@@ -423,7 +444,7 @@ class Home extends Component {
                     </Row>
 
                 </Container>
-            <Geo getLocation={this.getCurrentLocation}/>
+                {/* {console.log(getLocation())} */}
         </div>
 
         )
