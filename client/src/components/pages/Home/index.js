@@ -63,7 +63,7 @@ class Home extends Component {
     getCurrentLocation = () => {
         getLocation()
             .then(location => {
-                console.log(location);
+                // console.log(location);
                 let updatedUser = this.state.currentUser;
                 console.log(updatedUser);
                 updatedUser.recentLocation = location;
@@ -119,6 +119,7 @@ class Home extends Component {
     }
 
     renderNearChats = () => {
+        console.log("%cRendering Near Chats", "color: hotpink; font-weight: bold");
         if (this.state.users === undefined || this.state.users === null) return;
         
         let activeUsers = this.state.users
@@ -130,8 +131,12 @@ class Home extends Component {
         let locatedUsers = activeUsers
             .filter((user) => user.recentLocation);
 
+        console.groupCollapsed("%cUser Distances", "color: purple; font-weight: bold");
+
         let nearChats = locatedUsers
             .filter((user) => inRadius(this.state.currentUser.recentLocation, user.recentLocation));
+
+        console.groupEnd();
         
         if (nearChats.length === 0) {
             return (
@@ -345,7 +350,7 @@ class Home extends Component {
     }
 
     renderRedirect = () => {
-        console.log("this is path: " + this.state.path);
+        console.log("Current Redirect path: " + this.state.path);
         if (this.state.redirect && this.state.path) {
             console.log("Redirecting to: " + this.state.path);
             return <Redirect to={this.state.path} />;

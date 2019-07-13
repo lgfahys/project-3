@@ -51,7 +51,7 @@ const getLocation = () => {
             
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        console.log(`Current Position: { Latitude: ${position.coords.latitude} | Longitude: ${position.coords.latitude} }`);
+                        console.log(`Current Position: { Latitude: ${position.coords.latitude} | Longitude: ${position.coords.longitude} }`);
                         
                         location.latitude = position.coords.latitude;
                         location.longitude = position.coords.longitude;
