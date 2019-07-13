@@ -24,8 +24,12 @@ class Home extends Component {
             currentLocation: null
         };
         
+        socket.on("announceUpdate", (data) => {
+            console.log("Got DATA to announce: ", data);
+            this.getUsers();
+        });
     }
-    
+
     componentDidMount = () => {
         console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Home", "\n", this.props, "\n", this.state);
         
@@ -76,6 +80,36 @@ class Home extends Component {
             });
     }
 
+    // updateUsers = () => {
+    //     let updatedCurrentUser;
+    //     let updatedUsers;
+        
+    //     API
+    //         .getUsers()
+    //         .then(res => {
+    //             console.log("%cUpdating Users", "color: green; font-weight: bold", res.data);
+
+    //             for (let i=0; i < res.data.length; i++) {
+    //                 for (let keys in res.data[i]) {
+    //                     if (keys === "_id")
+    //                         if (res.data[i]._id === this.state.currentUser._id)
+    //                             updatedCurrentUser = this.state.users[i];
+    //                 }
+    //             }
+    //             updatedUsers = res.data;
+    //             console.log("current user: ", updatedCurrentUser);
+    //         })
+    //         .then( () => {
+    //             this.setState({
+    //                 currentUser: updatedCurrentUser ,
+    //                 users: updatedUsers,
+                    
+    //             });
+    //         })
+    //         .catch(err => console.log(err));
+        
+    // }
+
     setRedirect = () => {
         this.setState({
             redirect: true
@@ -83,7 +117,7 @@ class Home extends Component {
     }
 
     renderActiveChats = () => {
-        if (this.state.users === undefined || this.state.users === null) return;
+        if (this.state.users === undefined || this.state.users === null || this.state.currentUser === null) return;
 
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
@@ -120,7 +154,7 @@ class Home extends Component {
 
     renderNearChats = () => {
         console.log("%cRendering Near Chats", "color: hotpink; font-weight: bold");
-        if (this.state.users === undefined || this.state.users === null) return;
+        if (this.state.users === undefined || this.state.users === null || this.state.currentUser === null) return;
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive 
@@ -182,7 +216,7 @@ class Home extends Component {
     }
 
     renderPendingChats = () => {
-        if (this.state.users === undefined || this.state.users === null) return;
+        if (this.state.users === undefined || this.state.users === null || this.state.currentUser === null) return;
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
@@ -309,6 +343,8 @@ class Home extends Component {
         API.updateRequestUser(this.state.currentUser._id, id)
             .then(res => {
                 console.log("Got to Res", res);
+
+                socket.emit("sendUpdate");
                 this.getUsers();
             })
             .catch(err => console.log(err));
@@ -331,6 +367,8 @@ class Home extends Component {
         API.updateCancelUser(this.state.currentUser._id, id)
             .then(res => {
                 console.log("Got to Res", res);
+
+                socket.emit("sendUpdate");
                 this.getUsers();
             })
             .catch(err => console.log(err));
@@ -342,6 +380,8 @@ class Home extends Component {
         API.updateActiveUser(this.state.currentUser._id, id)
             .then(res => {
                 console.log("Got to Res", res);
+
+                socket.emit("sendUpdate");
                 this.getUsers();
             })
             .catch(err => console.log(err));
