@@ -87,22 +87,9 @@ class Home extends Component {
 
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
-            // .filter((user) => {
-            //     if (user.isActive) {
-            //         return user;
-            //     };
-            // });
 
         let activeChats = activeUsers
             .filter((user) => this.state.currentUser.acceptedChats.indexOf(user._id) !== -1);
-            // .filter((user) => {
-            //     if (currentUser.acceptedChats.indexOf(user._id) !== -1) {
-            //         // console.log(`Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
-            //         return user;
-            //     } else {
-            //         // console.log(`Not Accepted: ${user.name} = ${currentUser.acceptedChats.indexOf(user._id)}`);
-            //     }
-            // });
         
         if (activeChats.length === 0) {
             return (
@@ -139,37 +126,12 @@ class Home extends Component {
                 && this.state.currentUser.acceptedChats.indexOf(user._id) === -1
                 && this.state.currentUser.pendingChats.indexOf(user._id) === -1
                 && this.state.currentUser.requestedChats.indexOf(user._id) === -1 );
-            // .filter((user) => {
-            //     if (user.isActive 
-            //         && 
-            //         currentUser.acceptedChats.indexOf(user._id) === -1
-            //         &&
-            //         currentUser.pendingChats.indexOf(user._id) === -1
-            //         &&
-            //         currentUser.requestedChats.indexOf(user._id) === -1
-            //         ) {
-            //         return user;
-            //     };
-            // });
         
         let locatedUsers = activeUsers
             .filter((user) => user.recentLocation);
-            // .filter((user) => {
-            //     if (user.recentLocation) {
-            //         return user;
-            //     }
-            // });
 
         let nearChats = locatedUsers
             .filter((user) => inRadius(this.state.currentUser.recentLocation, user.recentLocation));
-            // .filter((user) => {
-            //     if (inRadius(currentUser.recentLocation, user.recentLocation)) {
-            //         console.log(`In range: ${user.name}`);
-            //         return user;
-            //     } else {
-            //         console.log(`Out of range: ${user.name}`);
-            //     };
-            // });
         
         if (nearChats.length === 0) {
             return (
@@ -219,33 +181,12 @@ class Home extends Component {
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive);
-            // .filter((user) => {
-            //     if (user.isActive) {    
-            //         return user;
-            //     };
-            // });
         
         let pendingChats = activeUsers
             .filter((user) => this.state.currentUser.pendingChats.indexOf(user._id) !== -1);
-            // .filter((user) => {
-            //     if (currentUser.pendingChats.indexOf(user._id) !== -1) {
-            //         // console.log(`Pending: ${user.name} = ${currentUser.pendingChats.indexOf(user._id)}`);
-            //         return user;
-            //     } else {
-                    
-            //     };
-            // });
 
         let requestedChats = activeUsers
             .filter((user) => this.state.currentUser.requestedChats.indexOf(user._id) !== -1);
-            // .filter((user) => {
-            //     if (currentUser.requestedChats.indexOf(user._id) !== -1) {
-            //         // console.log(`Requested: ${user.name} = ${currentUser.requestedChats.indexOf(user._id)}`);
-            //         return user;
-            //     } else {
-                    
-            //     };
-            // });
 
         if (pendingChats.length === 0 && requestedChats.length === 0) {
             return (
