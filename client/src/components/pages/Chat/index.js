@@ -3,13 +3,16 @@ import React, { Component } from "react";
 // import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBListGroup, MDBListGroupItem, MDBBadge, MDBIcon, MDBBtn, MDBScrollbar } from "mdbreact";
 //import "./ChatPage.css";
 
+import { socket } from "../../Navbar";
 import ChatUser from "./components/ChatUser"
 import Container from "react-bootstrap/Container";
 // import Row from "react-bootstrap/Row";
 // import Col from "react-bootstrap/Col";
-import ChatBody from "./components/ChatBody"
-import ChatInput from "./components/ChatInput"
-import io from "socket.io-client";
+import ChatBody from "./components/ChatBody";
+import ChatInput from "./components/ChatInput";
+// import io from "socket.io-client";
+
+// var socket; 
 
 class ChatPage extends Component {
 
@@ -19,12 +22,17 @@ class ChatPage extends Component {
         this.state = {
             username: '',
             message: '',
-            messages: []
+            messages: [],
         };
 
-        this.socket = io('http://localhost:3001');
 
-        this.socket.on('RECEIVE_MESSAGE', function(data){
+        socket.on('RECEIVE_MESSAGE', function(data){
+            console.log("recieved message");
+            addMessage(data);
+        });
+
+        socket.on("announceLocation", (data) => {
+            console.log("Got DATA to announce: ", data);
             addMessage(data);
         });
 
@@ -36,7 +44,7 @@ class ChatPage extends Component {
 
         this.sendMessage = ev => {
             ev.preventDefault();
-            this.socket.emit('SEND_MESSAGE', {
+            socket.emit('SEND_MESSAGE', {
                 author: this.state.username,
                 message: this.state.message
             })
@@ -49,12 +57,20 @@ class ChatPage extends Component {
         }
     }
 
+    componentDidMount = () => {
+        console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Chat", "\n", this.props, "\n", this.state);
+
+        socket.emit("setLocation");
+    }
+    
+
+
     render() {
         return (
             <Container className="chatContainer">
                 <ChatUser />
                 <ChatBody messages={this.state.messages}/>
-                <ChatInput changeMessage={this.changeMessage} message={this.state.message} sendMessage={this.sendMessage} />
+                <ChatInput changemessage={this.changeMessage} message={this.state.message} sendmessage={this.sendMessage} />
             </Container>
         )
     }

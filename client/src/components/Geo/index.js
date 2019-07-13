@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { getPreciseDistance, isPointWithinRadius } from 'geolib';
 
 // ***** Notes on geolib *****
@@ -36,110 +35,41 @@ import { getPreciseDistance, isPointWithinRadius } from 'geolib';
 // lat/long: +  0.001 ->    143 meters
 // lat/long: + 0.0001 ->     14 meters
 
-class Geolocation extends Component {
-    constructor(props) {
-    super(props);
 
-        this.state = {
+const getLocation = () => {
+    return new Promise((resolve, reject) => {
+        let location = {
             latitude: null,
-            longitude: null,
-            error: null
+            longitude: null
         };
-    }
 
-    componentDidMount() {
-        this.getLocation();
-    }
-
-    getLocation = () => {
         if (!navigator.geolocation) {
             console.log("Geolocation API is not supported in your browser.");
-        }
-        else {
-            console.log("Setting location...");
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.setState({
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        error: null,
+        } else 
+        {
+            console.log("Requesting location from browser...");
+            
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        console.log(`Current Position: { Latitude: ${position.coords.latitude} | Longitude: ${position.coords.longitude} }`);
+                        
+                        location.latitude = position.coords.latitude;
+                        location.longitude = position.coords.longitude;
+                        resolve(location);
+                        // return location;
+                    }, 
+                    (error) => {
+                        console.log({ error: error.message });
+                        reject("Error getting location");
+                    },
+                    { 
+                        enableHighAccuracy: true,
+                        timeout: 20000,   //  5000 ?
+                        maximumAge: 1000  // 10000 ?
                     });
-                    return {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.latitude
-                    };
-                },
-                (error) => this.setState({ error: error.message }),
-                { 
-                    enableHighAccuracy: true,
-                    timeout: 20000,   //  5000 ?
-                    maximumAge: 1000  // 10000 ?
-                });
-        }
-    }
-
-    updateUserLocation = () => {
-        console.log(`Current Position: { Latitude: ${this.state.latitude} | Longitude: ${this.state.longitude} }`);
-        this.props.getLocation({latitude: this.state.latitude, longitude: this.state.longitude});
-        //setInterval(function () {
-        //   locationSet();
-        // }, 120 * 1000);
-    }
-
-    getDistance = ({latitude, longitude}) => {
-        if (this.state.latitude !== null && this.state.longitude !== null) {
-            
-            let distance = getPreciseDistance(
-                { latitude: this.state.latitude, longitude: this.state.longitude },
-                { latitude, longitude}
-            );
-            
-            console.log(`Distance from { ${latitude}, ${longitude} }: ${distance}`);
-            return distance;
-        }
-    }
-
-    inRadius = ({latitude, longitude}, radius=805) => {
-        if (this.state.latitude !== null && this.state.longitude !== null) {
-                
-            let inRange = isPointWithinRadius(
-                { latitude: this.state.latitude, longitude: this.state.longitude },
-                { latitude, longitude},
-                radius
-            );
-            console.log(`Distance in radius? ${inRange} :  ${radius} @ { ${latitude}, ${longitude} }`);
-            return inRange.toString();
-        }
-    }
-
-    renderOutput = () => {
-        return (
-            <div style={{color: "white"}}>
-                <p>Latitude: {this.state.latitude}</p>
-                <p>Longitude: {this.state.longitude}</p>
-                <p>Distance between two points: {this.getDistance({latitude: 35.80, longitude: -78.82})} </p>
-                <p>Distance in radius: {this.inRadius({latitude: 35.80, longitude: -78.82})} </p>
-                {this.state.error ? <p>Error: {this.state.error}</p> : null}
-            </div>
-        );
-    }
-    
-    renderComponent = () =>{
-        this.updateUserLocation();
-    }
-
-    render() {
-        console.log(`Current Position: { Latitude: ${this.state.latitude} | Longitude: ${this.state.longitude} }`);
-
-        return (
-            // null
-            <span>{this.renderComponent()}</span>
-            );
-        }
+            }
+    })
 }
-
-export default Geolocation;
-
 
 const getDistance = (user1, user2) => {
     return getPreciseDistance(
@@ -158,4 +88,4 @@ const inRadius = (user1, user2, radius=805) => {
     return inRange;
 }
 
-export { inRadius };
+export { getLocation, inRadius };
