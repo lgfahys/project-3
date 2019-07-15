@@ -38,6 +38,10 @@ export default {
         return axios.get("/api/room/users?id1=" + id1 + "&id2=" + id2);
     },
 
+    deleteRoomById: (id) => {
+        return axios.delete("/api/room/id/" + id);
+    },
+
     getAllMessages: () => {
         return axios.get("/api/message/all");
     },
@@ -50,21 +54,13 @@ export default {
         return axios.get("/api/message/rid/" + id);
     },
 
-    // getBook: function(id) {
-    //     return axios.get("/api/books/" + id);
-    // },
-
-    // deleteBook: function(id) {
-    //     return axios.delete("/api/books/" + id);
-    // },
-
-    // saveBook: function(bookData) {
-    //     return axios.post("/api/books", bookData);
-    // }
+    // Handle User Location
 
     updateLocationUser: (id, lat, lon) => {
         return axios.put("/api/location/user?id=" + id + "&lat=" + lat + "&lon=" + lon);
     },
+
+    // Handle User Interaction Buttons
 
     updateRequestUser: (id1, id2) => {
         return axios.put("/api/request/users?id1=" + id1 + "&id2=" + id2);

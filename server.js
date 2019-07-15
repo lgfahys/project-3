@@ -118,18 +118,22 @@ io.on("connection", (socket) => {
     socket.on("join", (data) => {
         console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- joining`, data);
 
+        socket.join(data.room);
+        socket.in(data.room).emit("message", "Some message here...");
     });
 
     // Request socket for chat
     socket.on("rejoin", (data) => {
         console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- rejoining`, data);
-
+        
+        socket.join(data.room);
     });
 
     //
     socket.on("leave", (data) => {
         console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- leaving`, data);
-
+        
+        socket.leave(data.room);
     });
 
 });

@@ -12,7 +12,7 @@
     "install": "cd client && npm install",
     "heroku-postbuild": "npm run build"
   },
-  "author": "Elvin Eng, Lindsey Fays",
+  "author": "Elvin Eng, Lindsey Grayson Fahys, Yevheniia Dilekoglu, Chase Vernon, Emery Ihegaranya",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
