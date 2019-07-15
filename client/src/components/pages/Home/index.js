@@ -51,7 +51,7 @@ class Home extends Component {
                 
                 res.data.forEach((room) => {
                     console.log("Belongs to room: ", room._id);
-                    socket.emit("join", {room: room_id} );
+                    socket.emit("join", {room: room._id} );
                 });
             })
             .catch(err => console.log(err));
@@ -283,7 +283,7 @@ class Home extends Component {
 
                         <Col className="btn-style" sm="1" md="2" lg="2">
                             <button 
-                                onClick={() => this.handleCancel(element._id)}
+                                onClick={() => this.handleDecline(element._id)}
                                 className="btn btn-danger"
                             >
                                 Decline<i className="fas far fa-thumbs-down pl-1"></i>
@@ -390,7 +390,20 @@ class Home extends Component {
     handleCancel = (id) => {
         API.updateCancelUser(this.state.currentUser._id, id)
             .then(res => {
-                console.log("Got to Res", res);
+                console.log("trying to cancel: ", res);
+
+                socket.emit("sendUpdate");
+                this.getUsers();
+            })
+            .catch(err => console.log(err));
+
+        console.log("handling cancel chat: ", id);
+    }
+
+    handleDecline = (id) => {
+        API.updateCancelUser(id, this.state.currentUser._id)
+            .then(res => {
+                console.log("trying to cancel: ", res);
 
                 socket.emit("sendUpdate");
                 this.getUsers();
