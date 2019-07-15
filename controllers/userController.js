@@ -15,8 +15,58 @@ module.exports = {
                 "password": 0,
                 "phone": 0
             })
+            .populate({
+                path: "acceptedChats",
+                select: ["_id", "name", "isActive", "acceptedChats", "ignoredChats", "requestedChats", "pendingChats", "recentLocation"]
+            })
             .sort({ name: 1 })
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => {
+
+                // Room Management Code
+                dbModel
+                    .filter((user) => user.acceptedChats.length > 0)
+                    .filter((user) => {
+                        if (user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1) {
+                            const user1 = user._id;
+                            const user2 = user.acceptedChats[0]._id;
+
+                            db.Rooms
+                                .find({users: {$elemMatch: {$in: user1, $in: user2} } })
+                                .populate({
+                                    path: "users",
+                                    select: ["_id", "name"]
+                                })
+                                .then(dbModel => {
+                                    if (dbModel.length < 1) {
+                                        // Create room
+                                        // console.log(`\nUsers staged for new room: ${user1} & ${user2}`);
+                                        const newRoom = new db.Rooms();
+
+                                        newRoom.name = newRoom._id;
+                                        newRoom.users.push(user1, user2);
+                                        
+                                        newRoom.save((err, room) => {
+                                            if (err) {
+                                                console.log("Error creating new room", err);
+                                            }
+                                            else {
+                                                console.log("New room created: \n", room)
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        // console.log("Room exists", dbModel[0].users)
+                                    }
+                                })
+                                .catch(err => console.log(err));
+                        }
+                        
+                        // not really users, but returns users that join each other
+                        return user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1;
+                    });
+                    
+                res.json(dbModel);
+            })
             .catch(err => res.status(422).json(err));
     },
 

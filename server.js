@@ -3,26 +3,26 @@ const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const routes = require("./routes");
 
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 // This needs to go into the scripts folder as a requred input
-module.exports = () => {
-    // call dotenv and it will return an Object with a parsed key 
-    const env = dotenv.config().parsed;
+// module.exports = () => {
+//     // call dotenv and it will return an Object with a parsed key 
+//     const env = dotenv.config().parsed;
 
-    // reduce it to a nice object, the same as before
-    const envKeys = Object.keys(env).reduce((prev, next) => {
-        prev[`process.env.${next}`] = JSON.stringify(env[next]);
-        return prev;
-    }, {});
+//     // reduce it to a nice object, the same as before
+//     const envKeys = Object.keys(env).reduce((prev, next) => {
+//         prev[`process.env.${next}`] = JSON.stringify(env[next]);
+//         return prev;
+//     }, {});
 
-    return {
-        plugins: [
-            new webpack.DefinePlugin(envKeys)
-        ]
-    }
-};
+//     return {
+//         plugins: [
+//             new webpack.DefinePlugin(envKeys)
+//         ]
+//     }
+// };
 
 // const AWS = require('aws-sdk');
 // const fs = require('fs');
@@ -34,9 +34,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Define middleware here
-app.use(express.urlencoded({
-    extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Serve up static assets (usually on heroku)
@@ -47,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-console.log(dotenv);
+// console.log(dotenv);
 // Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
 mongoose.connect(MONGODB_URI, {
@@ -59,7 +57,7 @@ mongoose.connect(MONGODB_URI, {
 
 // Start the API server
 const expressServer = app.listen(PORT, () => {
-    console.log(`\n🌎 ==> API server now on port ${PORT}!`);
+    console.log(`\n🌎 ==> API server now on port ${PORT}!\n`);
 });
 
 // Connect Socket
@@ -101,17 +99,38 @@ const io = socketio(expressServer, {
 // });
 
 io.on("connection", (socket) => {
-    console.log("Socket ID: ", socket.id);
+    console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- acquired`);
 
     socket.on('SEND_MESSAGE', function (data) {
         io.emit('RECEIVE_MESSAGE', data);
     });
 
+    
+    // Maintain user information between all users
     socket.on("sendUpdate", (data) => {
-
-        console.log("socket -- sending update request --> ");
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- sending update request`, data);
+        
         let testdata = "NEW USER DATA";
         io.emit("announceUpdate", testdata);
     });
 
+    // Request socket for chat
+    socket.on("join", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- joining`, data);
+
+    });
+
+    // Request socket for chat
+    socket.on("rejoin", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- rejoining`, data);
+
+    });
+
+    //
+    socket.on("leave", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- leaving`, data);
+
+    });
+
 });
+

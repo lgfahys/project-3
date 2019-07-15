@@ -5,8 +5,11 @@ module.exports = {
     findAll: function(req, res) {
         db.Rooms
             .find(req.query)
-            .populate("users")
-            .sort({ name: 1 })
+            .populate({
+                path: "users",
+                select: ["_id", "name", "isActive", "acceptedChats", "ignoredChats", "requestedChats", "pendingChats", "recentLocation"]
+            })
+            // .sort({ name: 1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
