@@ -4,25 +4,25 @@ const socketio = require("socket.io");
 const routes = require("./routes");
 
 // const webpack = require('webpack');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 // This needs to go into the scripts folder as a requred input
-module.exports = () => {
-    // call dotenv and it will return an Object with a parsed key 
-    const env = dotenv.config().parsed;
+// module.exports = () => {
+//     // call dotenv and it will return an Object with a parsed key 
+//     const env = dotenv.config().parsed;
 
-    // reduce it to a nice object, the same as before
-    const envKeys = Object.keys(env).reduce((prev, next) => {
-        prev[`process.env.${next}`] = JSON.stringify(env[next]);
-        return prev;
-    }, {});
+//     // reduce it to a nice object, the same as before
+//     const envKeys = Object.keys(env).reduce((prev, next) => {
+//         prev[`process.env.${next}`] = JSON.stringify(env[next]);
+//         return prev;
+//     }, {});
 
     // return {
     //     plugins: [
     //         new webpack.DefinePlugin(envKeys)
     //     ]
     // }
-};
+// };
 
 // const AWS = require('aws-sdk');
 // const fs = require('fs');
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-console.log(dotenv);
+// console.log(dotenv);
 // Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterdb";
 mongoose.connect(MONGODB_URI, {
