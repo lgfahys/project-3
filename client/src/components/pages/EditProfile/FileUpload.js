@@ -181,12 +181,12 @@ onSignUp = this.onSignUp.bind(this);
 
 render(){
   return(
-    <div className="App">
+    <Container>
       {/* <Navbar /> */}
-      <Container fluid>
-        <Row className="signUpRow"> 
-        <Col xs={12} md={2} lg={4}></Col>
-          <Col xs={12} md={8} lg={4}>
+      
+        <Row className="signUpRow" id="editRow"> 
+        <Col xs={1} md={1} lg={1}></Col>
+          <Col xs={12} md={10} lg={8}>
             <MDBCard>
               <MDBCardBody>
                 <form>
@@ -262,18 +262,7 @@ render(){
                       value={this.signUpPhone}
                       onChange={this.onTextboxChangeSignUpPhone}
                     />
-                    <MDBInput
-                    id="mdbinput"
-                      label="Gender"
-                      icon="user"
-                      group
-                      type="text"
-                      validate
-                      error="wrong"
-                      success="right"
-                      value={this.signUpGender}
-                      onChange={this.onTextboxChangeSignUpGender}
-                    />
+                    
                     <MDBInput
                     id="mdbinput"
                       label="Your password"
@@ -316,10 +305,11 @@ render(){
               </MDBCardBody>
             </MDBCard>
           </Col>
-          <Col xs={12} md={2} lg={4}></Col>
+          <Col xs={1} md={1} lg={1}></Col>
+         
         </Row>
-      </Container>
-      </div>
+    
+        </Container>
     
   )
 }
