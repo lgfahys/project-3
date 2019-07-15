@@ -41,9 +41,20 @@ class Home extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         console.log("Component Updated");
-//         if (this.state.currentUser.recentLocation === null) {
-//             this.getCurrentLocation();
-//         }
+        //         if (this.state.currentUser.recentLocation === null) {
+        //             this.getCurrentLocation();
+        //         }
+        API
+            .getRoomByUser(this.state.currentUser._id)
+            .then((res) => {
+                console.log("Requested all rooms for " + this.state.currentUser.name + ": ", res);
+                
+                res.data.forEach((room) => {
+                    console.log("Belongs to room: ", room._id);
+                    socket.emit("join", {room: room_id} );
+                });
+            })
+            .catch(err => console.log(err));
     }
 
     getCurrentUser = () => {
