@@ -15,7 +15,7 @@
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "dev": "webpack --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.build.js",
+    "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
   "author": "",

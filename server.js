@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const routes = require("./routes");
 
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 // This needs to go into the scripts folder as a requred input
@@ -17,11 +17,11 @@ module.exports = () => {
         return prev;
     }, {});
 
-    return {
-        plugins: [
-            new webpack.DefinePlugin(envKeys)
-        ]
-    }
+    // return {
+    //     plugins: [
+    //         new webpack.DefinePlugin(envKeys)
+    //     ]
+    // }
 };
 
 // const AWS = require('aws-sdk');
