@@ -4,7 +4,7 @@ const socketio = require("socket.io");
 const routes = require("./routes");
 
 // const webpack = require('webpack');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 // This needs to go into the scripts folder as a requred input
 // module.exports = () => {
@@ -16,7 +16,6 @@ const dotenv = require('dotenv');
 //         prev[`process.env.${next}`] = JSON.stringify(env[next]);
 //         return prev;
 //     }, {});
-
 //     return {
 //         plugins: [
 //             new webpack.DefinePlugin(envKeys)

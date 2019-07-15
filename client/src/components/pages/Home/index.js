@@ -187,8 +187,11 @@ class Home extends Component {
 
         let nearChats = locatedUsers
             .filter((user) => {
-                if (this.state.currentUser.recentLocation)
-                    return inRadius(this.state.currentUser.recentLocation, user.recentLocation)          
+                if (this.state.currentUser.recentLocation) {
+                    return inRadius(this.state.currentUser.recentLocation, user.recentLocation);
+                } else {
+                    return false
+                }       
             });
 
         console.groupEnd();
