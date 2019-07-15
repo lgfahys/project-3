@@ -1,6 +1,6 @@
 {
   "name": "mern",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Mern Demo",
   "private": true,
   "proxy": "http://localhost:3001/",
@@ -31,8 +31,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "dotenv": "^8.0.0"
-  }
+  ]
 }
