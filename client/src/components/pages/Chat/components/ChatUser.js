@@ -28,7 +28,7 @@ function ChatUser (){
             
             </Col>
         <Col sm="3" md="3" lg="3">
-        <button class="btn btn-danger">End Chat<i class="fas  pl-1"></i></button>
+        <button className="btn btn-danger">End Chat<i className="fas  pl-1"></i></button>
         </Col>
         </Row>
         

@@ -19,7 +19,8 @@ class Login extends Component {
       signInError: '',
       signInEmail: '',
       signInPassword: '',
-      // redirect: false
+      path: null,
+      redirect: false
     };
   };
 
@@ -27,11 +28,11 @@ class Login extends Component {
     console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Login", "\n", this.props);
   }
 
-  // renderRedirect = () => {
-  //   if (this.state.redirect) {
-  //     return <Redirect to='/home' />
-  //   }
-  // }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/home' token={this.state.token} />
+    }
+  }
 
   onTextboxChangeSignInEmail(event) {
     this.setState({
@@ -50,7 +51,7 @@ class Login extends Component {
   onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
   onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
 
-  onSignIn() {
+  onSignIn = () => {
     // Grab state
     this.setState({
       isLoading: true,
@@ -76,8 +77,8 @@ class Login extends Component {
             signInPassword: '',
             signInEmail: '',
             token: json.token,
-            // redirect: true
-          });
+            redirect: true
+          })
         } else {
           this.setState({
             signInError: json.message,
@@ -87,11 +88,10 @@ class Login extends Component {
       });
   }
 
-  onSignIn = this.onSignIn.bind(this);
-
   render() {
     return (
       <div className="App">
+        {this.renderRedirect()}
         <Container fluid>
 
           <Row className="loginRow">
@@ -139,12 +139,11 @@ class Login extends Component {
                 </a>
                   </p>
                   <div className="text-center mb-3">
-                  {/* {this.renderRedirect()} */}
                     <MDBBtn
                       type="button"
                       rounded
                       className="btn-block z-depth-1a"
-                      // href="/home"
+                      to="/home"
                       onClick={this.onSignIn}
                     >
                       Sign in

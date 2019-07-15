@@ -7,7 +7,7 @@ import { MDBInput, MDBBtn, MDBCard, MDBCardBody /*, MDBIcon */ } from 'mdbreact'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Navbar from "../../Navbar";
+// import Navbar from "../../Navbar";
 // import Navbar from "../../Navbar/loggedOut";
 // import NavLI from "../../Navbar/loggedIn";
 import S3FileUpload from 'react-s3';
@@ -182,7 +182,7 @@ onSignUp = this.onSignUp.bind(this);
 render(){
   return(
     <div className="App">
-      <Navbar />
+      {/* <Navbar /> */}
       <Container fluid>
         <Row className="signUpRow"> 
         <Col xs={12} md={2} lg={4}></Col>

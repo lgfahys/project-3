@@ -12,10 +12,10 @@ import Home from "./components/pages/Home/index.js";
 import API from './components/pages/API';
 import ChatPage from './components/pages/Chat/index';
 import { getFromStorage } from "./utils/storage";
-import Navbar from "./components/Navbar";
-
-import FileUpload from "./components/pages/EditProfile/FileUpload"
-import Test from "./Test";
+import { Navbar } from "./components/Navbar";
+import EditProfile from './components/pages/EditProfile/index'
+// import FileUpload from "./components/pages/EditProfile/FileUpload"
+// import Test from "./Test";
 
 // import io from 'socket.io-client';
 // const socket = io("http://localhost:3001");
@@ -33,6 +33,7 @@ class App extends Component {
   componentDidMount() {
     console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "App", "\n", this.props, "\n", this.state);
     const obj = getFromStorage('the_main_app');
+
     if (obj && obj.token) {
       const { token } = obj;
       // Verify token
@@ -60,12 +61,17 @@ class App extends Component {
 
   // checking if we have received a token and returning the appropriate screen
   checkTokenHome = () => {
+    if (getFromStorage('the_main_app') === "" && this.state.token !== null) {
+      this.setState({
+        token: null
+      });
+    }
     if (!this.state.token) {
       console.log("No token...")
       return (<Landing />);
     } else if (this.state.token) {
       console.log("Received the token!!!")
-      return (<Home token={this.state.token} user={this.state.user}/>)
+      return (<Home token={this.state.token} />)
     }
   }
 
@@ -75,11 +81,12 @@ class App extends Component {
       return (<Landing />);
     } else if (this.state.token) {
       console.log("Received the token!!!")
-      return (<ChatPage />)
+      return (<ChatPage token={this.state.token} />)
     }
   }
 
   render() {
+    console.log(this.props);
     return (
       <Router>
         <div>
@@ -92,9 +99,9 @@ class App extends Component {
             <Route exact path="/profile" component ={Profile} />  
             {/* <Route exact path='/editprofile' component={FileUpload}/> */}
             <Route exact path ="/home" render={this.checkTokenHome} />
-            <Route exact path="/upload" component={FileUpload}/>
+            {/* <Route exact path="/upload" component={FileUpload}/> */}
             <Route exact path ="/chat" render={this.checkTokenChat}/>
-            {/* <Route exact path ="/edit" component={EditProfile}/> */}
+            <Route exact path ="/editProfile" component={EditProfile}/>
         </div>
       </Router>
     );
