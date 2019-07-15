@@ -1,6 +1,6 @@
 const db = require("../models");
 
-// Defining methods for the Users
+// Defining methods for the {Users}, {UserSession}
 
 module.exports = {
     findAll: function(req, res) {
@@ -15,6 +15,17 @@ module.exports = {
         db.Users
             .findById(req.params.id)
             .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    findBySession: function(req, res) {
+        db.UserSession
+            .findById(req.query.session)
+            .populate({
+                path: "userId",
+                select: ["_id", "name", "isActive", "acceptedChats", "ignoredChats", "requestedChats", "pendingChats", "recentLocation"]
+            })
+            .then(dbModel => res.json(dbModel.userId))
             .catch(err => res.status(422).json(err));
     },
 
@@ -77,42 +88,202 @@ module.exports = {
             .findOneAndUpdate({ _id: req.query.id }, { recentLocation: { latitude: req.query.lat, longitude: req.query.lon }})
             .then(dbModel => { res.json(dbModel) })
             .catch(err => res.status(422).json(err));
-    }
+    },
 
-    // create: function(req, res) {
-    //     db.Users
-    //         .create(req.body)
-    //         .then(dbModel => res.json(dbModel))
-    //         .catch(err => res.status(422).json(err));
-    // },
-
-    // update: function(req, res) {
-    //     db.Users
-    //         .findOneAndUpdate({ _id: req.params.id }, req.body)
-    //         .then(dbModel => res.json(dbModel))
-    //         .catch(err => res.status(422).json(err));
-    // },
-
-    // remove: function(req, res) {
-    //     db.Users
-    //         .findById({ _id: req.params.id })
-    //         .then(dbModel => dbModel.remove())
-    //         .then(dbModel => res.json(dbModel))
-    //         .catch(err => res.status(422).json(err));
-    // }
-
-    // update: function(req, res) {
-    //     db.Book
-    //     .findOneAndUpdate({ _id: req.params.id }, req.body)
-    //     .then(dbModel => res.json(dbModel))
-    //     .catch(err => res.status(422).json(err));
-    // },
+    // verify the token is unique and its not deleted
+    verifyUserToken: function(req, res) {
+        db.UserSession.find({
+            _id: req.query.token,
+            isDeleted: false
+        }, (err, sessions) => {
+            if (err) {
+                return res.send({
+                    success: false,
+                    message: "Error: server error"
+                });
+            }
     
-    // remove: function(req, res) {
-    //     db.Book
-    //     .findById({ _id: req.params.id })
-    //     .then(dbModel => dbModel.remove())
-    //     .then(dbModel => res.json(dbModel))
-    //     .catch(err => res.status(422).json(err));
-    // }
+            if (!sessions.length) {
+                return res.send({
+                    success: false,
+                    message: "Error: Invalid"
+                });
+            }
+            else {
+                return res.send({
+                    success: true,
+                    message: "User is signed in",
+                    userId: sessions[0].userId
+                });
+            }
+        });
+    },
+
+    // sign up for account
+    createUser: function(req, res) {
+        const { name, phone, birthdate, gender, password, email } = req.body;
+
+        if (!name) {
+            return res.send({
+                success: false,
+                message: "First name cannot be blank"
+            });
+        };
+
+        if (!phone) {
+            return res.send({
+                success: false,
+                message: "Please enter your phone number"
+            });
+        };
+
+        // if (!birthdate) {
+        //      return res.send({
+        //          success: false,
+        //          message: "Error: Please enter your birthdate"
+        //      });
+        // };
+
+        if (!gender) {
+            return res.send({
+                success: false,
+                message: "Please enter your gender"
+            });
+        };
+
+        if (!password) {
+            return res.send({
+                success: false,
+                message: "Please enter your password"
+            });
+        };
+
+        if (!email) {
+            return res.send({
+                success: false,
+                message: "Please enter a valid email address"
+            });
+        };
+
+        db.Users.find({ email: email.toLowerCase() }, (err, previousUsers) => {
+            if (err) {
+                return res.send("Error: Server error");
+            } 
+            else if (previousUsers.length > 0) {
+                return res.send("Error: Account already exists")
+            }
+
+            const newUser = new db.Users();
+
+            newUser.email = email;
+            newUser.name = name;
+            newUser.phone = phone;
+            newUser.gender = gender;
+            // newUser.birthdate = birthdate;
+            newUser.password = newUser.generateHash(password);
+            
+            newUser.save((err, user) => {
+                if (err) {
+                    return res.send({
+                        success: false,
+                        message: "Error: server error"
+                    });
+                }
+                
+                return res.send({
+                    success: true,
+                    message: "Signed up!"
+                });
+            });
+        });
+    },
+
+    // sign in to account
+    signInUser: function(req, res) {
+        const { password, email } = req.body;
+
+        if (!email) {
+            return res.send({
+                success: false,
+                message: "Error: Please enter a valid email address"
+            });
+        };
+
+        if (!password) {
+            return res.send({
+                success: false,
+                message: "Error: Please enter your password"
+            });
+        };
+        
+        db.Users.findOne({ email: email.toLowerCase() }, (err, users) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: "Error: server error"
+                });
+            }
+    
+            if (users === null) {
+                return res.send({
+                    success: false,
+                    message: "Invalid Login"
+                });
+            }
+    
+            if (!users.validPassword(password)) {
+                return res.send({
+                    success: false,
+                    message: "Invalid Password"
+                });
+            }
+    
+            const userSession = new db.UserSession();
+    
+            userSession.userId = users._id;
+            
+            userSession.save((err, doc) => {
+                if (err) {
+                    console.log(err);
+                    return res.send({
+                        success: false,
+                        message: "Error: server error"
+                    });
+                }
+    
+                console.log("Token created: ", doc._id, "\n");
+                return res.send({
+                    success: true,
+                    message: "Signed in!",
+                    token: doc._id
+                });
+            });
+        });
+    },
+
+    // logout and remove user session
+    logoutUser: function(req, res) {
+        db.UserSession.findOneAndUpdate({
+            _id: req.query.token,
+            isDeleted: false
+        }, {
+            $set: {
+                isDeleted:true
+            }
+        }, null, (err, sessions) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            
+            return res.send({
+                success: true,
+                message: 'Logged out'
+            });
+        });
+    }
 };

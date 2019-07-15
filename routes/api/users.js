@@ -3,6 +3,7 @@ const usersController = require("../../controllers/userController");
 const roomsController = require("../../controllers/roomController");
 const messagesController = require("../../controllers/messageController");
 
+
 // router
 //     .route("/user/test/:id")
 //     .get(usersController.findTest);
@@ -18,11 +19,14 @@ router
     .route("/user/id/:id")
     .get(usersController.findById);
 
+router
+    .route("/user")
+    .get(usersController.findBySession);
+
 // Matches with "/api/user/name/:name"
 router
     .route("/user/name/:name")
     .get(usersController.findByName);
-
 
 router
     .route("/room/all")
@@ -72,6 +76,28 @@ router
 router
     .route("/active/users")
     .put(usersController.activeUser);
+
+
+// Authentication Routes
+
+router
+    .route("/accounts/signup")
+    .post(usersController.createUser);
+
+router
+    .route("/accounts/signin")
+    .post(usersController.signInUser);
+
+router
+    .route("/accounts/verify")
+    .get(usersController.verifyUserToken);
+
+router
+    .route("/accounts/logout")
+    .get(usersController.logoutUser);
+
+
+
 // // Matches with "/api/books/:id"
 // router
 //     .route("/:id")
