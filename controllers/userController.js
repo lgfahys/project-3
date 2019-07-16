@@ -301,7 +301,7 @@ module.exports = {
             .findById(req.query.session)
             .populate({
                 path: "userId",
-                select: ["_id", "name", "email", "phone", "gender", "password", "birthdate",]
+                select: ["_id", "name", "email", "phone", "gender", "password", "birthdate", "bio"]
             })
             .then(dbModel => res.json(dbModel.userId))
             .catch(err => res.status(422).json(err));

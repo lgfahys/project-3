@@ -128,9 +128,15 @@ class EditProfile extends Component {
             .getUserBySessionEditProfile(this.props.token)
             .then(res => {
                 console.log("%cGot Token User", "color: green; font-weight: bold", res.data)
-                console.log("Where is harold? ", this.state)
+                // console.log("Where is harold? ", this.state)
                 this.setState({
-                    editName: res.data.name
+                    editName: res.data.name,
+                    editEmail: res.data.email,
+                    editPhone: res.data.phone,
+                    editGender: res.data.gender,
+                    editPassword: res.data.password,
+                    startDate: res.data.birthdate,
+                    editBio: res.data.bio
                 });
             })
             .catch(err => console.log(err));
@@ -190,6 +196,7 @@ class EditProfile extends Component {
     }
 
     render() {
+        console.log("Where is harold? ", this.state)
         return (
             <div className="App">
                 <Container fluid>
@@ -239,7 +246,7 @@ class EditProfile extends Component {
                                                 validate
                                                 error="wrong"
                                                 success="right"
-                                                value={this.editName}
+                                                value={this.state.editName}
                                                 onChange={this.onTextboxChangeEditName}
                                             />
                                             <MDBInput
@@ -250,7 +257,7 @@ class EditProfile extends Component {
                                                 validate
                                                 error="wrong"
                                                 success="right"
-                                                value={this.editEmail}
+                                                value={this.state.editEmail}
                                                 onChange={this.onTextboxChangeEditEmail}
                                             />
                                             <MDBInput
@@ -261,7 +268,7 @@ class EditProfile extends Component {
                                                 validate
                                                 error="wrong"
                                                 success="right"
-                                                value={this.editPhone}
+                                                value={this.state.editPhone}
                                                 onChange={this.onTextboxChangeEditPhone}
                                             />
                                             <MDBInput
@@ -272,7 +279,7 @@ class EditProfile extends Component {
                                                 validate
                                                 error="wrong"
                                                 success="right"
-                                                value={this.editGender}
+                                                value={this.state.editGender}
                                                 onChange={this.onTextboxChangeEditGender}
                                             />
                                             <MDBInput
@@ -281,7 +288,7 @@ class EditProfile extends Component {
                                                 group
                                                 type="password"
                                                 validate
-                                                value={this.editPassword}
+                                                value={this.state.editPassword}
                                                 onChange={this.onTextboxChangeEditPassword}
                                             />
                                             <MDBInput
@@ -290,7 +297,7 @@ class EditProfile extends Component {
                                                 group
                                                 type="text"
                                                 validate
-                                                value={this.startDate}
+                                                value={this.state.startDate}
                                                 onChange={this.onTextboxChangeEditBirthDate}
                                             />
                                             <MDBInput
@@ -300,7 +307,7 @@ class EditProfile extends Component {
                                                 type="textarea"
                                                 rows="3"
                                                 validate
-                                                value={this.editBio}
+                                                value={this.state.editBio}
                                                 onChange={this.onTextboxChangeEditBio}
                                             />
                                         </div>
