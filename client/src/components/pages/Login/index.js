@@ -100,7 +100,7 @@ class Login extends Component {
           <Col sm= "1" md="4" lg="4">
               /</Col>
             <Col sm="12" md="4" lg="4">
-              <MDBCard>
+              <MDBCard id="loginCard">
                 <MDBCardBody className="mx-4">
                   <div className="text-center">
                     <h3 className="dark-grey-text mb-5">
