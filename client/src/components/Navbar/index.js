@@ -14,7 +14,9 @@ class Navbar extends Component {
         super(props);
         this.state = {
             collapse: false,
-            endpoint: "http://localhost:3001/"
+            endpoint: "http://localhost:3001/",
+            path: null,
+            redirect: false
         };
 
         socket = socketIOClient(this.state.endpoint);
@@ -26,9 +28,9 @@ class Navbar extends Component {
     }
 
     renderRedirect = () => {
-        if (this.state.redirect) {
-            return <Redirect to='/' />
-        }
+        if (this.state.redirect && this.state.path) {
+            return <Redirect to={this.state.path} token={''}/>
+        }        
     }
 
 
@@ -45,16 +47,19 @@ class Navbar extends Component {
             .then(res => res.json())
             .then(json => {
                 if (json.success) {
+                setInStorage('the_main_app', '');
                 this.setState({
                     token: '',
                     isLoading: false,
-                    redirect: true
-                });
-                setInStorage('the_main_app', '');
+                    redirect: true,
+                    path: '/'
+                });              
+                this.renderRedirect();
             }
             else {
                 this.setState({ isLoading: false });
-            }});
+            }
+        });
         }
         else {
             this.setState({ isLoading: false });
