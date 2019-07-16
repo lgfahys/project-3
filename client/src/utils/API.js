@@ -76,6 +76,10 @@ export default {
 
     updateActiveUser: (id1, id2) => {
         return axios.put("/api/active/users?id1=" + id1 + "&id2=" + id2);
-    }
+    },
+
+    getUserBySessionEditProfile: (id) => {
+        return axios.get("/api/useredit?session=" + id);
+    },
 
 };

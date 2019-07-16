@@ -278,7 +278,7 @@ module.exports = {
             isDeleted: false
         }, {
             $set: {
-                isDeleted:true
+                isDeleted: true
             }
         }, null, (err, sessions) => {
             if (err) {
@@ -294,5 +294,86 @@ module.exports = {
                 message: 'Logged out'
             });
         });
+    },
+
+    findBySessionEditProfile: function(req, res) {
+        db.UserSession
+            .findById(req.query.session)
+            .populate({
+                path: "userId",
+                select: ["_id", "name", "email", "phone", "gender", "password", "birthdate",]
+            })
+            .then(dbModel => res.json(dbModel.userId))
+            .catch(err => res.status(422).json(err));
+    },
+
+    editUser: function(req, res) {
+        const { image, name, email, phone, gender, password, birthdate, bio } = req.body;
+        console.log('REQ.BODY ', req.body)
+        if (!name) {
+            return res.send({
+                success: false,
+                message: "First name cannot be blank"
+            });
+        };
+
+        if (!email) {
+            return res.send({
+                success: false,
+                message: "Please enter a valid email address"
+            });
+        };
+
+        if (!phone) {
+            return res.send({
+                success: false,
+                message: "Please enter your phone number"
+            });
+        };
+
+        if (!gender) {
+            return res.send({
+                success: false,
+                message: "Please enter your gender"
+            });
+        };
+
+        if (!password) {
+            return res.send({
+                success: false,
+                message: "Please enter a password"
+            });
+        };
+
+        db.Users.findOneAndUpdate({
+             _id: req.query.id 
+            }, { 
+                $set: { 
+                    image: image, 
+                    name: name, 
+                    email: email, 
+                    phone: phone, 
+                    gender: gender, 
+                    password: password, 
+                    birthdate: birthdate, 
+                    bio: bio 
+                } 
+        }, null, (err, ) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            
+            return res.send({
+                success: true,
+                message: 'Profile has been updated'
+            });
+        });
+
+
+        console.log(req.query.id)
     }
-};
+}

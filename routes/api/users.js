@@ -97,6 +97,15 @@ router
     .get(usersController.logoutUser);
 
 
+// Edit Profile Routes
+
+router
+    .route("/accounts/edit")
+    .post(usersController.editUser);
+
+router
+    .route("/useredit")
+    .get(usersController.findBySessionEditProfile);
 
 // // Matches with "/api/books/:id"
 // router
