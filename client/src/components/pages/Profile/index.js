@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import ReactCardFlip from "react-card-flip";
 import { MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import "./style.css";
 import "./media2.css";
 
-import { Row, Col } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap";
 import API from "../../../utils/API";
 
 import profile from '../assets/marie.jpeg';
@@ -15,7 +16,8 @@ class Profile extends Component {
     
     this.state = {
       profiles: "",
-      isFlipped: false
+      isFlipped: false,
+      redirect: false
     };
   }
   
@@ -28,7 +30,21 @@ class Profile extends Component {
     }));
   }
 
-  componentDidMount() {
+  setRedirect = () => {
+    this.setState({
+        redirect: true
+    });
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/home" />;
+    }
+  }
+
+  componentDidMount= () => {
+    console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Profile", "\n", this.props, "\n", this.state);
+
     API
       .getProfileByUser(this.props.location.search.substr(1))
       .then(res => {
@@ -49,10 +65,18 @@ class Profile extends Component {
     const { profiles } = this.state;
     return (
     <div className="profile-page">
+      {this.renderRedirect()}
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
         <div className="container front-page" key="front">
           <Row className="signUpRow">
             <Col>
+            <button 
+                onClick={() => this.setRedirect()}
+                className="btn btn-dark btn-back"
+            >
+            <i className="fas far fa-arrow-left"></i>
+            &nbsp;&nbsp;&nbsp;Back
+            </button>
               <MDBCard>
                 <MDBCardBody >
                   <Row className="userRow">
@@ -83,6 +107,13 @@ class Profile extends Component {
         <div className="container back-page" key="back">
             <Row className="signUpRow">
               <Col>
+              <button 
+                onClick={() => this.setRedirect()}
+                className="btn btn-dark btn-back"
+              >
+              <i className="fas far fa-arrow-left"></i>
+              &nbsp;&nbsp;&nbsp;Back
+              </button>
                 <MDBCard>
                   <MDBCardBody>
                     <Row className="userRow">
