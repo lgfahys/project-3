@@ -95,6 +95,22 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    getProfileByUser: function(req, res) {
+        db.Users
+            .findById(Object.keys(req.query)[0], {
+                "acceptedChats": 0,
+                "ignoredChats": 0,
+                "requestedChats": 0,
+                "pendingChats": 0,
+                "password": 0,
+                "recentLocation": 0,
+                "phone": 0,
+                "isActive": 0
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
     requestUser: function(req, res) {
         db.Users
             .findOneAndUpdate({ _id: req.query.id1 }, {$push: { requestedChats: req.query.id2 }})

@@ -25,6 +25,10 @@ router
     .get(usersController.findByName);
 
 router
+    .route("/user/profile?")
+    .get(usersController.getProfileByUser);
+
+router
     .route("/room/all")
     .get(roomsController.findAll);
 

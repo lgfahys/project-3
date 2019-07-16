@@ -7,25 +7,16 @@ import "./media2.css";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+
 import profile from '../assets/marie.jpeg';
 
-// const API = '';
-// const DEFAULT_QUERY = 'redux';
-const data = {
-  'name': 'Marie Johnson',
-  'job': 'Web Developer',
-  'gender': 'Female',
-  'birthdate': 'January 1, 1989',
-  'image': 'profile',
-  'bio': "Hi my name is Marie! I am new to the area but love to meet new people. My favorite place to socialize is in the downtown area. I can't wait to meet new friends in the city to start chatting with!",
-  'link': 'linkedIn.com/marie'
-};
+import API from "../../../utils/API";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profiles: [],
+      profiles: "",
       isFlipped: false,
       // isLoading: false,
       // error: null,
@@ -39,101 +30,67 @@ class Profile extends Component {
   }
   //Render data from backend
   componentDidMount() {
-    this.setState({ profiles: data })
-    //   this.setState({ isLoading: true });
+    // this.setState({ profiles: data })
 
-    //   axios.get(API + DEFAULT_QUERY)
-    //     .then(result => this.setState({
-    //       profiles: result.data,
-    //       isLoading: false
-    //     }))
-    //     .catch(error => this.setState({
-    //       error,
-    //       isLoading: false
-    //     }));
+    API
+      .getProfileByUser(this.props.location.search.substr(1))
+      .then(res => {
+          console.log("%cGot User Profile", "color: green; font-weight: bold", res.data);
+          
+          let updatedProfiles = res.data;
+          let diff = Date.now() - new Date(res.data.birthdate);
+          updatedProfiles.age = new Date(diff).getUTCFullYear() - 1970;
+          updatedProfiles.gender = updatedProfiles.gender.charAt(0).toUpperCase() + updatedProfiles.gender.slice(1);
+          
+          this.setState({ profiles: res.data});
+      })
+      .catch(err => console.log(err));
   }
+
   //Render data to frontend
   render() {
     const { profiles } = this.state;
     return (
+    <div className="profile-page">
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
         <div key="front">
           <Container fluid>
             <Row className="signUpRow">
-              <Col xs={12} md={2} lg={4}></Col>
-              <Col xs={12} md={8} lg={4}>
-                <MDBCard>
-                  <MDBCardBody>
-                    <form>
+              {/* <Col xs={12} md={2} lg={4}></Col> */}
+              {/* <Col className="front-page" xs={12} md={8} lg={4}> */}
+              <Col className="front-page">
+                <MDBCard className="front-body">
+                  <MDBCardBody >
                       <div>
                         <Row className="userRow">
-                          <Col sm="2" md="2" lg="2">
-                            {/* <img className="arrowImg" src="../../../assets/images/left-arrow.png" /> */}
-                          </Col>
-                          <Col sm="2" md="2" lg="2">
-
-                          </Col>
-                          <Col sm="2" md="2" lg="2">
-                            <img src={profile} alt="profile"
-                              style={{
-                                // alignSelf: 'center',
-                                height: 150,
-                                width: 150,
-                                borderWidth: 1,
-                                borderRadius: 75,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}
-                              resizeMode="stretch"
-                            />
-                          </Col>
-                          <Col sm="2" md="2" lg="2">
-
-                          </Col>
-                          <Col sm="3" md="3" lg="3">
-                            {/* <button class="btn btn-danger">Primary<i class="fas  pl-1"></i></button> */}
+                          <Col className="profile-row1">
+                            <img  className="profile-image" src={profile} alt="profile"/>
                           </Col>
                         </Row>
                       </div>
-                      <hr size="10"></hr>
+                      <hr size="5"></hr>
                       <div className="grey-text">
                         <p className="h1 text-center py-4">{profiles.name}</p>
                       </div>
-                      <hr size="10"></hr>
-                      <div className="font-weight-bold blue-text">
-                        <p className="h5 text-center py-4">{profiles.job}</p>
-                      </div>
-                      <hr size="10"></hr>
+                      <hr size="5"></hr>
                       <div className="font-weight-bold blue-text">
                         <p className="h6 text-center py-4">{profiles.gender}</p>
                       </div>
-                      <hr size="10"></hr>
+                      <hr size="5"></hr>
                       <div className="font-weight-bold blue-text">
-                        <p className="h6 text-center py-4">{profiles.birthdate}</p>
+                        <p className="h6 text-center py-4">{profiles.age}</p>
                       </div>
-                      <hr size="10"></hr>
-                      <div className="font-weight-bold blue-text">
-                        <p className="h6 text-center py-4">{profiles.link}</p>
-                      </div>
-                      {/* <hr size="10"></hr>
-                      <div className= "font-weight-bold blue-text">
-                      <p className="h4 text-center py-4">{profiles.gender}</p>
-                      </div> */}
-                      {/* <hr size="10"></hr>
-                      <div className="grey-text">
-                    
-                      </div> */}
-                      <hr size="10"></hr>
+                      <hr size="5"></hr>
                       <div className="text-center py-4 mt-3">
                         <MDBBtn gradient="blue" type="submit" onClick={this.handleClick}>
                           More Info
                   </MDBBtn>
                       </div>
-                    </form>
                   </MDBCardBody>
                 </MDBCard>
-              </Col>
-              <Col xs={12} md={2} lg={4}></Col>
+                </Col>
+              {/* </Col> */}
+              {/* <Col xs={12} md={2} lg={4}></Col> */}
             </Row>y
     </Container>
         </div>
@@ -164,12 +121,9 @@ class Profile extends Component {
           </Container>
         </div>
       </ReactCardFlip>
+    </div>
     )
   }
 };
-
-// Profile.propTypes = {
-//   styles: PropTypes.object
-// };
 
 export default Profile;

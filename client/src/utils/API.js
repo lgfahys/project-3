@@ -18,6 +18,10 @@ export default {
         return axios.get("/api/user/name/" + name);
     },
 
+    getProfileByUser: (id) => {
+        return axios.get("/api/user/profile?" + id);
+    },
+
     getRooms: () => {
         return axios.get("/api/room/all");
     },
