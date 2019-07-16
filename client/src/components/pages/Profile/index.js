@@ -72,7 +72,7 @@ class Profile extends Component {
             <Col>
             <button 
                 onClick={() => this.setRedirect()}
-                className="btn btn-dark btn-back"
+                className="btn btn-outline-dark btn-back"
             >
             <i className="fas far fa-arrow-left"></i>
             &nbsp;&nbsp;&nbsp;Back
@@ -109,7 +109,7 @@ class Profile extends Component {
               <Col>
               <button 
                 onClick={() => this.setRedirect()}
-                className="btn btn-dark btn-back"
+                className="btn btn-outline-dark btn-back"
               >
               <i className="fas far fa-arrow-left"></i>
               &nbsp;&nbsp;&nbsp;Back
