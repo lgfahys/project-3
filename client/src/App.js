@@ -85,6 +85,16 @@ class App extends Component {
     }
   }
 
+  checkTokenProfile = () => {
+    if (!this.state.token) {
+      console.log("No token...")
+      return (<Landing />);
+    } else if (this.state.token) {
+      console.log("Received the token!!!")
+      return (<EditProfile token={this.state.token} />)
+    }
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -100,7 +110,7 @@ class App extends Component {
             <Route exact path ="/home" render={this.checkTokenHome} />
             {/* <Route exact path="/upload" component={FileUpload}/> */}
             <Route exact path ="/chat" render={this.checkTokenChat}/>
-            <Route exact path ="/editProfile" component={EditProfile}/>
+            <Route exact path ="/editProfile" component={this.checkTokenProfile}/>
         </div>
       </Router>
     );
