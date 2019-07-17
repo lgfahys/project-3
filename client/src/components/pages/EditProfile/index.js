@@ -55,7 +55,8 @@ class EditProfile extends Component {
             editPhone: '',
             editBio: '',
             startDate: '',
-            editPassError: ''
+            editPassError: '',
+            editImg: ''
         };
     };
 
@@ -67,7 +68,7 @@ class EditProfile extends Component {
 
 
 
-    upload(e){
+    /*upload(e){
   
         console.log(e.target.files[0]);
         S3FileUpload
@@ -83,20 +84,38 @@ class EditProfile extends Component {
         .catch((err)=>{
           alert(err);
         })
+        
         let img = e.target.value
         console.log(e.target.value)
       return(img)
-      }
+      
+      }*/
       getPickerValue = (value) => {
         console.log(value);
+      }
+      upload = (e) => {
+        console.log(e.target.files[0]);
+        S3FileUpload
+        .uploadFile(e.target.files[0], config)
+        
+        .then((data)=>{
+        console.log(data)
+        console.log(data.location)
+        let response = data.location
+        
+        console.log(response)
+      })
+      this.setState({
+          editImge:e.target.value
+      })
+      console.log(e.target.value)
       }
 
     onTextboxChangeEditName = (event) => {
         this.setState({
             editName: event.target.value
         });
-    };
-
+    }
     onTextboxChangeEditEmail = (event) => {
         this.setState({
             editEmail: event.target.value
