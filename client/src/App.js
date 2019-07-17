@@ -15,10 +15,6 @@ import { getFromStorage } from "./utils/storage";
 import { Navbar } from "./components/Navbar";
 import EditProfile from './components/pages/EditProfile/index'
 // import FileUpload from "./components/pages/EditProfile/FileUpload"
-// import Test from "./Test";
-
-// import io from 'socket.io-client';
-// const socket = io("http://localhost:3001");
 
 class App extends Component {
   constructor(props) {
@@ -110,7 +106,9 @@ class App extends Component {
             {/* <Route exact path='/editprofile' component={FileUpload}/> */}
             <Route exact path ="/home" render={this.checkTokenHome} />
             {/* <Route exact path="/upload" component={FileUpload}/> */}
-            <Route exact path ="/chat" render={this.checkTokenChat}/>
+            {/* <Route exact path ="/chat" render={this.checkTokenChat}/> */}
+
+            <Route exact path ="/chat" component={ChatPage}/>            
             <Route exact path ="/editProfile" component={this.checkTokenProfile}/>
         </div>
       </Router>
