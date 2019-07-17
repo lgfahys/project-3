@@ -371,7 +371,7 @@ module.exports = {
             isDeleted: false
         }, {
             $set: {
-                isDeleted:true
+                isDeleted: true
             }
         }, null, (err, sessions) => {
             if (err) {
@@ -389,6 +389,110 @@ module.exports = {
         });
     },
 
+    findBySessionEditProfile: function(req, res) {
+        db.UserSession
+            .findById(req.query.session)
+            .populate({
+                path: "userId",
+                select: ["_id", "name", "email", "phone", "gender", "password", "birthdate", "bio"]
+            })
+            .then(dbModel => res.json(dbModel.userId))
+            .catch(err => res.status(422).json(err));
+    },
+
+    // When user edits their profile
+    editUser: function(req, res) {
+        const { image, name, email, phone, gender, birthdate, bio } = req.body;
+        if (!name) {
+            return res.send({
+                success: false,
+                message: "First name cannot be blank"
+            });
+        };
+
+        if (!email) {
+            return res.send({
+                success: false,
+                message: "Please enter a valid email address"
+            });
+        };
+
+        if (!phone) {
+            return res.send({
+                success: false,
+                message: "Please enter your phone number"
+            });
+        };
+
+        if (!gender) {
+            return res.send({
+                success: false,
+                message: "Please enter your gender"
+            });
+        };
+    
+        db.Users.findOneAndUpdate(
+            {
+             _id: req.query.id 
+            }, { 
+                $set: { 
+                    image: image, 
+                    name: name, 
+                    email: email, 
+                    phone: phone, 
+                    gender: gender, 
+                    birthdate: birthdate, 
+                    bio: bio 
+                } 
+        }, null, (err, ) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            
+            return res.send({
+                success: true,
+                message: 'Profile has been updated'
+            });
+        });
+    },
+
+    // When user edits their password
+    editPassword: function(req, res) {
+        const { password } = req.body;
+
+        if (!password) {
+            return res.send({
+                success: false,
+                message: "Please enter a password"
+            });
+        };
+    
+        db.Users.findOneAndUpdate(
+            {
+             _id: req.query.id 
+            }, { 
+                $set: { 
+                    password: password
+                } 
+        }, null, (err, ) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            
+            return res.send({
+                success: true,
+                message: 'Password has been updated'
+            });
+        });
+    },
     // Clear Everything
     resetDb: function(req, res) {
         const clearDB = async () => {
@@ -409,4 +513,4 @@ module.exports = {
 
         clearDB();
     }
-};
+}

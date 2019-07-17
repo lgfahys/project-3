@@ -105,5 +105,18 @@ router
     .route("/accounts/logout")
     .get(usersController.logoutUser);
 
+// Edit Profile Routes
+
+router
+    .route("/accounts/edit")
+    .put(usersController.editUser);
+
+router
+    .route("/useredit")
+    .get(usersController.findBySessionEditProfile);
+
+router
+    .route("/accounts/editPassword")
+    .put(usersController.editPassword);
 
 module.exports = router;
