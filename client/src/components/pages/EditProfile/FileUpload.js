@@ -1,3 +1,4 @@
+import { } from "dotenv/config";
 import React, { Component } from "react";
 
 import "./media.css";
@@ -15,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // AWS s3 contianer vars
 
 
-import config from '../../../keys'
+//import config from '../../../keys'
 
 //Optional Import
 // import { uploadFile } from 'react-s3';
@@ -25,7 +26,16 @@ import config from '../../../keys'
 
 
 
+
 //PASS Keys here, but DONT PUSH TO GITHUB IF NOT SECURED
+
+const config = {
+  bucketName: process.env.REACT_APP_BUCKET_NAME,
+  dirName: process.env.REACT_APP_DIR_NAME, 
+  region: 'us-east-1',
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
+}
 
 
 
