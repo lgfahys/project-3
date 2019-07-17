@@ -14,7 +14,7 @@ class Navbar extends Component {
         super(props);
         this.state = {
             collapse: false,
-            endpoint: "http://localhost:3001/",
+            endpoint: "", // or user ":3001"
             path: null,
             redirect: false
         };
