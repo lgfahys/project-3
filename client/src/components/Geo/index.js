@@ -78,7 +78,7 @@ const getDistance = (user1, user2) => {
     );
 }
 
-const inRadius = (user1, user2, radius=805) => {
+const inRadius = (user1, user2, radius=150) => {
     let inRange = isPointWithinRadius(
         { latitude: user1.latitude, longitude: user1.longitude },
         { latitude: user2.latitude, longitude: user2.longitude },
