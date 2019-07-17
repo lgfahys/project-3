@@ -100,7 +100,7 @@ router
 // Edit Profile Routes
 
 router
-    .route("/accounts/edit/:id")
+    .route("/accounts/edit")
     .put(usersController.editUser);
 
 router

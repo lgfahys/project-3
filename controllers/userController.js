@@ -346,7 +346,7 @@ module.exports = {
     
         db.Users.findOneAndUpdate(
             {
-             _id: req.params.id 
+             _id: req.query.id 
             }, { 
                 $set: { 
                     image: image, 
