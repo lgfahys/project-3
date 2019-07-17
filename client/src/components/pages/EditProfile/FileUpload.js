@@ -13,9 +13,8 @@ import Col from "react-bootstrap/Col";
 import S3FileUpload from 'react-s3';
 import "react-datepicker/dist/react-datepicker.css";
 // AWS s3 contianer vars
-import AWS_ACCESS_KEY_ID from '../../../keys'
-import AWS_SECRET_ACCESS_KEY from '../../../keys'
-import S3_BUCKET from '../../../keys'
+
+
 import config from '../../../keys'
 
 //Optional Import
@@ -23,7 +22,7 @@ import config from '../../../keys'
 //import { Component } from 'react';
 // require('dotenv').config()
 // import DatePicker from "react-datepicker";
-console.log(AWS_ACCESS_KEY_ID);
+
 
 
 //PASS Keys here, but DONT PUSH TO GITHUB IF NOT SECURED
@@ -38,14 +37,15 @@ constructor(props){
     isLoading: true,
     token: '',
     signUpError: '',
-    signUpEmail: '',
-    signUpPassword: '',
-    signUpGender: '',
+    updateEmail: '',
+    updatePassword: '',
+    updateGender: '',
     // signUpBirthDate: '',
-    signUpPhone: '',
-    signUpName: '',
+    updatePhone: '',
+    updateName: '',
     redirect: false,
-    startDate: new Date()
+    startDate: new Date(),
+    userImg: ''
   };
   this.handleChange = this.handleChange.bind(this);
   
@@ -68,17 +68,34 @@ upload(e){
   console.log(e.target.files[0]);
   S3FileUpload
   .uploadFile(e.target.files[0], config)
+  
   .then((data)=>{
   console.log(data)
   console.log(data.location)
-  })
+  let response = data.location
+  
+  console.log(response)
+})
   .catch((err)=>{
     alert(err);
   })
+  let img = e.target.value
+  console.log(e.target.value)
+return(img)
 }
+
+
 getPickerValue = (value) => {
   console.log(value);
 }
+/*onTextboxChangeImg(event){
+  this.setState({
+    userImg: event.target.value
+  
+  })
+ 
+}*/
+
 
 renderRedirect = () => {
 // if (this.state.redirect) {
@@ -86,25 +103,25 @@ renderRedirect = () => {
 // }
 }
 
-onTextboxChangeSignUpEmail(event) {
+onTextboxChangeupdateEmail(event) {
 this.setState({
-  signUpEmail: event.target.value
+  updateEmail: event.target.value
 });
-// console.log(this.state.signUpEmail);
+// console.log(this.state.updateEmail);
 };
 
-onTextboxChangeSignUpPassword(event) {
+onTextboxChangeupdatePassword(event) {
 this.setState({
-  signUpPassword: event.target.value
+  updatePassword: event.target.value
 });
-// console.log(this.state.signUpPassword);
+// console.log(this.state.updatePassword);
 };
 
-onTextboxChangeSignUpGender(event) {
+onTextboxChangeupdateGender(event) {
 this.setState({
-  signUpGender: event.target.value
+  updateGender: event.target.value
 });
-// console.log(this.state.signUpGender);
+// console.log(this.state.updateGender);
 };
 
 // onTextboxChangeSignUpBirthDate(event) {
@@ -114,44 +131,47 @@ this.setState({
 //   // console.log(this.state.signUpBirthDate);
 // };
 
-onTextboxChangeSignUpPhone(event) {
+onTextboxChangeupdatePhone(event) {
 this.setState({
-  signUpPhone: event.target.value
+  updatePhone: event.target.value
 });
-// console.log(this.state.signUpPhone);
+// console.log(this.state.updatePhone);
 };
 
-onTextboxChangeSignUpName(event) {
+onTextboxChangeupdateName(event) {
 this.setState({
-  signUpName: event.target.value
+  updateName: event.target.value
 });
-console.log(this.state.signUpName);
+console.log(this.state.updateName);
 };
 
-onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
-onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
-onTextboxChangeSignUpPhone = this.onTextboxChangeSignUpPhone.bind(this);
+onTextboxChangeupdateEmail = this.onTextboxChangeupdateEmail.bind(this);
+onTextboxChangeupdatePassword = this.onTextboxChangeupdatePassword.bind(this);
+onTextboxChangeupdatePhone = this.onTextboxChangeupdatePhone.bind(this);
 // onTextboxChangeSignUpBirthDate = this.onTextboxChangeSignUpBirthDate.bind(this);
-onTextboxChangeSignUpName = this.onTextboxChangeSignUpName.bind(this);
-onTextboxChangeSignUpGender = this.onTextboxChangeSignUpGender.bind(this);
+onTextboxChangeupdateName = this.onTextboxChangeupdateName.bind(this);
+onTextboxChangeupdateGender = this.onTextboxChangeupdateGender.bind(this);
 
-onSignUp() {
+
+
+onEditPage() {
 this.setState({
   isLoading: true,
 });
 // Post request to backend
-fetch('/api/accounts/signup', {
+fetch('/api/accounts/update', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    name: this.state.signUpName,
-    email: this.state.signUpEmail,
-    password: this.state.signUpPassword,
-    gender: this.state.signUpGender,
+    name: this.state.updateName,
+    email: this.state.updateEmail,
+    password: this.state.updatePassword,
+    gender: this.state.updateGender,
     // birthdate: this.state.signUpBirthDate,
-    phone: this.state.signUpPhone
+    phone: this.state.updatePhone,
+    //userImg: image1
   }),
 }).then(res => res.json())
   .then(json => {
@@ -160,12 +180,13 @@ fetch('/api/accounts/signup', {
       this.setState({
         signUpError: json.message,
         isLoading: false,
-        signUpEmail: '',
-        signUpPassword: '',
-        signUpGender: '',
+        updateEmail: '',
+        updatePassword: '',
+        updateGender: '',
         // signUpBirthDate: '',
-        signUpPhone: '',
-        signUpName: '',
+        updatePhone: '',
+        updateName: '',
+        userImg: '',
         redirect: true
       });
     } else {
@@ -177,7 +198,7 @@ fetch('/api/accounts/signup', {
   });
 }
 
-onSignUp = this.onSignUp.bind(this);
+onEditPage = this.onEditPage.bind(this);
 
 render(){
   return(
@@ -235,8 +256,8 @@ render(){
                       validate
                       error="wrong"
                       success="right"
-                      value={this.signUpName}
-                      onChange={this.onTextboxChangeSignUpName}
+                      value={this.updateName}
+                      onChange={this.onTextboxChangeupdateName}
                     />
                     <MDBInput
                     id="mdbinput"
@@ -247,8 +268,8 @@ render(){
                       validate
                       error="wrong"
                       success="right"
-                      value={this.signUpEmail}
-                      onChange={this.onTextboxChangeSignUpEmail}
+                      value={this.updateEmail}
+                      onChange={this.onTextboxChangeupdateEmail}
                     />
                     <MDBInput
                     id="mdbinput"
@@ -259,8 +280,8 @@ render(){
                       validate
                       error="wrong"
                       success="right"
-                      value={this.signUpPhone}
-                      onChange={this.onTextboxChangeSignUpPhone}
+                      value={this.updatePhone}
+                      onChange={this.onTextboxChangeupdatePhone}
                     />
                     
                     <MDBInput
@@ -270,8 +291,8 @@ render(){
                       group
                       type="password"
                       validate
-                      value={this.signUpPassword}
-                      onChange={this.onTextboxChangeSignUpPassword}
+                      value={this.updatePassword}
+                      onChange={this.onTextboxChangeupdatePassword}
                     />
                   </div>
                   <MDBInput
@@ -281,8 +302,8 @@ render(){
                       group
                       type="text"
                       validate
-                      value={this.signUpPassword}
-                      onChange={this.onTextboxChangeSignUpPassword}
+                      value={this.updatePassword}
+                      onChange={this.onTextboxChangeupdatePassword}
                     />
                     <MDBInput
                     id="mdbinput"
@@ -291,13 +312,23 @@ render(){
                       group
                       type="text"
                       validate
-                      value={this.signUpPassword}
-                      onChange={this.onTextboxChangeSignUpPassword}
+                      value={this.updatePassword}
+                      onChange={this.onTextboxChangeupdatePassword}
+                    />
+                    <MDBInput
+                    id="mdbinput"
+                      label="Enter Your DOB MM/DD/YYYY"
+                      icon="calendar-alt"
+                      group
+                      type="text"
+                      validate
+                      value={this.updatePassword}
+                      onChange={this.onTextboxChangeImg}
                     />
 
                   <div className="text-center py-4 mt-3">
                   {this.renderRedirect()}
-                    <MDBBtn onClick={this.onSignUp} href="/">
+                    <MDBBtn onClick={this.onEditPage} href="/">
                       Save Changes
                     </MDBBtn>
                   </div>
