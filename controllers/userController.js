@@ -15,8 +15,64 @@ module.exports = {
                 "password": 0,
                 "phone": 0
             })
+            .populate({
+                path: "acceptedChats",
+                select: ["_id", "name", "isActive", "acceptedChats", "ignoredChats", "requestedChats", "pendingChats", "recentLocation"]
+            })
             .sort({ name: 1 })
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => {
+
+                // Room Management Code
+                dbModel
+                    .filter((user) => user.acceptedChats.length > 0)
+                    .filter((user) => {
+                        // console.log("AC:", user.acceptedChats[0]);
+                        if (user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1) {
+                            const user1 = user._id;
+                            const user2 = user.acceptedChats[0]._id;
+                            // console.log("Found: User1", user1, "| User2", user2);
+
+                            db.Rooms
+                                .find({ $and: [
+                                    { users: {$elemMatch: {$in: user1}} },
+                                    { users: {$elemMatch: {$in: user2}} } 
+                                ] })
+                                .populate({
+                                    path: "users",
+                                    select: ["_id", "name"]
+                                })
+                                .then(dbModel => {
+                                    // console.log(dbModel);
+                                    if (dbModel.length < 1) {
+                                        // Create room
+                                        console.log(`\nUsers staged for new room: ${user1} & ${user2}`);
+                                        const newRoom = new db.Rooms();
+
+                                        newRoom.name = newRoom._id;
+                                        newRoom.users.push(user1, user2);
+                                        
+                                        newRoom.save((err, room) => {
+                                            if (err) {
+                                                console.log("Error creating new room", err);
+                                            }
+                                            else {
+                                                console.log("New room created: \n", room)
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        console.log("Room exists", dbModel[0].users)
+                                    }
+                                })
+                                .catch(err => console.log(err));
+                        }
+                        
+                        // not really users, but returns users that join each other
+                        return user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1;
+                    });
+                    
+                res.json(dbModel);
+            })
             .catch(err => res.status(422).json(err));
     },
 
@@ -41,6 +97,22 @@ module.exports = {
     findByName: function(req, res) {
         db.Users
             .findOne({ name: { $regex: new RegExp(req.params.name, "ig") }})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+
+    getProfileByUser: function(req, res) {
+        db.Users
+            .findById(Object.keys(req.query)[0], {
+                "acceptedChats": 0,
+                "ignoredChats": 0,
+                "requestedChats": 0,
+                "pendingChats": 0,
+                "password": 0,
+                "recentLocation": 0,
+                "phone": 0,
+                "isActive": 0
+            })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -80,12 +152,33 @@ module.exports = {
                 // { $push: { pendingChats: "5d1cbf421a804a0b4eb1f385" }})
                 
             .then(dbModel => {
-                console.log(dbModel); 
+                console.log("Adding Accepted: ", req.query.id2); 
                 db.Users
                 .findOneAndUpdate(
                     { _id: req.query.id2 },
                     {$push: { acceptedChats: req.query.id1 },
                     $pull: { requestedChats: req.query.id1 }})
+                .then(dbModel => { 
+                    console.log("Adding Accepted: ", req.query.id1); 
+                    res.json(dbModel);
+                })
+                .catch(err => res.status(422).json(err));
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
+    deactiveUser: function(req, res) {
+        console.log(req.query);
+        db.Users
+            .findOneAndUpdate(
+                { _id: req.query.id1 },
+                {$pull: { acceptedChats: req.query.id2 }})
+            .then(dbModel => {
+                console.log(dbModel); 
+                db.Users
+                .findOneAndUpdate(
+                    { _id: req.query.id2 },
+                    { $pull: { acceptedChats: req.query.id1 }})
                 .then(dbModel => { res.json(dbModel) })
                 .catch(err => res.status(422).json(err));
             })
@@ -399,5 +492,25 @@ module.exports = {
                 message: 'Password has been updated'
             });
         });
+    },
+    // Clear Everything
+    resetDb: function(req, res) {
+        const clearDB = async () => {
+            const users = db.Users.deleteMany({});
+            const sessions = db.UserSession.deleteMany({});
+            const rooms = db.Rooms.deleteMany({});
+            const messages = db.Messages.deleteMany({});
+            
+            try {
+                const [ usersRes, sessionsRes, roomsRes, messagesRes ] = await Promise.all([users, sessions, rooms, messages]);
+                console.log("DB Cleared", usersRes, sessionsRes, roomsRes, messagesRes);
+
+            } catch (error) {
+                console.log("Error\n", error);
+            }
+
+        };
+
+        clearDB();
     }
 }

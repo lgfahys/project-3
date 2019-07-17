@@ -4,10 +4,6 @@ const roomsController = require("../../controllers/roomController");
 const messagesController = require("../../controllers/messageController");
 
 
-// router
-//     .route("/user/test/:id")
-//     .get(usersController.findTest);
-
 // Matches with "/api/user/all"
 router
     .route("/user/all")
@@ -29,12 +25,17 @@ router
     .get(usersController.findByName);
 
 router
+    .route("/user/profile?")
+    .get(usersController.getProfileByUser);
+
+router
     .route("/room/all")
     .get(roomsController.findAll);
 
 router
     .route("/room/id/:id")
-    .get(roomsController.findById);
+    .get(roomsController.findById)
+    .delete(roomsController.remove);
 
 router
     .route("/room/name/:name")
@@ -77,6 +78,14 @@ router
     .route("/active/users")
     .put(usersController.activeUser);
 
+router
+    .route("/deactive/users")
+    .put(usersController.deactiveUser);
+
+router
+    .route("/reset/all")
+    .put(usersController.resetDb);
+
 
 // Authentication Routes
 
@@ -96,7 +105,6 @@ router
     .route("/accounts/logout")
     .get(usersController.logoutUser);
 
-
 // Edit Profile Routes
 
 router
@@ -109,17 +117,6 @@ router
 
 router
     .route("/accounts/editPassword")
-    .put(usersController.editPassword)
-// // Matches with "/api/books/:id"
-// router
-//     .route("/:id")
-//     .get(booksController.findById)
-//     .put(booksController.update)
-//     .delete(booksController.remove);
-
-// Matched with "/api/books/*"
-// router
-//     .route("*")
-//     .get();
+    .put(usersController.editPassword);
 
 module.exports = router;
