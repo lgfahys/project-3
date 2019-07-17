@@ -78,6 +78,17 @@ export default {
         return axios.put("/api/active/users?id1=" + id1 + "&id2=" + id2);
     },
 
+    editUser: (id) => {
+        return axios.put("/api/accounts/edit?id=" + id);
+    },
+
+    getUserBySessionEditProfile: (id) => {
+        return axios.get("/api/useredit?session=" + id);
+    },
+
+    editPassword: (id) => {
+        return axios.put("/api/accounts/edit?id=" + id);
+    },
     deleteActiveUser: (id1, id2) => {
         return axios.put("/api/deactive/users?id1=" + id1 + "&id2=" + id2);
     },

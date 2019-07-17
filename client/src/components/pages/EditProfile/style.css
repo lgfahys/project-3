@@ -1,4 +1,21 @@
-.md-form{
+.editProfileRow {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+@media only screen and (max-width: 530px) {
+    .editProfileRow{
+        margin-top: 20%;
+      }
+} 
+
+@media only screen and (max-width: 720px) {
+    .editProfileRow{
+        margin-top: 18%;
+      }
+} 
+
+/* .md-form{
     color: white;
 }
 .card-body{
@@ -12,4 +29,4 @@
 }
 .mb-5{
     color: white;
-}
+} */
