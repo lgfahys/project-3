@@ -37,7 +37,7 @@ class EditProfile extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            token: '',
+            id: '',
             editError: '',
             // editImage: '',
             editName: '',
@@ -130,6 +130,7 @@ class EditProfile extends Component {
                 console.log("%cGot Token User", "color: green; font-weight: bold", res.data)
                 // console.log("Where is harold? ", this.state)
                 this.setState({
+                    id: res.data._id,
                     editName: res.data.name,
                     editEmail: res.data.email,
                     editPhone: res.data.phone,
@@ -147,21 +148,22 @@ class EditProfile extends Component {
         this.setState({
             isLoading: true,
         });
-        console.log('NAME ', this.state.editName);
-        console.log('EMAIL ', this.state.editEmail);
-        console.log('PASSWORD ', this.state.editPassword);
-        console.log('GENDER ', this.state.editGender);
-        console.log('PHONE ', this.state.editPhone);
-        console.log('BIRTH DATE ', this.state.startDate);
-        console.log('BIO ', this.state.editBio);
-        // Post request to backend
-        fetch('/api/accounts/edit', {
+        // console.log('NAME ', this.state.editName);
+        // console.log('EMAIL ', this.state.editEmail);
+        // console.log('PASSWORD ', this.state.editPassword);
+        // console.log('GENDER ', this.state.editGender);
+        // console.log('PHONE ', this.state.editPhone);
+        // console.log('BIRTH DATE ', this.state.startDate);
+        // console.log('BIO ', this.state.editBio);
+        const id = this.state.id;
+        console.log(id)
+        // Put request to backend
+        fetch('/api/accounts/edit?id=' + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // image: this.editImage,
                 name: this.state.editName,
                 email: this.state.editEmail,
                 password: this.state.editPassword,
@@ -171,19 +173,11 @@ class EditProfile extends Component {
                 bio: this.state.editBio
             }),
         }).then(res => res.json())
-            .then(json => {
+          .then(json => {
                 console.log('json', json);
                 if (json.success) {
                     this.setState({
                         editError: json.message,
-                        // image: this.editImage,
-                        editName: this.state.editName,
-                        editEmail:  this.state.editEmail,
-                        editPassword: this.state.editPassword,
-                        editGender: this.state.editGender,
-                        editPhone: this.state.editPhone,
-                        startDate: this.state.startDate,
-                        editBio: this.state.editBio,
                         isLoading: false
                     });
                 } else {
@@ -195,8 +189,9 @@ class EditProfile extends Component {
             });
     }
 
+
     render() {
-        console.log("Where is harold? ", this.state)
+        console.log('state ', this.state)
         return (
             <div className="App">
                 <Container fluid>

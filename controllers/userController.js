@@ -309,7 +309,6 @@ module.exports = {
 
     editUser: function(req, res) {
         const { image, name, email, phone, gender, password, birthdate, bio } = req.body;
-        console.log('REQ.BODY ', req.body)
         if (!name) {
             return res.send({
                 success: false,
@@ -344,9 +343,10 @@ module.exports = {
                 message: "Please enter a password"
             });
         };
-
-        db.Users.findOneAndUpdate({
-             _id: req.query.id 
+    
+        db.Users.findOneAndUpdate(
+            {
+             _id: req.params.id 
             }, { 
                 $set: { 
                     image: image, 
@@ -372,8 +372,5 @@ module.exports = {
                 message: 'Profile has been updated'
             });
         });
-
-
-        console.log(req.query.id)
     }
 }
