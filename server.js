@@ -99,9 +99,12 @@ const io = socketio(expressServer, {
 
 io.on("connection", (socket) => {
     console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- acquired`);
+    // console.log(socket.id, socket.rooms)
 
-    socket.on('SEND_MESSAGE', function (data) {
-        io.emit('RECEIVE_MESSAGE', data);
+    socket.on('SEND_MESSAGE', function (data) {        
+        // console.log(data.room, socket.id, socket.rooms)
+        // console.log(Object.keys( io.sockets.adapter.sids[socket.id] ))
+        io.sockets.in(data.room).emit('RECEIVE_MESSAGE', data);
     });
 
     
@@ -115,7 +118,7 @@ io.on("connection", (socket) => {
 
     // Request socket for chat
     socket.on("join", (data) => {
-        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- joining`, data);
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- joining`, socket.rooms);
 
         socket.join(data.room);
         socket.in(data.room).emit("message", "Some message here...");
@@ -134,6 +137,10 @@ io.on("connection", (socket) => {
         
         socket.leave(data.room);
     });
+
+    socket.on("chat", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- chat`, data);
+    })
 
 });
 

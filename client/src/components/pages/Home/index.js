@@ -9,6 +9,8 @@ import API from "../../../utils/API";
 import { getLocation, inRadius } from "../../Geo";
 import { socket } from "../../Navbar";
 
+// Pages
+// import ChatPage from "../Chat";
 
 
 class Home extends Component {
@@ -21,6 +23,7 @@ class Home extends Component {
             users: null,
             redirect: false,
             path: null,
+            room: null,
             currentLocation: null
         };
         
@@ -33,10 +36,30 @@ class Home extends Component {
     componentDidMount = () => {
         console.log(`%c➤ Rendering (%s)`, "color: crimson; font-weight: bold;", "Home", "\n", this.props, "\n", this.state);
         
-        this.getCurrentUser();
-        this.getUsers();
+
+        const initializeUserData = async () => {
+
+            const curUser = API.getUserBySession(this.props.token);
+            const allUser = API.getUsers();
+
+            try {
+                const [ curUserResponse, allUserResponse ] = await Promise.all([curUser, allUser]);
+
+                this.setState({
+                    currentUser: curUserResponse.data,
+                    users: allUserResponse.data
+                });
+                this.getCurrentLocation();
+            } catch (error) {
+                console.log("Error", error);
+            }
+
+        };
+        initializeUserData();
+        // this.getCurrentUser();
+        // this.getUsers();
         // if (this.state.currentUser !== null)
-        this.getCurrentLocation();
+        // this.getCurrentLocation();
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -44,6 +67,7 @@ class Home extends Component {
         //         if (this.state.currentUser.recentLocation === null) {
         //             this.getCurrentLocation();
         //         }
+        
         API
             .getRoomByUser(this.state.currentUser._id)
             .then((res) => {
@@ -51,6 +75,8 @@ class Home extends Component {
                 
                 res.data.forEach((room) => {
                     console.log("Belongs to room: ", room._id);
+
+                    // doesnt really need to join the room
                     socket.emit("join", {room: room._id} );
                 });
             })
@@ -175,6 +201,7 @@ class Home extends Component {
         
         let activeUsers = this.state.users
             .filter((user) => user.isActive 
+                && this.state.currentUser._id !== (user._id)
                 && this.state.currentUser.acceptedChats.indexOf(user._id) === -1
                 && this.state.currentUser.pendingChats.indexOf(user._id) === -1
                 && this.state.currentUser.requestedChats.indexOf(user._id) === -1 );
@@ -359,6 +386,20 @@ class Home extends Component {
 
     handleActiveChat = (id) => {
         console.log("handling active chat: ", id);
+        
+        API
+            .getRoomByUsers(this.state.currentUser._id, id)
+            .then(res => {
+                console.log("Room ID: ", res.data[0]._id)
+                this.setState({
+                    redirect: true,
+                    room: true,
+                    path: "/chat?" + res.data[0]._id
+                });
+            })
+            .catch(err => console.log(err));
+
+        this.renderRedirect();
     }
 
     handleRequestChat = (id) => {
@@ -430,9 +471,19 @@ class Home extends Component {
         console.log("Current Redirect path: " + this.state.path);
         if (this.state.redirect && this.state.path) {
             console.log("Redirecting to: " + this.state.path);
-            return <Redirect to={this.state.path} />;
+            
+            if (this.state.room)
+                return <Redirect to={{
+                    pathname: this.state.path,
+                    state: { token: this.props.token }
+                }}/>
+                
+            else
+                return <Redirect to={this.state.path} />;
         }
+
     }
+    
 
     render() {
         return (

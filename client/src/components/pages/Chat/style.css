@@ -8,6 +8,14 @@
     height: 100%; 
 } 
 
+.container-chat .btn-end {
+    position: relative;
+    top: -15px;
+    right: -20px;
+    float: right;
+    padding: 10px 15px;
+}
+
 .container-chat {
     padding-top: 75px;
     margin-top: 20px;
@@ -18,10 +26,6 @@
 .container-chat .chat-window {
     margin-left: auto;
     margin-right: auto;
-    /* bottom:0; */
-    /* position:fixed; */
-    /* float:right; */
-    /* margin-left:10px; */
 }
 
 .container-chat .top-bar {
@@ -34,7 +38,7 @@
 }
 
 .container-chat .panel-title {
-    font-size: 1.7em;
+    font-size: 1.6em;
 }
 
 .container-chat .panel-footer {
@@ -44,14 +48,13 @@
 .container-chat .panel-footer input {
     margin: 5px 5px;
     padding: 10px;
+    border-radius: 20px !important;
 }
 
 .container-chat .panel-footer button {
     font-size: 0.9em;
     padding: 7px 20px;
 }
-
-
 
 .container-chat .messages {
     background: white;
@@ -61,15 +64,46 @@
     max-width: 100%;
 }
 
-
-
 .msg_container_base {
     background: #e5e5e5;
     margin: 0;
     padding: 0 10px 10px;
-    max-height:600px;
+    min-height: 75vh;
+    max-height:70vh;
     overflow-x:hidden;
 }
+
+@media only screen and (max-height: 900px) {
+    .msg_container_base {
+        min-height: 70vh;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+    .msg_container_base {
+        min-height: 65vh;
+    }
+}
+
+@media only screen and (max-height: 550px) {
+    .msg_container_base {
+        min-height: 60vh;
+    }
+}
+
+@media only screen and (max-height: 450px) {
+    .msg_container_base {
+        min-height: 40vh;
+    }
+}
+
+@media only screen and (max-height: 350px) {
+    .msg_container_base {
+        min-height: 25vh;
+    }
+}
+
+
 
 .msg_receive {
     padding-left:0;
@@ -79,6 +113,8 @@
 .msg_sent {
     padding-bottom:20px !important;
     margin-right:0;
+    color: white !important;
+    background-color: rgba(20, 126, 251, 0.75) !important;
 }
 
 
@@ -103,6 +139,13 @@
     width: 100%;
 }
 
+@media only screen and (max-width: 768px) {
+    .avatar img {
+        display: none;
+        /* width: 100%; */
+    }
+}
+
 .avatar {
     position: relative;
 }
@@ -122,6 +165,7 @@
 .base_sent {
     justify-content: flex-end;
     align-items: flex-end;
+    
 }
 
 .base_sent > .avatar:after {

@@ -118,7 +118,7 @@ class Profile extends Component {
                   <MDBCardBody>
                     <Row className="userRow">
                       <Col className="profile-row1">
-                        <img  className="profile-image" src={profile} alt="profile"/>
+                        <img  className="profile-image" src={profiles.link ? profiles.link : profile} alt="profile"/>
                       </Col>
                     </Row>
                     <hr />

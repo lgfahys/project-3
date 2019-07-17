@@ -99,7 +99,8 @@ class App extends Component {
             <Route exact path="/profile" component ={Profile} />  
             <Route exact path ="/home" render={this.checkTokenHome} />
             {/* <Route exact path="/upload" component={FileUpload}/> */}
-            <Route exact path ="/chat" render={this.checkTokenChat}/>
+            {/* <Route exact path ="/chat" render={this.checkTokenChat}/> */}
+            <Route exact path ="/chat" component={ChatPage}/>
             <Route exact path ="/editProfile" component={EditProfile}/>
         </div>
       </Router>

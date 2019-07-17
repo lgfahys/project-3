@@ -78,6 +78,10 @@ router
     .route("/active/users")
     .put(usersController.activeUser);
 
+    router
+    .route("/deactive/users")
+    .put(usersController.deactiveUser);
+
 
 // Authentication Routes
 

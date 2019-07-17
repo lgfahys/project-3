@@ -26,20 +26,26 @@ module.exports = {
                 dbModel
                     .filter((user) => user.acceptedChats.length > 0)
                     .filter((user) => {
+                        // console.log("AC:", user.acceptedChats[0]);
                         if (user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1) {
                             const user1 = user._id;
                             const user2 = user.acceptedChats[0]._id;
+                            console.log("Found: User1", user1, "| User2", user2);
 
                             db.Rooms
-                                .find({users: {$elemMatch: {$in: user1, $in: user2} } })
+                                .find({ $and: [
+                                    { users: {$elemMatch: {$in: user1}} },
+                                    { users: {$elemMatch: {$in: user2}} } 
+                                ] })
                                 .populate({
                                     path: "users",
                                     select: ["_id", "name"]
                                 })
                                 .then(dbModel => {
+                                    console.log(dbModel);
                                     if (dbModel.length < 1) {
                                         // Create room
-                                        // console.log(`\nUsers staged for new room: ${user1} & ${user2}`);
+                                        console.log(`\nUsers staged for new room: ${user1} & ${user2}`);
                                         const newRoom = new db.Rooms();
 
                                         newRoom.name = newRoom._id;
@@ -55,7 +61,7 @@ module.exports = {
                                         });
                                     }
                                     else {
-                                        // console.log("Room exists", dbModel[0].users)
+                                        console.log("Room exists", dbModel[0].users)
                                     }
                                 })
                                 .catch(err => console.log(err));
@@ -146,12 +152,33 @@ module.exports = {
                 // { $push: { pendingChats: "5d1cbf421a804a0b4eb1f385" }})
                 
             .then(dbModel => {
-                console.log(dbModel); 
+                console.log("Adding Accepted: ", req.query.id2); 
                 db.Users
                 .findOneAndUpdate(
                     { _id: req.query.id2 },
                     {$push: { acceptedChats: req.query.id1 },
                     $pull: { requestedChats: req.query.id1 }})
+                .then(dbModel => { 
+                    console.log("Adding Accepted: ", req.query.id1); 
+                    res.json(dbModel);
+                })
+                .catch(err => res.status(422).json(err));
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
+    deactiveUser: function(req, res) {
+        console.log(req.query);
+        db.Users
+            .findOneAndUpdate(
+                { _id: req.query.id1 },
+                {$pull: { acceptedChats: req.query.id2 }})
+            .then(dbModel => {
+                console.log(dbModel); 
+                db.Users
+                .findOneAndUpdate(
+                    { _id: req.query.id2 },
+                    { $pull: { acceptedChats: req.query.id1 }})
                 .then(dbModel => { res.json(dbModel) })
                 .catch(err => res.status(422).json(err));
             })
