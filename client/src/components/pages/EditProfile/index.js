@@ -1,3 +1,4 @@
+import { } from "dotenv/config";
 import React, { Component } from "react";
 
 import "./style.css";
@@ -11,7 +12,7 @@ import API from "../../../utils/API";
 // import Navbar from "../../Navbar/loggedOut";
 // import NavLI from "../../Navbar/loggedIn";
 // import S3FileUpload from 'react-s3';
-
+import S3FileUpload from 'react-s3';
 //Optional Import
 // import { uploadFile } from 'react-s3';
 //import { Component } from 'react';
@@ -28,6 +29,14 @@ import "react-datepicker/dist/react-datepicker.css";
 //     accessKeyId: 'removed',
 //     secretAccessKey: 'removed',
 // }
+const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    dirName: process.env.REACT_APP_DIR_NAME, 
+    region: 'us-east-1',
+    accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
+  }
+  
 
 
 class EditProfile extends Component {
@@ -57,28 +66,30 @@ class EditProfile extends Component {
     };
 
 
-    // componentDidMount = () => {
-    //     console.log("Node", process.env);
-    //     console.log("Node", process.env.API_URL);
-    // }
 
-    // upload(e) {
-
-    //     console.log(e.target.files[0]);
-    //     S3FileUpload
-    //         .uploadFile(e.target.files[0], config)
-    //         .then((data) => {
-    //             console.log(data)
-    //             console.log(data.location)
-    //         })
-    //         .catch((err) => {
-    //             alert(err);
-    //         })
-    // }
-
-    // getPickerValue = (value) => {
-    //     console.log(value);
-    // }
+    upload(e){
+  
+        console.log(e.target.files[0]);
+        S3FileUpload
+        .uploadFile(e.target.files[0], config)
+        
+        .then((data)=>{
+        console.log(data)
+        console.log(data.location)
+        let response = data.location
+        
+        console.log(response)
+      })
+        .catch((err)=>{
+          alert(err);
+        })
+        let img = e.target.value
+        console.log(e.target.value)
+      return(img)
+      }
+      getPickerValue = (value) => {
+        console.log(value);
+      }
 
     onTextboxChangeEditName = (event) => {
         this.setState({
@@ -244,7 +255,7 @@ class EditProfile extends Component {
                                                     </div>
                                                     <div className="custom-file">
                                                         <input
-                                                            // onChange={this.upload}
+                                                            onChange={this.upload}
                                                             type="file"
                                                             className="custom-file-input"
                                                             id="inputGroupFile01"
