@@ -214,7 +214,7 @@ class EditProfile extends Component {
 
 
     render() {
-        console.log('state ', this.state)
+        // console.log('state ', this.state)
         return (
             <div className="App">
                 <Container fluid>
