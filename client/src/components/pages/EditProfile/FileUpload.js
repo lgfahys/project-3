@@ -11,23 +11,23 @@ import Col from "react-bootstrap/Col";
 // import Navbar from "../../Navbar/loggedOut";
 // import NavLI from "../../Navbar/loggedIn";
 import S3FileUpload from 'react-s3';
+import "react-datepicker/dist/react-datepicker.css";
+// AWS s3 contianer vars
+import AWS_ACCESS_KEY_ID from '../../../keys'
+import AWS_SECRET_ACCESS_KEY from '../../../keys'
+import S3_BUCKET from '../../../keys'
+import config from '../../../keys'
 
 //Optional Import
 // import { uploadFile } from 'react-s3';
 //import { Component } from 'react';
 // require('dotenv').config()
 // import DatePicker from "react-datepicker";
+console.log(AWS_ACCESS_KEY_ID);
 
-import "react-datepicker/dist/react-datepicker.css";
 
 //PASS Keys here, but DONT PUSH TO GITHUB IF NOT SECURED
-const config = {
-    bucketName: 'chatterproject',
-    dirName: 'photos', /* optional */
-    region: 'us-east-1',
-    accessKeyId: 'removed',
-    secretAccessKey: 'removed',
-}
+
 
 
 class FileUpload extends Component {
