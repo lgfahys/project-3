@@ -48,7 +48,9 @@ const userSchema = new Schema({
     },
 
     isActive: {
-        type: Boolean
+        type: Boolean,
+        default: true,
+        required: true
     },
 
     ignoredChats: [{
