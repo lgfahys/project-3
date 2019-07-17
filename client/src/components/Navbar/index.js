@@ -19,7 +19,7 @@ class Navbar extends Component {
             redirect: false
         };
 
-        socket = socketIOClient(this.state.endpoint);
+        socket = socketIOClient();
         this.onClick = this.onClick.bind(this);
     }
 
