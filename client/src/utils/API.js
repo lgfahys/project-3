@@ -86,4 +86,8 @@ export default {
         return axios.get("/api/useredit?session=" + id);
     },
 
+    editPassword: (id) => {
+        return axios.put("/api/accounts/edit?id=" + id);
+    },
+
 };

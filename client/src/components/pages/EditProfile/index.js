@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import "./media.css";
 import "./style.css";
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody /*, MDBIcon */ } from 'mdbreact';
 
@@ -46,7 +45,8 @@ class EditProfile extends Component {
             editGender: '',
             editPhone: '',
             editBio: '',
-            startDate: ''
+            startDate: '',
+            editPassError: ''
         };
     };
 
@@ -128,7 +128,6 @@ class EditProfile extends Component {
             .getUserBySessionEditProfile(this.props.token)
             .then(res => {
                 console.log("%cGot Token User", "color: green; font-weight: bold", res.data)
-                // console.log("Where is harold? ", this.state)
                 this.setState({
                     id: res.data._id,
                     editName: res.data.name,
@@ -148,13 +147,6 @@ class EditProfile extends Component {
         this.setState({
             isLoading: true,
         });
-        // console.log('NAME ', this.state.editName);
-        // console.log('EMAIL ', this.state.editEmail);
-        // console.log('PASSWORD ', this.state.editPassword);
-        // console.log('GENDER ', this.state.editGender);
-        // console.log('PHONE ', this.state.editPhone);
-        // console.log('BIRTH DATE ', this.state.startDate);
-        // console.log('BIO ', this.state.editBio);
         const id = this.state.id;
         console.log(id)
         // Put request to backend
@@ -166,7 +158,6 @@ class EditProfile extends Component {
             body: JSON.stringify({
                 name: this.state.editName,
                 email: this.state.editEmail,
-                password: this.state.editPassword,
                 gender: this.state.editGender,
                 phone: this.state.editPhone,
                 birthdate: this.state.startDate,
@@ -189,13 +180,45 @@ class EditProfile extends Component {
             });
     }
 
+    onPasswordEdit = () => {
+        this.setState({
+            isLoading: true,
+        });
+        const id = this.state.id;
+        console.log(id)
+        // Put request to backend
+        fetch('/api/accounts/editPassword?id=' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password: this.state.editPassword
+            }),
+        }).then(res => res.json())
+          .then(json => {
+                console.log('json', json);
+                if (json.success) {
+                    this.setState({
+                        editPassError: json.message,
+                        isLoading: false
+                    });
+                } else {
+                    this.setState({
+                        editPassError: json.message,
+                        isLoading: false,
+                    });
+                }
+            });
+    }
+
 
     render() {
         console.log('state ', this.state)
         return (
             <div className="App">
                 <Container fluid>
-                    <Row className="signUpRow">
+                    <Row className="editProfileRow">
                         <Col xs={12} md={2} lg={4}></Col>
                         <Col xs={12} md={8} lg={4}>
                             <MDBCard>
@@ -278,15 +301,6 @@ class EditProfile extends Component {
                                                 onChange={this.onTextboxChangeEditGender}
                                             />
                                             <MDBInput
-                                                label="Your password"
-                                                icon="lock"
-                                                group
-                                                type="password"
-                                                validate
-                                                value={this.state.editPassword}
-                                                onChange={this.onTextboxChangeEditPassword}
-                                            />
-                                            <MDBInput
                                                 label="Enter Your DOB MM/DD/YYYY"
                                                 icon="calendar-alt"
                                                 group
@@ -306,10 +320,50 @@ class EditProfile extends Component {
                                                 onChange={this.onTextboxChangeEditBio}
                                             />
                                         </div>
-
-
                                         <div className="text-center py-4 mt-3">
                                             <MDBBtn onClick={this.onEdit}>
+                                                Save Changes
+                                            </MDBBtn>
+                                        </div>
+                                    </form>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </Col>
+                        <Col xs={12} md={2} lg={4}></Col>
+                    </Row>
+
+                    {/* Change Password */}
+                    <Row>
+                        <Col xs={12} md={2} lg={4}></Col>
+                        <Col xs={12} md={8} lg={4}>
+                            <MDBCard>
+                                <MDBCardBody>
+                                    <form>
+                                        <div className="text-center">
+                                            <h3 className="dark-grey-text mb-5">
+                                                <strong>Change Password</strong>
+                                            </h3>
+                                        </div>
+                                        <div className="alert-text">
+                                            {
+                                                (this.state.editPassError) ? (
+                                                    <p>{this.state.editPassError}</p>
+                                                ) : (null)
+                                            }
+                                        </div>
+                                        {/* <div className="input-group"> */}
+                                            <MDBInput
+                                                label="Your password"
+                                                icon="lock"
+                                                group
+                                                type="password"
+                                                validate
+                                                value={this.state.editPassword}
+                                                onChange={this.onTextboxChangeEditPassword}
+                                            />
+                                        {/* </div> */}
+                                        <div className="text-center py-4 mt-3">
+                                            <MDBBtn onClick={this.onPasswordEdit}>
                                                 Save Changes
                                             </MDBBtn>
                                         </div>
@@ -323,8 +377,6 @@ class EditProfile extends Component {
             </div>
         )
     }
-
-
 }
 
 export default EditProfile;

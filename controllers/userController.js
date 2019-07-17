@@ -307,8 +307,9 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    // When user edits their profile
     editUser: function(req, res) {
-        const { image, name, email, phone, gender, password, birthdate, bio } = req.body;
+        const { image, name, email, phone, gender, birthdate, bio } = req.body;
         if (!name) {
             return res.send({
                 success: false,
@@ -336,13 +337,6 @@ module.exports = {
                 message: "Please enter your gender"
             });
         };
-
-        if (!password) {
-            return res.send({
-                success: false,
-                message: "Please enter a password"
-            });
-        };
     
         db.Users.findOneAndUpdate(
             {
@@ -354,7 +348,6 @@ module.exports = {
                     email: email, 
                     phone: phone, 
                     gender: gender, 
-                    password: password, 
                     birthdate: birthdate, 
                     bio: bio 
                 } 
@@ -370,6 +363,40 @@ module.exports = {
             return res.send({
                 success: true,
                 message: 'Profile has been updated'
+            });
+        });
+    },
+
+    // When user edits their password
+    editPassword: function(req, res) {
+        const { password } = req.body;
+
+        if (!password) {
+            return res.send({
+                success: false,
+                message: "Please enter a password"
+            });
+        };
+    
+        db.Users.findOneAndUpdate(
+            {
+             _id: req.query.id 
+            }, { 
+                $set: { 
+                    password: password
+                } 
+        }, null, (err, ) => {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            
+            return res.send({
+                success: true,
+                message: 'Password has been updated'
             });
         });
     }

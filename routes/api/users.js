@@ -107,6 +107,9 @@ router
     .route("/useredit")
     .get(usersController.findBySessionEditProfile);
 
+router
+    .route("/accounts/editPassword")
+    .put(usersController.editPassword)
 // // Matches with "/api/books/:id"
 // router
 //     .route("/:id")
