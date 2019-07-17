@@ -29,12 +29,13 @@ class Login extends Component {
   }
 
   renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/home' token={this.state.token} />
+    // console.log('REDIRECTING TO ', this.state.path, ' for ', this.state.token)
+    if (this.state.redirect && this.state.path) {
+        return <Redirect to={this.state.path} token={this.state.token}/>
     }
   }
 
-  onTextboxChangeSignInEmail(event) {
+  onTextboxChangeSignInEmail (event) {
     this.setState({
       signInEmail: event.target.value
     });
@@ -51,11 +52,10 @@ class Login extends Component {
   onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
   onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
 
-  onSignIn = () => {
+  onSignIn () {
     // Grab state
-    this.setState({
-      isLoading: true,
-    });
+    this.setState({ isLoading: true });
+    
     // Post request to backend
     fetch('/api/accounts/signin', {
       method: 'POST',
@@ -68,17 +68,17 @@ class Login extends Component {
       }),
     }).then(res => res.json())
       .then(json => {
-        console.log('json', json);
         if (json.success) {
           setInStorage('the_main_app', { token: json.token });
           this.setState({
+            token: json.token,
             signInError: json.message,
             isLoading: false,
-            signInPassword: '',
-            signInEmail: '',
-            token: json.token,
-            redirect: true
-          })
+            redirect: true,
+            path: '/home'
+          });
+          this.renderRedirect();
+          window.location.reload();
         } else {
           this.setState({
             signInError: json.message,
@@ -88,9 +88,11 @@ class Login extends Component {
       });
   }
 
+  onSignIn = this.onSignIn.bind(this);
+
   render() {
     return (
-      <div className="App">
+      <div>
         {this.renderRedirect()}
         <Container fluid>
 
@@ -143,8 +145,8 @@ class Login extends Component {
                       type="button"
                       rounded
                       className="btn-block z-depth-1a"
+                      onClick={ this.onSignIn }
                       to="/home"
-                      onClick={this.onSignIn}
                     >
                       Sign in
                 </MDBBtn>
