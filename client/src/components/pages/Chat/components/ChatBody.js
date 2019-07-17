@@ -12,6 +12,7 @@ return(
     <Row className="chatBodyRow">
         <Col sm="12" md="12" lg="12">
             {/* <h4>Chat Body</h4> */}
+            <h4>Your messages will appear here </h4>
             <div className="messages" style={{backgroundColor: "white"}}>
                 {props.messages.map(message => {
                     return (
