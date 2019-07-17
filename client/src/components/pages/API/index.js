@@ -155,6 +155,15 @@ class API extends Component {
         .catch(err => console.log(err));
     };
 
+    deleteAll = () => {
+        api.deleteAll()
+        .then(res => {
+            console.log("Deleted all", res);
+            this.setState({ data: null })
+        })
+        .catch(err => console.log(err));
+    }
+
     render() {
         return(
             <div className="api-body">
@@ -236,6 +245,12 @@ class API extends Component {
                     onClick={() => this.getMessagesByRoomId(this.state.field1)}
                 >
                 getMessagesByRoomId()
+                </button>
+
+                <button type="button" className="btn btn-primary"
+                    onClick={() => this.deleteAll()}
+                >
+                clearDatabase()
                 </button> 
                 
                 <input 

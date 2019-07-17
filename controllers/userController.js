@@ -30,7 +30,7 @@ module.exports = {
                         if (user.acceptedChats[0].acceptedChats.indexOf(user._id) !== -1) {
                             const user1 = user._id;
                             const user2 = user.acceptedChats[0]._id;
-                            console.log("Found: User1", user1, "| User2", user2);
+                            // console.log("Found: User1", user1, "| User2", user2);
 
                             db.Rooms
                                 .find({ $and: [
@@ -42,7 +42,7 @@ module.exports = {
                                     select: ["_id", "name"]
                                 })
                                 .then(dbModel => {
-                                    console.log(dbModel);
+                                    // console.log(dbModel);
                                     if (dbModel.length < 1) {
                                         // Create room
                                         console.log(`\nUsers staged for new room: ${user1} & ${user2}`);
@@ -387,5 +387,26 @@ module.exports = {
                 message: 'Logged out'
             });
         });
+    },
+
+    // Clear Everything
+    resetDb: function(req, res) {
+        const clearDB = async () => {
+            const users = db.Users.deleteMany({});
+            const sessions = db.UserSession.deleteMany({});
+            const rooms = db.Rooms.deleteMany({});
+            const messages = db.Messages.deleteMany({});
+            
+            try {
+                const [ usersRes, sessionsRes, roomsRes, messagesRes ] = await Promise.all([users, sessions, rooms, messages]);
+                console.log("DB Cleared", usersRes, sessionsRes, roomsRes, messagesRes);
+
+            } catch (error) {
+                console.log("Error\n", error);
+            }
+
+        };
+
+        clearDB();
     }
 };

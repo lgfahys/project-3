@@ -80,6 +80,10 @@ export default {
 
     deleteActiveUser: (id1, id2) => {
         return axios.put("/api/deactive/users?id1=" + id1 + "&id2=" + id2);
+    },
+
+    deleteAll: () => {
+        return axios.put("/api/reset/all");
     }
 
 };

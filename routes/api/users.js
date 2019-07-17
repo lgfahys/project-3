@@ -78,9 +78,13 @@ router
     .route("/active/users")
     .put(usersController.activeUser);
 
-    router
+router
     .route("/deactive/users")
     .put(usersController.deactiveUser);
+
+router
+    .route("/reset/all")
+    .put(usersController.resetDb);
 
 
 // Authentication Routes

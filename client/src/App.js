@@ -15,10 +15,6 @@ import { getFromStorage } from "./utils/storage";
 import { Navbar } from "./components/Navbar";
 import EditProfile from './components/pages/EditProfile/index'
 // import FileUpload from "./components/pages/EditProfile/FileUpload"
-// import Test from "./Test";
-
-// import io from 'socket.io-client';
-// const socket = io("http://localhost:3001");
 
 class App extends Component {
   constructor(props) {
@@ -85,6 +81,16 @@ class App extends Component {
     }
   }
 
+  checkTokenProfile = () => {
+    if (!this.state.token) {
+      console.log("No token...")
+      return (<Landing />);
+    } else if (this.state.token) {
+      console.log("Received the token!!!")
+      return (<EditProfile token={this.state.token} />)
+    }
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -97,11 +103,13 @@ class App extends Component {
             <Route exact path="/login" component ={Login} />
             <Route exact path="/api" component={API} />
             <Route exact path="/profile" component ={Profile} />  
+            {/* <Route exact path='/editprofile' component={FileUpload}/> */}
             <Route exact path ="/home" render={this.checkTokenHome} />
             {/* <Route exact path="/upload" component={FileUpload}/> */}
             {/* <Route exact path ="/chat" render={this.checkTokenChat}/> */}
-            <Route exact path ="/chat" component={ChatPage}/>
-            <Route exact path ="/editProfile" component={EditProfile}/>
+
+            <Route exact path ="/chat" component={ChatPage}/>            
+            <Route exact path ="/editProfile" component={this.checkTokenProfile}/>
         </div>
       </Router>
     );

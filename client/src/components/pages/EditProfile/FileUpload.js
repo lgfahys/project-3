@@ -181,17 +181,17 @@ onSignUp = this.onSignUp.bind(this);
 
 render(){
   return(
-    <div className="App">
+    <Container>
       {/* <Navbar /> */}
-      <Container fluid>
-        <Row className="signUpRow"> 
-        <Col xs={12} md={2} lg={4}></Col>
-          <Col xs={12} md={8} lg={4}>
+      
+        <Row className="signUpRow" id="editRow"> 
+        <Col xs={1} md={1} lg={1}></Col>
+          <Col xs={12} md={10} lg={8}>
             <MDBCard>
               <MDBCardBody>
                 <form>
                   <div className="text-center">
-                        <h3 className="dark-grey-text mb-5">
+                        <h3 className="mb-5">
                           <strong>Edit Profile</strong>
                         </h3>
                       </div>
@@ -218,7 +218,7 @@ render(){
       id="inputGroupFile01"
       aria-describedby="inputGroupFileAddon01"
     />
-    <label className="custom-file-label" htmlFor="inputGroupFile01">
+    <label className="custom-file-label " id="fileuploadinput" htmlFor="inputGroupFile01">
       Upload Your Photo
     </label>
   </div>
@@ -227,6 +227,7 @@ render(){
       
     </div>
                     <MDBInput
+                    id="mdbinput"
                       label="First Name"
                       icon="user"
                       group
@@ -238,6 +239,7 @@ render(){
                       onChange={this.onTextboxChangeSignUpName}
                     />
                     <MDBInput
+                    id="mdbinput"
                       label="Email"
                       icon="envelope"
                       group
@@ -249,6 +251,7 @@ render(){
                       onChange={this.onTextboxChangeSignUpEmail}
                     />
                     <MDBInput
+                    id="mdbinput"
                       label="Phone"
                       icon="phone"
                       group
@@ -259,18 +262,9 @@ render(){
                       value={this.signUpPhone}
                       onChange={this.onTextboxChangeSignUpPhone}
                     />
+                    
                     <MDBInput
-                      label="Gender"
-                      icon="user"
-                      group
-                      type="text"
-                      validate
-                      error="wrong"
-                      success="right"
-                      value={this.signUpGender}
-                      onChange={this.onTextboxChangeSignUpGender}
-                    />
-                    <MDBInput
+                    id="mdbinput"
                       label="Your password"
                       icon="lock"
                       group
@@ -281,6 +275,7 @@ render(){
                     />
                   </div>
                   <MDBInput
+                  id="mdbinput"
                       label="Your Bio"
                       icon="align-left"
                       group
@@ -290,6 +285,7 @@ render(){
                       onChange={this.onTextboxChangeSignUpPassword}
                     />
                     <MDBInput
+                    id="mdbinput"
                       label="Enter Your DOB MM/DD/YYYY"
                       icon="calendar-alt"
                       group
@@ -309,10 +305,11 @@ render(){
               </MDBCardBody>
             </MDBCard>
           </Col>
-          <Col xs={12} md={2} lg={4}></Col>
+          <Col xs={1} md={1} lg={1}></Col>
+         
         </Row>
-      </Container>
-      </div>
+    
+        </Container>
     
   )
 }
