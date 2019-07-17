@@ -19,12 +19,11 @@ const routes = require("./routes");
 //         prev[`process.env.${next}`] = JSON.stringify(env[next]);
 //         return prev;
 //     }, {});
-
-    // return {
-    //     plugins: [
-    //         new webpack.DefinePlugin(envKeys)
-    //     ]
-    // }
+//     return {
+//         plugins: [
+//             new webpack.DefinePlugin(envKeys)
+//         ]
+//     }
 // };
 
 // const AWS = require('aws-sdk');
@@ -37,9 +36,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Define middleware here
-app.use(express.urlencoded({
-    extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Serve up static assets (usually on heroku)
@@ -62,7 +59,7 @@ mongoose.connect(MONGODB_URI, {
 
 // Start the API server
 const expressServer = app.listen(PORT, () => {
-    console.log(`\n🌎 ==> API server now on port ${PORT}!`);
+    console.log(`\n🌎 ==> API server now on port ${PORT}!\n`);
 });
 
 // Connect Socket
@@ -104,17 +101,49 @@ const io = socketio(expressServer, {
 // });
 
 io.on("connection", (socket) => {
-    console.log("Socket ID: ", socket.id);
+    console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- acquired`);
+    // console.log(socket.id, socket.rooms)
 
-    socket.on('SEND_MESSAGE', function (data) {
-        io.emit('RECEIVE_MESSAGE', data);
+    socket.on('SEND_MESSAGE', function (data) {        
+        // console.log(data.room, socket.id, socket.rooms)
+        // console.log(Object.keys( io.sockets.adapter.sids[socket.id] ))
+        io.sockets.in(data.room).emit('RECEIVE_MESSAGE', data);
     });
 
+    
+    // Maintain user information between all users
     socket.on("sendUpdate", (data) => {
-
-        console.log("socket -- sending update request --> ");
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- sending update request`, data);
+        
         let testdata = "NEW USER DATA";
         io.emit("announceUpdate", testdata);
     });
 
+    // Request socket for chat
+    socket.on("join", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- joining`, socket.rooms);
+
+        socket.join(data.room);
+        socket.in(data.room).emit("message", "Some message here...");
+    });
+
+    // Request socket for chat
+    socket.on("rejoin", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- rejoining`, data);
+        
+        socket.join(data.room);
+    });
+
+    //
+    socket.on("leave", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- leaving`, data);
+        
+        socket.leave(data.room);
+    });
+
+    socket.on("chat", (data) => {
+        console.log(`\x1b[34m  > Socket ID (\x1b[35m${socket.id}\x1b[34m) \x1b[0m- chat`, data);
+    })
+
 });
+
